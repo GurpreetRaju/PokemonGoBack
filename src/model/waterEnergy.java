@@ -6,4 +6,12 @@ public class waterEnergy extends Energy {
 	public waterEnergy(String newEnergy) {
 		super(newEnergy);
 	}
+
+	public String getEnergy() {
+		return energy;
+	}
+
+	public void setEnergy(String newEnergy) {
+		this.energy = newEnergy;
+	}
 }

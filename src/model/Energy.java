@@ -8,7 +8,6 @@ public class Energy implements cardItem {
 		this.energy = newEnergy;
 	}
 
-	@Override
 	public String getName() {
 		return energy;
 	}
