@@ -4,9 +4,9 @@ public class damageAbility implements ability {
 	private int damageValue;
 	private String name;
 	private Energy[] energyRequired;
-	private cardItem target;
+	private String target;
 	
-	public damageAbility(String newName, int newDamage, Energy[] newEnergyInfo,cardItem newTarget){
+	public damageAbility(String newName, int newDamage, Energy[] newEnergyInfo,String newTarget){
 		this.name = newName;
 		this.damageValue = newDamage;
 		this.energyRequired = newEnergyInfo;
@@ -29,7 +29,16 @@ public class damageAbility implements ability {
 	public Energy[] getEnergyInfo(){
 		return this.energyRequired;
 	}
-	public cardItem getTarget(){
+	public String getTarget(){
 		return target;
 	}
+	
+	public boolean equals(Object o){
+		damageAbility tempAbility = (damageAbility) o;
+		if(this.name == tempAbility.name){
+			return true;
+		}		
+		return false;
+	}
+	
 }

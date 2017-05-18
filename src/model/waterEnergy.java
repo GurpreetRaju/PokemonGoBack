@@ -1,13 +1,9 @@
 package model;
 
 public class waterEnergy extends Energy {
-	 String energy="Water";
-		
-		public waterEnergy(String newenergy) {
-			super(newenergy);
-			this.energy=newenergy;
-			
-		}
-		
-
+	private String energy="Water";
+	
+	public waterEnergy(String newEnergy) {
+		super(newEnergy);
+	}
 }

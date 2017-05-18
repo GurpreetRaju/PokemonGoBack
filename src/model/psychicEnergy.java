@@ -2,14 +2,10 @@ package model;
 
 public class psychicEnergy extends Energy{
 
-	 String energy="Psychic";
+	private String energy="Psychic";
 	
-	public psychicEnergy(String newenergy) {
-		super(newenergy);
-		this.energy=newenergy;
-		
+	public psychicEnergy(String newEnergy) {
+		super(newEnergy);
 	}
-	
-	
 
 }

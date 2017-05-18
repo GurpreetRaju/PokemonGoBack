@@ -1,13 +1,10 @@
 package model;
 
 public class colorlessEnergy extends Energy{
-	 String energy="Colorless";
-		
-		public colorlessEnergy(String newenergy) {
-			super(newenergy);
-			this.energy=newenergy;
-			
-		}
-		
-
+	
+	private String energy="Colorless";
+	
+	public colorlessEnergy(String newEnergy) {
+		super(newEnergy);
+	}
 }
