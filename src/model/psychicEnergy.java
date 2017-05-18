@@ -8,4 +8,12 @@ public class psychicEnergy extends Energy{
 		super(newEnergy);
 	}
 
+	public String getEnergy() {
+		return energy;
+	}
+
+	public void setEnergy(String newEnergy) {
+		this.energy = newEnergy;
+	}
+
 }
