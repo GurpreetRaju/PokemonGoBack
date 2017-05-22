@@ -18,9 +18,8 @@ public class Pokemon implements cardItem{
 		this.cardName = name;
 		this.pStage = newPokemonStage;
 		this.hitpoints = newHp;
-		this.abilities = newAbilities;
 		this.attachedCards = new ArrayList<cardItem>();
-		this.abilities = new ArrayList<ability>();
+		this.abilities = newAbilities;
 	}
 	
 	public void addDamage(int newDamage){
@@ -91,6 +90,11 @@ public class Pokemon implements cardItem{
 		}
 	}
 	
+	public void useAbility(ability uAbility){
+		uAbility.useAbility();
+		Turn.changeTurn();
+	}
+	
 	public int getAttachedCardsCount(){
 		return this.attachedCards.size();
 	}
@@ -116,10 +120,16 @@ public class Pokemon implements cardItem{
 		Energy[] energyRequired = {new Energy("Lighting",6)};
 		newAbilities.add(new damageAbility("Thunder Bolt", 20, energyRequired, "Pokemon"));
 		Pokemon pikachu = new Pokemon(2, "Raichu", newPokemonStage, 80, newAbilities);
+		ability[] ability = pikachu.getAbilities();
 		
-		System.out.println(pikachu.getStage() + pikachu.getName()+ pikachu.getState() + pikachu.getDamage());
+		System.out.println(pikachu.getStage() +" "+ pikachu.getName() + " " + pikachu.getDamage() +" "+ ability[0].getClass().getName());
 		
 		Pokemon meow = new Pokemon(1, "Meow", newPokemon2Stage, 80, newAbilities); 
 		System.out.print(meow.getStage());
+	}
+
+	public int getHP() {
+		// TODO Auto-generated method stub
+		return this.hitpoints;
 	}
 }

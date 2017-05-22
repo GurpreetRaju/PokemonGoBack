@@ -1,8 +1,5 @@
 #pane{
-    -fx-background-image: url("centre.png");
-    -fx-background-repeat: stretch;
-    -fx-background-size: 200  200;
-    -fx-background-position: center center;
+    -fx-background-color: #207cf1;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 #gullu{
@@ -13,38 +10,21 @@
      -fx-effect: dropshadow(three-pass-box, black, 10, 0.5, 0, 0);
  }
  #gullu1{
-     -fx-background-image: url("poke.png");
-     -fx-background-repeat: stretch;
-     -fx-background-size: 671  614;
-     -fx-background-position: center center;
+     -fx-background-color: #f7c042;
      -fx-effect: dropshadow(three-pass-box, black, 10, 0.5, 0, 0);
  }
-#pane1{
-     -fx-border-color: #2e8b57;
-         -fx-border-width: 2px;
-}
-#pane2{
-     -fx-border-color: #2e3b57;
-         -fx-border-width: 2px;
-}
-#pane3{
-     -fx-border-color: #2e4b57;
-         -fx-border-width: 2px;
-}
-#pane4{
-     -fx-border-color: #2e5b87;
-         -fx-border-width: 2px;
-}
-#pane5{
-     -fx-border-color: #2e5b99;
-         -fx-border-width: 2px;
-}
-#pane6{
+#userBench, #pane7, #AIBench, #AIHand, #userBench, #userHand{
      -fx-border-color: #2e5b10;
          -fx-border-width: 2px;
 }
-#pane7{
-     -fx-border-color: #2e5b20;
-         -fx-border-width: 2px;
+#userActivePokemon, #aiActivePokemon{
+	     -fx-border-color: #2e3b57;
+         -fx-border-width: 1px;
+}
+.pokemonCard, .card{
+	-fx-pref-width: 3cm;
+	-fx-background-color: #fff;
+	-fx-border-color: #000;
+	-fx-border-width: 1px;
 }
 

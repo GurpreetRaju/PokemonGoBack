@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck extends CardsGroup{
 	
@@ -33,10 +34,17 @@ public class Deck extends CardsGroup{
 			}
 			//Debug.message(this.getGroupCards().size());
 		}
+		this.shufflecards();
 	}
 	
 	public void display(){
 		Debug.showCard(this.getGroupCards().toArray(new cardItem[this.getGroupCards().size()]));
+		
+	}
+	
+	public void shufflecards(){
+		Collections.shuffle(this.getGroupCards());
+		//Debug.showCard(this.getGroupCards().toArray(new cardItem[this.getGroupCards().size()]));
 	}
 	
 	@Override
@@ -48,7 +56,8 @@ public class Deck extends CardsGroup{
 		Deck deck= new Deck();
 		deck.buildDeck(1);
 		ArrayList<cardItem> actual=deck.getGroupCards();
-		deck.display();		
+		deck.display();
+		deck.shufflecards();
 	}
 	
 }

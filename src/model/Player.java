@@ -10,6 +10,7 @@ public class Player {
 	protected cardItem inhand;
 	protected Pokemon activePokemon;
 	protected ArrayList<ability> activeAbilities;
+	private boolean turn;
 	
 //	public abstract String getName();
 //	public abstract int getScore();
@@ -43,13 +44,17 @@ public class Player {
 	public cardItem[] dealMultipleCards(int i){
 		cardItem[] dealt = getDeckCards(i);
 		for(int x=0; x<i; x++){
-			((CardsGroup) inhand).addCard(dealt[x]);
+			((CardsGroup) this.inhand).addCard(dealt[x]);
 		}
 		return dealt;
 	}
 	
 	public cardItem[] getInhandCards(){
-		return ((CardsGroup)this.inhand).getCard();
+		return ((CardsGroup) this.inhand).getCard();
+	}
+	
+	public cardItem getInhand(){
+		return this.inhand;
 	}
 	
 	public void setActivePokemon(Pokemon newPokemon){
@@ -85,8 +90,26 @@ public class Player {
 		this.activeAbilities.add(newAbility);
 	}
 	
+	public void setTurn(boolean newTurn){
+		this.turn = newTurn;
+	}
+	
+	public boolean getTurn(){
+		return this.turn;
+	}
+	
+	public cardItem getPokemonFromHand(){
+		for(cardItem card: ((CardsGroup) this.inhand).getCard()){
+			if(card instanceof Pokemon){
+				return card;
+			}
+		}
+		return null;
+	}
+	
 	public static void main(String arg[]){
 		Player newPlayer = new Player("Flash");
+		
 		Debug.showCard(newPlayer.dealCard());
 	}
 
