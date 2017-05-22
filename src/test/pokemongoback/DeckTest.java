@@ -9,7 +9,7 @@ import model.Deck;
 public class DeckTest {
 
 	@Test
-	public void testnoOfCards() {
+	public void testDeck() {
 		
 		Deck deck= new Deck();
 		Deck deck2= new Deck();
