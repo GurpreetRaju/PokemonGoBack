@@ -34,4 +34,10 @@
 	-fx-opacity:0;
 	-fx-padding:-7;
 }
+#AIDiscardPile, #AIDeck , #UserDeck, #AIRewardCards, #UserRewardCards, #UserDiscardPile ,#UserEndTurnBtn
+{
+	-fx-border-style: dashed;
+	-fx-background-color:rgb(0,128,255)
+}
+
 
