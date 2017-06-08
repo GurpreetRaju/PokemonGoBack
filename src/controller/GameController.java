@@ -204,6 +204,9 @@ public class GameController {
 	}
 	
 	public void init(boolean userTurn,boolean aiTurn){
+		UserEndTurnBtn = new Button();
+		userDamage = new Label();
+		aiDamage = new Label();
 		user = new UserPlayer("Flash");
 		ai = new AIplayer("Future Flash",this);
 		UserEndTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -346,9 +349,10 @@ public class GameController {
 						}
 //						user.setActivePokemon(null);
 						user.setActivePokemon(benchC.getCard());
-						userActivePokemon.getChildren().add(benchC);
-			    		userBench.getChildren().add(pokemonCard);
 			    		user.addCardonBench(pokemonCard.getCard());
+			    		
+			    		userActivePokemon.getChildren().add(benchC);
+			    		userBench.getChildren().add(pokemonCard);
 					}
         			break;
     			case "Evolve":

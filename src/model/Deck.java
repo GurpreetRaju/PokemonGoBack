@@ -45,6 +45,7 @@ public class Deck extends CardsGroup{
 						break;
 					case "energy":
 						this.getGroupCards().add(new Energy(cards[0],x));
+						//this.getGroupCards().
 						break;
 				}
 				x++;
@@ -75,7 +76,7 @@ public class Deck extends CardsGroup{
 	}
 	
 	public void shufflecards(){
-		Collections.shuffle(this.getGroupCards());
+		//Collections.shuffle(this.getGroupCards());
 		//Debug.showCard(this.getGroupCards().toArray(new cardItem[this.getGroupCards().size()]));
 	}
 	

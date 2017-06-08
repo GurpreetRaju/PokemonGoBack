@@ -67,7 +67,7 @@ public class AIplayer extends Player {
 			updateGUI();
 		}
 		
-		ArrayList<Trainer> trainerCard = ((CardsGroup) this.inhand).getAllTranerCards();
+		ArrayList<Trainer> trainerCard = ((CardsGroup) this.inhand).getAllTrainerCards();
 		if(!trainerCard.isEmpty() && this.activePokemon!=null){
 			if(trainerCard.get(0).getAbility().getClass().getSimpleName()=="healingAbility" && this.activePokemon.getDamage()>20){
 				((CardsGroup) this.inhand).removeCard(trainerCard.get(0));

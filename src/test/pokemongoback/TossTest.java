@@ -6,7 +6,7 @@ import java.util.Random;
 
 import org.junit.Test;
 
-public class RandomNumberTest {
+public class TossTest {
 
 	@Test
 	public void testRandomnNumber() {

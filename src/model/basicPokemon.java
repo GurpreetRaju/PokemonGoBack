@@ -11,6 +11,6 @@ public class basicPokemon extends pokemonStage{
 
 	@Override
 	public void evolve(Pokemon basicCard) {
-		System.out.println("I cant evolve.");
+		System.out.println("Ooopss....I cant evolve.");
 	}
 }

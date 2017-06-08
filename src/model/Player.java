@@ -13,6 +13,7 @@ public class Player {
 	protected boolean turn;
 	protected ArrayList<Pokemon> bench;
 	protected CardsGroup userDiscardPile;
+	protected CardsGroup rewardCards;
 	
 //	public abstract String getName();
 //	public abstract int getScore();
@@ -38,6 +39,10 @@ public class Player {
 			cards.add(getDeckCard());
 		}
 		return cards.toArray(new cardItem[cards.size()]);
+	}
+	
+	public void addRewardCards(int i){
+		rewardCards.addCards(dealMultipleCards(i));
 	}
 	
 	public cardItem dealCard(){
@@ -110,7 +115,6 @@ public class Player {
 	
 	public static void main(String arg[]){
 		Player newPlayer = new Player("Flash");
-		
 		Debug.showCard(newPlayer.dealCard());
 	}
 	public Pokemon[] getBenchCards(){
@@ -118,7 +122,10 @@ public class Player {
 	}
 
 	public void addCardonBench(Pokemon newPokemon){
-		bench.add(newPokemon);
+		bench.add(newPokemon);		
+	}
+	
+	public void removeCardFromBench(cardItem newcard){
 		
 	}
 }

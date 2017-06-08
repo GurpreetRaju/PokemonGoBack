@@ -10,6 +10,12 @@ public class CardsGroup implements cardItem {
 		this.getGroupCards().add(newCard);
 	}
 	
+	public void addCards(cardItem[] newCards){
+		for(cardItem card: newCards){
+			this.addCard(card);
+		}
+	}
+	
 	public cardItem getCard(int id){
 		for(cardItem card:groupCards){
 			if(card.getID() == id){
@@ -67,7 +73,7 @@ public class CardsGroup implements cardItem {
 		return energyCards;
 	}
 	
-	public ArrayList<Trainer> getAllTranerCards(){
+	public ArrayList<Trainer> getAllTrainerCards(){
 		ArrayList<Trainer> trainerCards = new ArrayList<Trainer>();
 		for(cardItem card : groupCards){
 			if(card instanceof Trainer || card instanceof stadium_Trainer || card instanceof supporter_Trainer || card instanceof Item_Trainer){
