@@ -61,12 +61,12 @@ public class Deck extends CardsGroup{
 		newAbility.add(new damageAbility("Attack", 10, EnergyInfo,"Pokemon"));
 		int j=0;
 		for(;j<18;j++){
-				this.getGroupCards().add(new Pokemon(j, "Pikachu", new basicPokemon(), 80, newAbility));
+				this.getGroupCards().add(new Pokemon(j, "Pikachu", new basicPokemon(), 20, newAbility));
 				this.getGroupCards().add(new Trainer("Heal Trainer",j+18, new healingAbility("Heal pokemon",30)));
 				this.getGroupCards().add(new Energy("Fighting Energy",j+36));
 		}
 		for(;j<60;j++){
-			this.getGroupCards().add(new Pokemon(j,"Raichu", new stageOnePokemon("Pikachu"), 80, newAbility));
+			this.getGroupCards().add(new Pokemon(j,"Raichu", new stageOnePokemon("Pikachu"), 30, newAbility));
 		}
 		this.shufflecards();
 	}

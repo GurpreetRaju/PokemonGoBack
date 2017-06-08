@@ -20,7 +20,8 @@
             <Button fx:id="UserEndTurnBtn" layoutX="14.0" layoutY="362.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="Done" textFill="#ff0303">
                <effect>
                   <DropShadow height="50.65" radius="20.377499999999998" spread="0.5" width="32.86" />
-               </effect></Button>
+               </effect>
+            </Button>
             <HBox fx:id="AIBench" layoutX="132.0" prefHeight="80.0" prefWidth="385.0" stylesheets="@style.css" />
             <Pane fx:id="pane" layoutX="225.0" layoutY="109.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css">
                <children>

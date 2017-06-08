@@ -22,7 +22,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         
-        controller.toss();
+        controller.init();
     }
     public static void main(String[] args) 
     {
