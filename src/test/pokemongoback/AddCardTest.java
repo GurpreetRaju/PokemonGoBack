@@ -2,26 +2,38 @@ package test.pokemongoback;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import controller.GameController;
 import model.CardsGroup;
+import model.Pokemon;
+import model.Trainer;
 import model.cardItem;
 
 public class AddCardTest {
 	CardsGroup cg=new CardsGroup();
 	cardItem expected;
 	cardItem actual;
-	
+
 	@Test
 	public void addCardTest(){
 		
-		cardItem pokemoncard = null;
-		cg.addCard(pokemoncard);
+		cardItem trainercard=new Trainer("Potion", 32, null);
+		cardItem pokemon1=new Pokemon(80, "Pikachu", null, 0, null);
+	
+		ArrayList<cardItem> pokemoncard = new ArrayList<cardItem>();
+		pokemoncard.add(null);
+		pokemoncard.add(trainercard);
+		pokemoncard.add(pokemon1);
 		
-		expected=pokemoncard;
-		actual=cg.getGroupCards().get(0);
+		cg.addCards(pokemoncard.toArray(new cardItem[pokemoncard.size()]));
 		
-		assertEquals(expected,actual);
-	}
-}
+		for(int i=0; i<3; i++){
+			assertEquals(pokemoncard.get(i),cg.getGroupCards().get(i));
+		}	
+			
+ 	}
+		}
+
