@@ -11,7 +11,7 @@ public class Player {
 	protected Pokemon activePokemon;
 	protected ArrayList<ability> activeAbilities;
 	protected boolean turn;
-	protected ArrayList<Pokemon> bench;
+	protected CardsGroup bench;
 	protected CardsGroup userDiscardPile;
 	protected CardsGroup rewardCards;
 	
@@ -24,8 +24,7 @@ public class Player {
 		((Deck) this.deck).buildDeck(1);
 		this.activeAbilities = new ArrayList<ability>();
 		this.inhand = new CardsGroup();
-		bench = new ArrayList<Pokemon>();
-		this.bench = new ArrayList<Pokemon>();
+		this.bench = new CardsGroup();
 		this.userDiscardPile = new CardsGroup();
 	}
 	
@@ -117,15 +116,11 @@ public class Player {
 		Player newPlayer = new Player("Flash");
 		Debug.showCard(newPlayer.dealCard());
 	}
-	public Pokemon[] getBenchCards(){
-		return this.bench.toArray(new Pokemon[this.bench.size()]);
-	}
 
-	public void addCardonBench(Pokemon newPokemon){
-		bench.add(newPokemon);		
-	}
-	
-	public void removeCardFromBench(cardItem newcard){
-		
+	public CardsGroup getBench(){
+		return this.bench;		
+	}	
+	public CardsGroup getDiscardPile(){
+		return this.userDiscardPile;
 	}
 }

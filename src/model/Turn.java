@@ -26,7 +26,6 @@ public class Turn {
 	private static Turn turn;
 	private AIplayer ai;
 	private UserPlayer user;
-	private GameController controller;
 	
 	private Turn(){
 		
@@ -39,10 +38,9 @@ public class Turn {
         return turn;
     }
 	
-	public void setPlayer(AIplayer newAi, UserPlayer newuser, GameController newControl){
+	public void setPlayer(AIplayer newAi, UserPlayer newuser){
 		ai = newAi;
 		user = newuser;
-		this.controller = newControl;
 	}
 	
 	public Player getCurrentPlayer(){
@@ -57,11 +55,11 @@ public class Turn {
 	public void changeTurn(){
 		if(user.getTurn()){
 			user.setTurn(false);
-			controller.dealCard("ai");
+			GameController.getInstance().dealCard("ai");
 			ai.setTurn(true);
 		}else{
 			user.setTurn(true);
-			controller.dealCard("user");
+			GameController.getInstance().dealCard("user");
 			ai.setTurn(false);			
 		}
 	}
@@ -162,37 +160,38 @@ public class Turn {
                 System.out.print(dec);
             }
 
-            Group root1 = new Group(circle);
-            //Creating a scene object
-            Scene scene = new Scene(root1, 400, 350);
-            //Setting title to the Stage
-            Stage pm1 = new Stage();
-            pm1.setScene(scene);
-            pm1.initStyle(StageStyle.UNDECORATED);
-            pm1.setResizable(false);
-            pm1.show();
-            Timeline timeline = new Timeline();
-            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(3),new EventHandler<ActionEvent>()
-            {
-                        @Override
-                        public void handle(ActionEvent event)
-                        {
-                          pm1.hide();
-                            ButtonType toss1 = new ButtonType("Let's Play Now", ButtonBar.ButtonData.OK_DONE);
-                            Alert alert1 = new Alert(Alert.AlertType.INFORMATION,""+dec, toss1);
-                            alert1.initStyle(StageStyle.UNDECORATED);
-                            alert1.setHeaderText(null);
-                            alert1.setX(475);
-                            alert1.setY(270);
-                            alert1.show();
-                        }
-              }));
-              timeline.play();              
+//            Group root1 = new Group(circle);
+//            //Creating a scene object
+//            Scene scene = new Scene(root1, 400, 350);
+//            //Setting title to the Stage
+//            Stage pm1 = new Stage();
+//            pm1.setScene(scene);
+//            pm1.initStyle(StageStyle.UNDECORATED);
+//            pm1.setResizable(false);
+//            pm1.show();
+//            Timeline timeline = new Timeline();
+//            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(3),new EventHandler<ActionEvent>()
+//            {
+//                        @Override
+//                        public void handle(ActionEvent event)
+//                        {
+//                          pm1.hide();
+//                            ButtonType toss1 = new ButtonType("Let's Play Now", ButtonBar.ButtonData.OK_DONE);
+//                            Alert alert1 = new Alert(Alert.AlertType.INFORMATION,""+dec, toss1);
+//                            alert1.initStyle(StageStyle.UNDECORATED);
+//                            alert1.setHeaderText(null);
+//                            alert1.setX(475);
+//                            alert1.setY(270);
+//                            alert1.show();
+//                        }
+//              }));
+//              timeline.play();              
         }
         else
         {
             // ... user chose CANCEL or closed the dialog
-        }
-		return turn;
+        }		
+        return turn;
 	}
+
 }

@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.GameController;
+
 public class Pokemon implements cardItem{
 	private int id;
 	private String cardName;
@@ -26,6 +28,7 @@ public class Pokemon implements cardItem{
 		this.damage += newDamage;
 		if(this.damage==this.hitpoints || this.damage>=this.hitpoints){
 			this.state = "knockedOut";
+			GameController.getInstance().knockout();
 		}
 	}
 	

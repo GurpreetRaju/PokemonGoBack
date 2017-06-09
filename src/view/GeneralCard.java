@@ -21,7 +21,6 @@ public class GeneralCard extends FlowPane{
 		this.cardID.getStyleClass().add("cardID");
 		this.cardName = new Label();
 		this.cardName.setPrefWidth(70);
-		this.setMaxWidth(88);
 		this.cardName.setWrapText(true);
 		this.button = new Button();
 		this.getChildren().add(cardID);
