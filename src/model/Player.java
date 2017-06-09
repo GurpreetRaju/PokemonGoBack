@@ -112,6 +112,17 @@ public class Player {
 		return null;
 	}
 	
+	public void evolve(Pokemon stageOnePokemon, Pokemon basicPokemon){
+		stageOnePokemon.evolve(basicPokemon);
+		((CardsGroup) this.getInhand()).removeCard(stageOnePokemon);
+		if(this.getActivePokemon() == basicPokemon){
+			this.setActivePokemon(stageOnePokemon);
+		}
+		else{
+			this.getBench().addCard(stageOnePokemon);
+		}
+	}
+	
 	public static void main(String arg[]){
 		Player newPlayer = new Player("Flash");
 		Debug.showCard(newPlayer.dealCard());

@@ -3,6 +3,8 @@ package test.pokemongoback;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import controller.GameController;
 import model.CardsGroup;
 import model.cardItem;
 

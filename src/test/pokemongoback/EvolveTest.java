@@ -30,7 +30,6 @@ public class EvolveTest {
 		System.out.println(up.getActivePokemon().getName());
 		System.out.println(up.getActivePokemon().getStage());
 		e.evolve(p);
-	    
 		
 		System.out.println(up.getActivePokemon().getName());
 		System.out.println(up.getActivePokemon().getStage());

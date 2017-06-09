@@ -58,7 +58,7 @@ public class GameController {
 	@FXML private Label aiDamage;
 	@FXML private Pane gameStage;
 	@FXML private BorderPane gameBoard;
-	
+	@FXML private VBox btndn_rew,aiDisc_deck,AIReward,UIDisc_deck;
 	private GameController(){
 	}
 	
@@ -233,8 +233,7 @@ public class GameController {
         				if(card!=null){
         					card.evolve(pokemonCard.getCard());
         					userHand.getChildren().remove(pokemonCard);
-        					((CardsGroup) user.getInhand()).removeCard(pokemonCard.getCard());
-        					user.getBench().addCard(pokemonCard.getCard());
+        					user.evolve(pokemonCard.getCard(), pokemonCard.getBasicCard());
         				}
         				else{
         					Debug.message("No pokemon found");
@@ -609,11 +608,15 @@ public class GameController {
 		userScrollPane.setPrefWidth(maxWidth);
 		
 		gameBoard.setPrefHeight(boardAreaHeight);
-//		gameBoard.setPrefWidth(boardWidth);
-		
+//		gameBoard.setPrefWidth(boaWidth);
 		userBench.setPrefHeight(handHeight);
 		AIBench.setPrefHeight(handHeight);
-		
+		//btndn_rew.setLayoutY(gameBoard.getPrefHeight()/6.5);
+    //	btndn_rew.setLayoutX(gameBoard.getPrefWidth()/6);
+    	//aiDisc_deck.setLayoutY(gameBoard.getPrefHeight()/5.8);
+    	//aiDisc_deck.setLayoutX(gameBoard.getPrefWidth()/6);
+    	//UIDisc_deck.setLayoutY(gameBoard.getPrefHeight()/2.5);
+    	
 	}
 	
 }
