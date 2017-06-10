@@ -12,6 +12,7 @@ public class Player {
 	protected ArrayList<ability> activeAbilities;
 	protected boolean turn;
 	protected ArrayList<Pokemon> bench;
+	protected CardsGroup userDiscardPile;
 	
 //	public abstract String getName();
 //	public abstract int getScore();
@@ -23,6 +24,8 @@ public class Player {
 		this.activeAbilities = new ArrayList<ability>();
 		this.inhand = new CardsGroup();
 		bench = new ArrayList<Pokemon>();
+		this.bench = new ArrayList<Pokemon>();
+		this.userDiscardPile = new CardsGroup();
 	}
 	
 	public cardItem getDeckCard(){

@@ -16,7 +16,7 @@ public class PokemonCard extends FlowPane{
 	private Label PokemonStage;
 	private Label PokemonHp;
 	private Label cardID;
-	private Button button;
+	private Button button, loc;
 	private HBox location;
 	private boolean evolved = false;
 	private Pokemon baseCard;
@@ -74,6 +74,11 @@ public class PokemonCard extends FlowPane{
 	public void setLocation(HBox newLocation){
 		this.location = newLocation;
 		this.location.getChildren().add(this);
+	}
+	
+	public void setLocation(Button newLocation){
+		this.loc = newLocation;
+		this.loc.getChildrenUnmodifiable().add(this);
 	}
 	
 	public HBox getLocation(){
