@@ -322,76 +322,11 @@ public class GameController {
     }
     
     @SuppressWarnings("unchecked")
-	private void EnergyOptions(GeneralCard newcard) {
-		ArrayList<String> optionsList = new ArrayList<String>();
-    	if(! userActivePokemon.getChildren().isEmpty())
-	    {
-    		optionsList.add("ActivePokemon");
-	    }
-    	if(! userBench.getChildren().isEmpty())
-    	{
-    		optionsList.add("BenchPokemon");
-    	}
-    	if(!optionsList.isEmpty()){
-    		List<String> dialogData = Arrays.asList(optionsList.toArray(new String[optionsList.size()]));
-
-    		@SuppressWarnings({ "rawtypes" })
-    		Dialog dialog = new ChoiceDialog(dialogData.get(0), dialogData);
-    		dialog.setTitle("Select pokemon");
-    		dialog.setHeaderText("Select your choice");
-
-    		Optional<String> result = dialog.showAndWait();
-    		String selected = "cancelled.";
-    				
-    		if (result.isPresent()) {
-    		    selected = result.get();
-    		    if(selected=="ActivePokemon"){
-			    	
-			    	//Debug.message(((Label) button.getParent().lookup(".cardID")).getText().trim());
-			    		userHand.getChildren().remove(newcard);
-			    		((CardsGroup) user.getInhand()).removeCard(newcard.getCard());
-			    		user.getActivePokemon().attachCard(newcard.getCard());
-			    		//Debug.message(((Label) button.getParent().lookup(".cardID")).getText().trim());
-			    }
-			    else if(selected=="BenchPokemon")
-			    {
-			    	ArrayList<String> benchCards = new ArrayList<String>();
-			    	for(Node card : userBench.getChildren()){
-						PokemonCard tempCard = (PokemonCard) card;
-						int id = tempCard.getCard().getID();
-						Debug.message(id);
-						benchCards.add(String.valueOf(id));
-			    	}
-			    	List<String> benchData = Arrays.asList(benchCards.toArray(new String[benchCards.size()]));
-			    	
-					@SuppressWarnings({ "rawtypes" })
-					Dialog benchDialog = new ChoiceDialog(benchData.get(0), benchData);
-					benchDialog.setTitle("Select pokemon");
-					benchDialog.setHeaderText("Select your choice");
-
-					Optional<String> benchOp = benchDialog.showAndWait();
-					String select = "cancelled.";
-					if(benchOp.isPresent())
-					{
-						select = benchOp.get();
-						Debug.message(select);
-						Pokemon benchC = null;
-						for(cardItem pokemon: user.getBench().getCard())
-						{
-							if(pokemon.getID() == Integer.parseInt(select))
-							{
-								benchC = (Pokemon) pokemon;
-							}
-						}
-				    	
-			    		userHand.getChildren().remove(newcard);
-			    		((CardsGroup) user.getInhand()).removeCard(newcard.getCard());
-			    		benchC.attachCard(newcard.getCard());
-						
-					}
-			    }    
-    		}
-    	}
+	private void EnergyOptions(GeneralCard newcard){
+		Pokemon benchC = this.getHandandBenchPokemonsDialog(user);
+		userHand.getChildren().remove(newcard);
+		((CardsGroup) user.getInhand()).removeCard(newcard.getCard());
+		benchC.attachCard(newcard.getCard());
     }
         
     public HBox getUserBench(){
@@ -525,6 +460,7 @@ public class GameController {
 	
 	public void knockout(){
 		Player player = Turn.getInstance().getOpponent();
+		if(player!=null){
 		if(player instanceof UserPlayer){
 			PokemonCard card = (PokemonCard) userActivePokemon.getChildren().remove(0);
 			user.getDiscardPile().addCard(card.getCard());
@@ -562,6 +498,7 @@ public class GameController {
 			else{
 				winOrLoss();
 			}
+		}
 		}
 	}
 	
@@ -617,6 +554,94 @@ public class GameController {
     	//aiDisc_deck.setLayoutX(gameBoard.getPrefWidth()/6);
     	//UIDisc_deck.setLayoutY(gameBoard.getPrefHeight()/2.5);
     	
+	}
+	
+	public Pokemon getHandandBenchPokemonsDialog(Player player){
+		HBox panelActive = null;
+		HBox panelBench = null;
+		if(player instanceof UserPlayer){
+			panelActive = userActivePokemon;
+			panelBench = userBench;
+		}
+		else{
+			panelActive = aiActivePokemon;
+			panelBench = AIBench;
+		}
+		ArrayList<String> optionsList = new ArrayList<String>();
+    	if(! panelActive.getChildren().isEmpty())
+	    {
+    		optionsList.add("ActivePokemon");
+	    }
+    	if(! panelBench.getChildren().isEmpty())
+    	{
+    		optionsList.add("BenchPokemon");
+    	}
+    	if(!optionsList.isEmpty()){
+    		List<String> dialogData = Arrays.asList(optionsList.toArray(new String[optionsList.size()]));
+
+    		@SuppressWarnings({ "rawtypes" })
+    		Dialog dialog = new ChoiceDialog(dialogData.get(0), dialogData);
+    		dialog.setTitle("Select pokemon");
+    		dialog.setHeaderText("Select your choice");
+
+    		Optional<String> result = dialog.showAndWait();
+    		String selected = "cancelled.";
+    		
+    		Pokemon benchC = null;
+    		
+    		if (result.isPresent()) {
+    		    selected = result.get();
+    		    if(selected=="ActivePokemon"){
+			    	return benchC = player.getActivePokemon();
+			    }
+			    else if(selected=="BenchPokemon")
+			    {
+			    	return benchC = this.getBenchPokemonDialog(player);
+			    }
+    		}
+    	}
+    	return null;
+	}
+	
+	
+	public Pokemon getBenchPokemonDialog(Player player){
+		HBox panel = null;
+		if(player instanceof UserPlayer){
+			panel = userBench;
+		}
+		else{
+			panel = AIBench;
+		}
+		ArrayList<String> benchCards = new ArrayList<String>();
+    	for(Node card : panel.getChildren()){
+			PokemonCard tempCard = (PokemonCard) card;
+			int id = tempCard.getCard().getID();
+			//Debug.message(id);
+			benchCards.add(String.valueOf(id));
+    	}
+    	List<String> benchData = Arrays.asList(benchCards.toArray(new String[benchCards.size()]));
+    	
+		@SuppressWarnings({ "rawtypes" })
+		Dialog benchDialog = new ChoiceDialog(benchData.get(0), benchData);
+		benchDialog.setTitle("Select pokemon");
+		benchDialog.setHeaderText("Select your choice");
+		Optional<String> benchOp = benchDialog.showAndWait();
+		String select = "cancelled.";
+
+		Pokemon benchC = null;
+		if(benchOp.isPresent())
+		{
+			select = benchOp.get();
+			//Debug.message(select);
+			for(cardItem pokemon: player.getBench().getCard())
+			{
+				if(pokemon.getID() == Integer.parseInt(select))
+				{
+					benchC = (Pokemon) pokemon;
+				}
+			}
+		}
+		return benchC;
 	}
 	
 }

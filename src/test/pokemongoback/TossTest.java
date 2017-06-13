@@ -9,7 +9,7 @@ import org.junit.Test;
 public class TossTest {
 
 	@Test
-	public void testRandomnNumber() {
+	public void test() {
 		
 		Random random = new Random();
         int number = random.nextInt(2)+1;

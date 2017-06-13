@@ -20,8 +20,8 @@ public class Player {
 	
 	public Player(String name){
 		this.name = name;
-		this.deck = new Deck();
-		((Deck) this.deck).buildDeck(1);
+		this.deck = new Deck(1);
+		((Deck) this.deck).buildDeck();
 		this.activeAbilities = new ArrayList<ability>();
 		this.inhand = new CardsGroup();
 		this.bench = new CardsGroup();

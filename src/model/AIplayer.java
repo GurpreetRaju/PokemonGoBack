@@ -13,8 +13,8 @@ public class AIplayer extends Player {
 	public AIplayer(String newName){
 		super(newName);
 		this.name = newName;
-		deck = new Deck();
-		((Deck) deck).buildDeck(1);
+		deck = new Deck(1);
+		((Deck) deck).buildDeck();
 	}
 	
 	public String getName() {

@@ -1,16 +1,14 @@
 package model;
 
-public class damageAbility implements ability {
+public class damageAbility extends ability {
 	private int damageValue;
-	private String name;
 	private Energy[] energyRequired;
-	private String target;
 	
-	public damageAbility(String newName, int newDamage, Energy[] newEnergyInfo,String newTarget){
+	public damageAbility(String newName, int newDamage, Energy[] newEnergyInfo,String newtarget){
 		this.name = newName;
 		this.damageValue = newDamage;
 		this.energyRequired = newEnergyInfo;
-		this.target = newTarget;
+		this.abilitytarget = newtarget;
 	}
 	
 	public void setDamage(int newDamage){
@@ -19,15 +17,11 @@ public class damageAbility implements ability {
 	
 	public void useAbility(){
 		//Debug.message("Attacking Opponent pokemon "+Turn.getInstance().getOpponent().getActivePokemon().getName());
-		if(Turn.getInstance().getOpponent().getActivePokemon()!=null){
-			Turn.getInstance().getOpponent().getActivePokemon().addDamage(this.damageValue);
+		Pokemon pk = (Pokemon) this.getTargetObject().getTarget();
+		if(pk!=null){
+			pk.addDamage(this.damageValue);
 		}
 		Turn.getInstance().changeTurn();
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
 	}
 	
 	public int getDamage(){
@@ -37,16 +31,13 @@ public class damageAbility implements ability {
 	public Energy[] getEnergyInfo(){
 		return this.energyRequired;
 	}
-	public String getTarget(){
-		return target;
-	}
 	
 	public boolean equals(Object o){
-		damageAbility tempAbility = (damageAbility) o;
-		if(this.name == tempAbility.name){
-			return true;
+		if(o instanceof damageAbility){
+			if(this.name == ((damageAbility) o).name && this.damageValue == ((damageAbility) o).damageValue){
+				return true;
+			}
 		}		
 		return false;
-	}
-	
+	}	
 }

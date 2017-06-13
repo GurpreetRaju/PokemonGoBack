@@ -3,11 +3,13 @@ package model;
 public class Trainer implements cardItem{
 
 	private String cardName;
+	private String category;
 	private int id;
 	private ability cardAbility;
 	
-	public Trainer(String name,int id,ability newAbility){
+	public Trainer(int id, String name, String newCategory,ability newAbility){
 		this.cardName = name;
+		this.category = newCategory;
 		this.id = id;
 		this.cardAbility = newAbility;
 	}
@@ -23,6 +25,10 @@ public class Trainer implements cardItem{
 	
 	public ability getAbility(){
 		return this.cardAbility;
+	}
+	
+	public String getCategory(){
+		return this.category;
 	}
 
 }

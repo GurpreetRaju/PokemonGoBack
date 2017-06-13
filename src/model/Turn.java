@@ -65,12 +65,15 @@ public class Turn {
 	}
 	
 	public Player getOpponent(){
-		if(user.getTurn()){
-			return ai;
+		if(user!=null){
+			if(user.getTurn()){
+				return ai;
+			}
+			else{
+				return user;
+			}
 		}
-		else{
-			return user;
-		}
+		return null;
 	}
 	
 	public boolean[] toss(){

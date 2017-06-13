@@ -10,15 +10,11 @@ import model.stageOnePokemon;
 
 public class GetPokemon {
 	
+	public static Pokemon get(){
+		ArrayList<ability> newAbilities=new ArrayList<ability>();
+		pokemonStage basic=new basicPokemon();
+		Pokemon p= new Pokemon(2, "Pikachu", basic, 80, newAbilities);
 	
-	ArrayList<ability> newAbilities=new ArrayList<ability>();
-	pokemonStage basic=new basicPokemon();
-	
-	public void getPokemon(){
-		
-	Pokemon p= new Pokemon(2, "Pikachu", basic, 80, newAbilities);
-	pokemonStage stageone = new stageOnePokemon("Pikachu");
-	Pokemon e= new Pokemon(3, "Raichu", stageone, 90, newAbilities);
-	
+		return p;
 	}
 }

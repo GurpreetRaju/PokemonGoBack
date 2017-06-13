@@ -54,7 +54,7 @@
                  	 <children>
    	               		<VBox fx:id="aiDisc_deck">
                            <children>
-         	               		<Label fx:id="AIDiscardPile" text="Disc..." textFill="#ee0303" />
+         	               		<Label fx:id="AIDiscardPile" text="DiscardPile" textFill="#ee0303" wrapText="true" />
                      	    	<Label fx:id="AIDeck" contentDisplay="TOP" text="AIDeck" textAlignment="CENTER" textFill="#ee0303">
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -66,7 +66,7 @@
                         </VBox>
    	               		<VBox fx:id="btndn_rew">
                            <children>
-                         	    <Label fx:id="UserRewardCards" text="Rew.." textFill="#f80000" />
+                         	    <Label fx:id="UserRewardCards" text="Reward Cards" textFill="#f80000" />
                         		<Button fx:id="UserEndTurnBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="Done" textFill="#ff0303">
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -84,7 +84,7 @@
                  	 <children>
                         <VBox fx:id="AIReward">
                            <children>
-                       	 	<Label fx:id="AIRewardCards" contentDisplay="TOP" text="Rew.." textAlignment="CENTER" textFill="#ee0303" />
+                       	 	<Label fx:id="AIRewardCards" contentDisplay="TOP" text="Reward Cards" textAlignment="CENTER" textFill="#ee0303" wrapText="true" />
                            </children>
                            <VBox.margin>
                               <Insets right="40.0" top="50.0" />
@@ -93,7 +93,7 @@
                         <VBox fx:id="UIDisc_deck">
                            <children>
                 				<Label fx:id="UserDeck" text="Deck" textFill="#f80000" />
-                				<Label fx:id="UserDiscardPile" text="Disc" textFill="#f80000">
+                				<Label fx:id="UserDiscardPile" text="DiscardPile" textFill="#f80000">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin>
