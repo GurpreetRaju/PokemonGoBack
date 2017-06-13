@@ -14,15 +14,11 @@ import model.pokemonStage;
 
 public class AddDamageTest {
 	
-	
 	ArrayList<ability> newAbilities=new ArrayList<ability>();
 	pokemonStage basic=new basicPokemon();
 	Pokemon pk = new Pokemon(2, "Pikachu", basic, 60, newAbilities);
+	UserPlayer up= new UserPlayer("john");
 			
-			
-			UserPlayer up= new UserPlayer("john");
-			
-	
 	@Test
 	public void test() {
 		
@@ -34,11 +30,8 @@ public class AddDamageTest {
 		//System.out.println(pk.getDamage());
 		assertEquals(expected, actual);
 		
-		
 		// KnockedOut conditions
-		
-		// tests if hitpoints=60, damage =60, result shuold be knocked out conditions.
-		
+		// tests if hitpoints=60, damage =60, result should be knocked out conditions.
 		String expected1="knockedOut";
 		up.setActivePokemon(pk);
 		
@@ -47,11 +40,7 @@ public class AddDamageTest {
 		//System.out.println(pk.getDamage());
 		//System.out.println(pk.getState());
 		String actual1=pk.getState();
-		assertEquals(expected1, actual1);
-		
-		
-		
-		
+		assertEquals(expected1, actual1);	
 	}
 
 }

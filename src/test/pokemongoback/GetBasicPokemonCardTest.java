@@ -22,7 +22,7 @@ public class GetBasicPokemonCardTest {
 				groupCards.remove(card);
 			 actual=((Pokemon) card).getStage();
 			}
-			assertEquals(expected,actual);
+		assertEquals(expected,actual);
 	
 		
 	}

@@ -18,12 +18,10 @@ public class MulliganStageTest {
 
 	@Test
 	public void test() {
-		
 	
 	 card= ((CardsGroup) this.inhand).getCard();
 
-		for(int i=0;i>((CardsGroup) this.inhand).getCard().length;i++){
-			
+		for(int i=0;i>((CardsGroup) this.inhand).getCard().length;i++){	
 		actual=pStage;
 		assertEquals(expected,actual);
 		}

@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.GameController;
+import view.DialogBoxHandler;
+
 public class Search extends ability{
 	
 	private String targetSource;
@@ -49,7 +52,17 @@ public class Search extends ability{
 				}
 			}
 		}
-		//Rest of the code here
+
+		for(int i=0; i<this.amount; i++){
+			DialogBoxHandler dbox = new DialogBoxHandler();
+			dbox.setOptionList(cards);
+			int id = Integer.parseInt(dbox.getDialog());
+			CardsGroup hand = (CardsGroup) ((Player) target.getTargetObject(abilitytarget).getTarget()).getInhand();
+			hand.addCard(source.getCard(id));
+			GameController.getInstance().addCardToPanel(source.getCard(id), GameController.getInstance().getHand((Player) target.getTargetObject(abilitytarget).getTarget()));
+			source.removeCard(source.getCard(id));
+		}
+		
 	}
 	
 	public boolean equals(Object o) {
