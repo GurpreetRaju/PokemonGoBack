@@ -619,7 +619,7 @@ public class GameController {
 			}
 		}
 		else{
-			if(panelOpt.equals("hand")){
+			if(panelOpt.equals("bench")){
 				panel = AIBench;
 			}
 			else{
