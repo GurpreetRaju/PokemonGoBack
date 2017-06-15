@@ -17,7 +17,7 @@ public class MulliganStageTest {
 	cardItem[] card;
 
 	@Test
-	public void testMulliganStage() {
+	public void test() {
 		
 	
 	 card= ((CardsGroup) this.inhand).getCard();

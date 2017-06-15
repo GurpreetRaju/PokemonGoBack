@@ -15,7 +15,7 @@ public class PlayerTest {
 	@Test
 	public void integrationTest(){
 		UserPlayer uip=new UserPlayer(string);
-		AIplayer aip=new AIplayer(string, null);
+		AIplayer aip=new AIplayer(string);
 		
 		String expected="Flash";
 		String actual1=uip.getName();

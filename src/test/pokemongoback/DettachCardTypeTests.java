@@ -1,0 +1,94 @@
+package test.pokemongoback;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.Test;
+
+import model.Energy;
+import model.Pokemon;
+import model.Trainer;
+import model.ability;
+import model.basicPokemon;
+import model.cardItem;
+import model.pokemonStage;
+
+public class DettachCardTypeTests {
+
+	@Test
+	public void test() {
+		
+		
+		ArrayList<ability> newAbilities=new ArrayList<ability>();
+		pokemonStage basic=new basicPokemon();
+		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);
+		
+		int expected=0;
+		pk.dettachCardType(Energy.class, 1);
+		// test if  card have 0 attached energy card,then detach 1 card
+		// result should be 0.
+		assertEquals(expected,pk.getAttachedCardsCount());
+		
+		
+		cardItem newCard = new Energy("Lighting", 2);
+		cardItem newCard1 = new Energy("Colorless", 3);
+		cardItem newCard2 = new Energy("Water", 4);
+		cardItem newCard3 = new Energy("Fight", 5);
+		cardItem newCard4 = new Energy("Psychic", 6);
+		
+		pk.attachCard(newCard);
+		pk.attachCard(newCard1);
+		pk.attachCard(newCard2);
+		pk.attachCard(newCard3);
+		pk.attachCard(newCard4);
+		
+		
+		int expected2=4;
+		pk.dettachCardType(Energy.class, 1);
+		// test if  card have 5 attached energy cards,then detach 1 card
+				// result should be 4.
+		assertEquals(expected2,pk.getAttachedCardsCount());
+		
+		
+		int expected3=0;
+		pk.dettachCardType(Energy.class, 5);
+		// test if  card have 5 attached energy cards,then detach 5 card
+				// result should be 0.
+		assertEquals(expected3,pk.getAttachedCardsCount());
+		
+		int expected4=0;
+		pk.dettachCardType(Trainer.class, 1);
+		// test if card have 0 attached trainer card, then detach 1 card
+		// result should be 0.
+		assertEquals(expected4,pk.getAttachedCardsCount());
+		
+		ability ability = null;
+		cardItem newCard5 = new Trainer("Misty's Determination", 22,ability);
+		cardItem newCard6 = new Trainer("Clemont",23 ,ability);
+		cardItem newCard7 = new Trainer("Potion", 24,ability);
+		cardItem newCard8 = new Trainer("Tierno", 25,ability);
+		cardItem newCard9 = new Trainer("Pokémon Center Lady", 26,ability);
+		
+		pk.attachCard(newCard5);
+		pk.attachCard(newCard6);
+		pk.attachCard(newCard7);
+		pk.attachCard(newCard8);
+		pk.attachCard(newCard9);
+		
+		
+		int expected5=4;
+		pk.dettachCardType(Trainer.class, 1);
+		// test if card have attached 5 trainer cards, detach 1 card
+		// result should be 4
+		assertEquals(expected5,pk.getAttachedCardsCount());
+		
+		int expected6=0;
+		pk.dettachCardType(Trainer.class, 5);
+		// test if card have attached 5 trainer cards, detach 5 card
+				// result should be 0
+		assertEquals(expected6,pk.getAttachedCardsCount());
+		
+	}
+
+}

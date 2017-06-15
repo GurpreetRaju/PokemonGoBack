@@ -11,20 +11,20 @@ public class Player {
 	protected Pokemon activePokemon;
 	protected ArrayList<ability> activeAbilities;
 	protected boolean turn;
-	protected ArrayList<Pokemon> bench;
+	protected CardsGroup bench;
 	protected CardsGroup userDiscardPile;
+	protected CardsGroup rewardCards;
 	
 //	public abstract String getName();
 //	public abstract int getScore();
 	
 	public Player(String name){
 		this.name = name;
-		this.deck = new Deck();
-		((Deck) this.deck).buildDeck(1);
+		this.deck = new Deck(1);
+		((Deck) this.deck).buildDeck();
 		this.activeAbilities = new ArrayList<ability>();
 		this.inhand = new CardsGroup();
-		bench = new ArrayList<Pokemon>();
-		this.bench = new ArrayList<Pokemon>();
+		this.bench = new CardsGroup();
 		this.userDiscardPile = new CardsGroup();
 	}
 	
@@ -38,6 +38,10 @@ public class Player {
 			cards.add(getDeckCard());
 		}
 		return cards.toArray(new cardItem[cards.size()]);
+	}
+	
+	public void addRewardCards(int i){
+		rewardCards.addCards(dealMultipleCards(i));
 	}
 	
 	public cardItem dealCard(){
@@ -108,17 +112,26 @@ public class Player {
 		return null;
 	}
 	
+	public void evolve(Pokemon stageOnePokemon, Pokemon basicPokemon){
+		stageOnePokemon.evolve(basicPokemon);
+		((CardsGroup) this.getInhand()).removeCard(stageOnePokemon);
+		if(this.getActivePokemon() == basicPokemon){
+			this.setActivePokemon(stageOnePokemon);
+		}
+		else{
+			this.getBench().addCard(stageOnePokemon);
+		}
+	}
+	
 	public static void main(String arg[]){
 		Player newPlayer = new Player("Flash");
-		
 		Debug.showCard(newPlayer.dealCard());
 	}
-	public Pokemon[] getBenchCards(){
-		return this.bench.toArray(new Pokemon[this.bench.size()]);
-	}
 
-	public void addCardonBench(Pokemon newPokemon){
-		bench.add(newPokemon);
-		
+	public CardsGroup getBench(){
+		return this.bench;		
+	}	
+	public CardsGroup getDiscardPile(){
+		return this.userDiscardPile;
 	}
 }
