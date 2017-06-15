@@ -76,7 +76,7 @@ public class AIplayer extends Player {
 			ability[] abilits = this.activePokemon.getAbilities();
 			int i = abilits.length;
 			while(attack==null && i>0){
-				if(((damageAbility) abilits[i-1]).getEnergyInfo().length <= this.activePokemon.getAttachedCardsCount()){
+				if(((damageAbility) abilits[i-1]).getEnergyInfo().size() <= this.activePokemon.getAttachedCardsCount()){
 					attack=abilits[i-1];
 					attack.useAbility();
 					Debug.message("attacking");

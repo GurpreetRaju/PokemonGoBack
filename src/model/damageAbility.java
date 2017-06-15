@@ -1,14 +1,18 @@
 package model;
 
+import java.util.ArrayList;
+
 public class damageAbility extends ability {
 	private int damageValue;
-	private Energy[] energyRequired;
+	private String count;
+	private ArrayList<Energy> energyRequired;
 	
-	public damageAbility(String newName, int newDamage, Energy[] newEnergyInfo,String newtarget){
+	public damageAbility(String newName, int newDamage, ArrayList<Energy> newEnergyInfo, String newtarget, String count){
 		this.name = newName;
 		this.damageValue = newDamage;
 		this.energyRequired = newEnergyInfo;
 		this.abilitytarget = newtarget;
+		this.count = count;
 	}
 	
 	public void setDamage(int newDamage){
@@ -28,7 +32,7 @@ public class damageAbility extends ability {
 		return this.damageValue;
 	}
 	
-	public Energy[] getEnergyInfo(){
+	public ArrayList<Energy> getEnergyInfo(){
 		return this.energyRequired;
 	}
 	

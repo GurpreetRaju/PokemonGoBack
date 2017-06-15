@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+
 
 public class UserPlayer extends Player {
 		
@@ -10,7 +10,6 @@ public class UserPlayer extends Player {
 		deck = new Deck(2);
 //		((Deck) deck).buildDeck();
 		((Deck) deck).buildDeckTest();
-		activeAbilities = new ArrayList<ability>();
 	}
 		
 	public String getName() {

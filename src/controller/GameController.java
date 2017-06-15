@@ -255,7 +255,7 @@ public class GameController {
             			for(ability a : user.getActivePokemon().getAbilities()){
             				FlowPane temppane = new FlowPane();
             				RadioButton rb = new RadioButton(a.getName());
-            				if(!(user.getActivePokemon().getAttachedCardsCount()>=((damageAbility) a).getEnergyInfo().length)){
+            				if(!(user.getActivePokemon().getAttachedCardsCount()>=((damageAbility) a).getEnergyInfo().size())){
             					rb.setDisable(true);
             				}
             				rb.setUserData(a.getName());
@@ -350,7 +350,16 @@ public class GameController {
     	else{
     		return this.AIBench;
     	}
+    	
     }
+    public HBox getactivepokemon(Player player){
+    	if(player instanceof UserPlayer){
+    		return this.userActivePokemon;
+    	}
+    	else{
+    		return this.aiActivePokemon;
+    	}
+    	}
     public HBox getHand(Player player){
     	if(player instanceof UserPlayer){
         	return this.userHand;

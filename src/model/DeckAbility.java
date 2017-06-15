@@ -7,6 +7,7 @@ public class DeckAbility extends ability {
 	private String targetDestination;
 	private int amount;
 	private boolean choice;
+	
 	public DeckAbility(String newName, String newTarget, String newTargetDestination, boolean newChoice, int newAmount){
 		this.name = newName;
 		this.abilitytarget = newTarget;

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import model.Deenergize;
 import model.Player;
+import model.Pokemon;
 import model.Search;
 import model.healingAbility;
 import model.swapAbility;
@@ -17,7 +18,7 @@ public class GetAbilityIndexTest {
 	
 	@Test
 	public void test() {
-		Player p1=new Player(null);
+		Pokemon p1=new Pokemon(0, null, null, 0, null);
 		healingAbility h1=new healingAbility("healing", 0, null);
 		swapAbility s1=new swapAbility("swap", null, null);
 		Search s2=new Search("search", null, null, null, null, 0);

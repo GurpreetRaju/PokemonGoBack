@@ -5,13 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 
 public class swapAbility extends ability{
-	private String name;
-	private String activepokemon;
-	private String benchpokemon;
-	private AIplayer ai;
+	private String activepokemon, benchpokemon;
 	private UserPlayer user;
-	@FXML HBox userActivePokemon;
-	@FXML HBox aiActivePokemon;
 	
 	public swapAbility(String name,String activepokemon, String benchpokemon){
 		this.name = name;
@@ -44,14 +39,9 @@ public class swapAbility extends ability{
 		player.setActivePokemon(bench);
 		GameController.getInstance().addCardToPanel(active, GameController.getInstance().getBench(player));
 		GameController.getInstance().removeCard(String.valueOf(bench.getID()), GameController.getInstance().getBench(player));
-		if (player.equals(user)){
-			
-			GameController.getInstance().addCardToPanel(bench, userActivePokemon);
-		}else{
-			GameController.getInstance().addCardToPanel(bench, aiActivePokemon);
-		}
-			
-		}
+		GameController.getInstance().addCardToPanel(bench,GameController.getInstance().getactivepokemon(player));
+	}
+		
 		
 	public Player getPlayer(String playertarget){
 		if(playertarget.equals("yourbench")){

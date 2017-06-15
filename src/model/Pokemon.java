@@ -15,6 +15,8 @@ public class Pokemon implements cardItem{
 	private ArrayList<ability> abilities;
 	private String status = "normal";
 	private ArrayList<cardItem> attachedCards;
+	private ArrayList<ability> activeAbilities;
+	private static ArrayList<ability> addAbilities; //trigger abilities
 	private PokemonCard uiCard;
 	
 	public Pokemon(int newId, String name, pokemonStage newPokemonStage, int newHp, ArrayList<ability> newAbilities){
@@ -23,6 +25,7 @@ public class Pokemon implements cardItem{
 		this.pStage = newPokemonStage;
 		this.hitpoints = newHp;
 		this.attachedCards = new ArrayList<cardItem>();
+		this.activeAbilities = new ArrayList<ability>();
 		this.abilities = newAbilities;
 	}
 	
@@ -113,7 +116,7 @@ public class Pokemon implements cardItem{
 	public int totalEnergyRequired(){
 		int totalEnergy = 0;
 		for(ability ablt : this.getAbilities()){
-			int temp = ((damageAbility) ablt).getEnergyInfo().length;
+			int temp = ((damageAbility) ablt).getEnergyInfo().size();
 			if(temp>totalEnergy){
 				totalEnergy = temp;
 			}
@@ -123,6 +126,8 @@ public class Pokemon implements cardItem{
 	
 	public void evolve(Pokemon basicCard){
 		this.pStage.evolve(basicCard);
+		for(ability a:basicCard.getActiveAbilities())
+			this.addActiveAbility(a);
 	}
 	
 	public boolean equals(Object o){
@@ -151,7 +156,6 @@ public class Pokemon implements cardItem{
 //	}
 
 	public int getHP() {
-		// TODO Auto-generated method stub
 		return this.hitpoints;
 	}
 
@@ -168,4 +172,34 @@ public class Pokemon implements cardItem{
 	public void addObserver(PokemonCard newCard){
 		this.uiCard = newCard;
 	}
+	
+	public void removeAbility(ability newAbility){
+		this.activeAbilities.remove(newAbility);
+	}
+	
+	public void addActiveAbility(ability newAbility){
+		this.activeAbilities.add(newAbility);
+	}
+	
+	public ability[] getActiveAbilities(){
+		return this.activeAbilities.toArray(new ability[this.activeAbilities.size()]);
+	}
+	
+	public String getAbilityIndex(ability newAbility){
+		for(int i=0;i<this.activeAbilities.size();i++){
+			if(this.activeAbilities.get(i) == newAbility){
+				return Integer.toString(i);
+			}
+		}
+		return null;
+	}
+	
+//	public static void getTurnEndAbilities(Player player)
+//	{
+//		for( ability a: player.getActivePokemon().getActiveAbilities())
+//		{
+//			addAbilities.add(a);
+//			if()
+//		}
+//	}
 }

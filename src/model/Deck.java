@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck extends CardsGroup{
 	
@@ -21,8 +22,9 @@ public class Deck extends CardsGroup{
 	public void buildDeck(ArrayList<String[]> cardsList){
 		pokemonStage stage = new basicPokemon();
 		ArrayList<ability> newAbility = new ArrayList<ability>();
-		Energy[] EnergyInfo = {new Energy("Fighting")};
-		newAbility.add(new damageAbility("Attack", 10, EnergyInfo, "opponentactive"));
+		ArrayList<Energy> EnergyInfo = new ArrayList<Energy>();
+		EnergyInfo.add(new Energy("Fighting"));
+		newAbility.add(new damageAbility("Attack", 10, EnergyInfo, "opponentactive", null));
 		
 		int x = 1;
 		for(String[] cards : cardsList){
@@ -60,8 +62,9 @@ public class Deck extends CardsGroup{
 	/* Method for testing purpose only */
 	public void buildDeckTest(){
 		ArrayList<ability> newAbility = new ArrayList<ability>();
-		Energy[] EnergyInfo = {new Energy("Fighting")};
-		newAbility.add(new damageAbility("Attack", 10, EnergyInfo,"opponentactive"));
+		ArrayList<Energy> EnergyInfo = new ArrayList<Energy>();
+		EnergyInfo.add(new Energy("Fighting"));
+		newAbility.add(new damageAbility("Attack", 10, EnergyInfo,"opponentactive", null));
 		int j=0;
 		for(;j<18;j++){
 				this.getGroupCards().add(new Pokemon(j, "Pikachu", new basicPokemon(), 20, newAbility));
@@ -81,7 +84,7 @@ public class Deck extends CardsGroup{
 	}
 	
 	public void shufflecards(){
-		//Collections.shuffle(this.getGroupCards());
+		Collections.shuffle(this.getGroupCards());
 		//Debug.showCard(this.getGroupCards().toArray(new cardItem[this.getGroupCards().size()]));
 	}
 	
