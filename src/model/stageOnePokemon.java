@@ -1,7 +1,7 @@
 package model;
 
 public class stageOnePokemon extends pokemonStage{
-	private String stage = "StageOne";
+	private String stage = "stage-one";
 	private String basicCardName;
 	private Pokemon basicPokemon;
 	

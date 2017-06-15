@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import controller.GameController;
+import view.PokemonCard;
 
 public class Pokemon implements cardItem{
 	private int id;
@@ -12,8 +13,11 @@ public class Pokemon implements cardItem{
 	private int damage = 0;
 	private String state = "deck";
 	private ArrayList<ability> abilities;
-	private String status;
+	private String status = "normal";
 	private ArrayList<cardItem> attachedCards;
+	private ArrayList<ability> activeAbilities;
+	private static ArrayList<ability> addAbilities; //trigger abilities
+	private PokemonCard uiCard;
 	
 	public Pokemon(int newId, String name, pokemonStage newPokemonStage, int newHp, ArrayList<ability> newAbilities){
 		this.id = newId;
@@ -21,6 +25,7 @@ public class Pokemon implements cardItem{
 		this.pStage = newPokemonStage;
 		this.hitpoints = newHp;
 		this.attachedCards = new ArrayList<cardItem>();
+		this.activeAbilities = new ArrayList<ability>();
 		this.abilities = newAbilities;
 	}
 	
@@ -81,16 +86,19 @@ public class Pokemon implements cardItem{
 		this.attachedCards.remove(newCard);
 	}
 	
-	public void dettachCardType(Class<? extends cardItem> newtype, int i){
-		while(i>0){
-			for(cardItem tempcard : this.attachedCards){
-				if(tempcard.getClass()==newtype){
-					this.attachedCards.remove(tempcard);
-					break;
-				}
+	public cardItem[] dettachCardType(Class<? extends cardItem> newtype, int i){
+		ArrayList<cardItem> cards = new ArrayList<cardItem>();
+		for(cardItem tempcard : this.attachedCards){
+			if(i==0){
+				break;
 			}
-			i--;
+			if(tempcard.getClass()==newtype){
+				cards.add(tempcard);
+				this.attachedCards.remove(tempcard);
+				i--;
+			}
 		}
+		return cards.toArray(new cardItem[cards.size()]);
 	}
 	
 	public void useAbility(ability uAbility){
@@ -108,7 +116,7 @@ public class Pokemon implements cardItem{
 	public int totalEnergyRequired(){
 		int totalEnergy = 0;
 		for(ability ablt : this.getAbilities()){
-			int temp = ((damageAbility) ablt).getEnergyInfo().length;
+			int temp = ((damageAbility) ablt).getEnergyInfo().size();
 			if(temp>totalEnergy){
 				totalEnergy = temp;
 			}
@@ -118,6 +126,8 @@ public class Pokemon implements cardItem{
 	
 	public void evolve(Pokemon basicCard){
 		this.pStage.evolve(basicCard);
+		for(ability a:basicCard.getActiveAbilities())
+			this.addActiveAbility(a);
 	}
 	
 	public boolean equals(Object o){
@@ -130,27 +140,66 @@ public class Pokemon implements cardItem{
 		return false;
 	}
 	
-	public static void main(String[] arg){
-		pokemonStage newPokemonStage = new stageOnePokemon("Pikachu");
-		pokemonStage newPokemon2Stage = new basicPokemon();
-		ArrayList<ability> newAbilities = new ArrayList<ability>();
-		Energy[] energyRequired = {new Energy("Lighting",6)};
-		newAbilities.add(new damageAbility("Thunder Bolt", 20, energyRequired, "Pokemon"));
-		Pokemon pikachu = new Pokemon(2, "Raichu", newPokemonStage, 80, newAbilities);
-		ability[] ability = pikachu.getAbilities();
-		
-		System.out.println(pikachu.getStage() +" "+ pikachu.getName() + " " + pikachu.getDamage() +" "+ ability[0].getClass().getName());
-		
-		Pokemon meow = new Pokemon(1, "Meow", newPokemon2Stage, 80, newAbilities); 
-		System.out.print(meow.getStage());
-	}
+//	public static void main(String[] arg){
+//		pokemonStage newPokemonStage = new stageOnePokemon("Pikachu");
+//		pokemonStage newPokemon2Stage = new basicPokemon();
+//		ArrayList<ability> newAbilities = new ArrayList<ability>();
+//		Energy[] energyRequired = {new Energy("Lighting",6)};
+//		newAbilities.add(new damageAbility("Thunder Bolt", 20, energyRequired, "Pokemon"));
+//		Pokemon pikachu = new Pokemon(2, "Raichu", newPokemonStage, 80, newAbilities);
+//		ability[] ability = pikachu.getAbilities();
+//		
+//		System.out.println(pikachu.getStage() +" "+ pikachu.getName() + " " + pikachu.getDamage() +" "+ ability[0].getClass().getName());
+//		
+//		Pokemon meow = new Pokemon(1, "Meow", newPokemon2Stage, 80, newAbilities); 
+//		System.out.print(meow.getStage());
+//	}
 
 	public int getHP() {
-		// TODO Auto-generated method stub
 		return this.hitpoints;
 	}
 
 	public String getBasePokemonName() {
 		return ((stageOnePokemon) this.pStage).getBasicPokemonName();
 	}
+
+	public void attachCard(cardItem[] cards) {
+		for(cardItem card: cards){
+			this.attachCard(card);
+		}		
+	}
+	
+	public void addObserver(PokemonCard newCard){
+		this.uiCard = newCard;
+	}
+	
+	public void removeAbility(ability newAbility){
+		this.activeAbilities.remove(newAbility);
+	}
+	
+	public void addActiveAbility(ability newAbility){
+		this.activeAbilities.add(newAbility);
+	}
+	
+	public ability[] getActiveAbilities(){
+		return this.activeAbilities.toArray(new ability[this.activeAbilities.size()]);
+	}
+	
+	public String getAbilityIndex(ability newAbility){
+		for(int i=0;i<this.activeAbilities.size();i++){
+			if(this.activeAbilities.get(i) == newAbility){
+				return Integer.toString(i);
+			}
+		}
+		return null;
+	}
+	
+//	public static void getTurnEndAbilities(Player player)
+//	{
+//		for( ability a: player.getActivePokemon().getActiveAbilities())
+//		{
+//			addAbilities.add(a);
+//			if()
+//		}
+//	}
 }

@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+
 
 public class UserPlayer extends Player {
 		
@@ -8,9 +8,8 @@ public class UserPlayer extends Player {
 		super(newName);
 		this.name = newName;
 		deck = new Deck(2);
-		((Deck) deck).buildDeck();
-//		((Deck) deck).buildDeckTest();
-		activeAbilities = new ArrayList<ability>();
+//		((Deck) deck).buildDeck();
+		((Deck) deck).buildDeckTest();
 	}
 		
 	public String getName() {

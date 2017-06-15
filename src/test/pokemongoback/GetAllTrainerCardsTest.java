@@ -25,7 +25,7 @@ public class GetAllTrainerCardsTest {
 		cardItem pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0, null);
 		cg.addCard(pokemon1);
 		
-		cardItem trainercard=new Trainer("Potion", 32, null);
+		cardItem trainercard=new Trainer(32,"Potion", null, null);
 		cg.addCard(trainercard);
 		
 		cardItem energycard=new Energy("Fight");

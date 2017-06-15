@@ -64,11 +64,11 @@ public class DettachCardTypeTests {
 		assertEquals(expected4,pk.getAttachedCardsCount());
 		
 		ability ability = null;
-		cardItem newCard5 = new Trainer("Misty's Determination", 22,ability);
-		cardItem newCard6 = new Trainer("Clemont",23 ,ability);
-		cardItem newCard7 = new Trainer("Potion", 24,ability);
-		cardItem newCard8 = new Trainer("Tierno", 25,ability);
-		cardItem newCard9 = new Trainer("Pokémon Center Lady", 26,ability);
+		cardItem newCard5 = new Trainer(22,"Misty's Determination", null,ability);
+		cardItem newCard6 = new Trainer(23,"Clemont",null ,ability);
+		cardItem newCard7 = new Trainer(24,"Potion", null,ability);
+		cardItem newCard8 = new Trainer(25,"Tierno", null,ability);
+		cardItem newCard9 = new Trainer(26,"Pokémon Center Lady", null,ability);
 		
 		pk.attachCard(newCard5);
 		pk.attachCard(newCard6);

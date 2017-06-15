@@ -20,7 +20,7 @@ public class AddCardTest {
 	@Test
 	public void addCardTest(){
 		
-		cardItem trainercard=new Trainer("Potion", 32, null);
+		cardItem trainercard=new Trainer(32,"Potion", null, null);
 		cardItem pokemon1=new Pokemon(80, "Pikachu", null, 0, null);
 	
 		ArrayList<cardItem> pokemoncard = new ArrayList<cardItem>();

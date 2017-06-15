@@ -22,8 +22,9 @@ public class Deck extends CardsGroup{
 	public void buildDeck(ArrayList<String[]> cardsList){
 		pokemonStage stage = new basicPokemon();
 		ArrayList<ability> newAbility = new ArrayList<ability>();
-		Energy[] EnergyInfo = {new Energy("Fighting")};
-		newAbility.add(new damageAbility("Attack", 10, EnergyInfo,"Pokemon"));
+		ArrayList<Energy> EnergyInfo = new ArrayList<Energy>();
+		EnergyInfo.add(new Energy("Fighting"));
+		newAbility.add(new damageAbility("Attack", 10, EnergyInfo, "opponentactive", null));
 		
 		int x = 1;
 		for(String[] cards : cardsList){
@@ -45,7 +46,7 @@ public class Deck extends CardsGroup{
 						}
 						break;
 					case "trainer":
-						this.getGroupCards().add(new Trainer(cards[0],x, new healingAbility("Heal pokemon",30)));
+						this.getGroupCards().add(new Trainer(x, cards[0], cards[3], new Search("Search pokemon", "you", "deck","pokemon","basic",2)));
 						break;
 					case "energy":
 						this.getGroupCards().add(new Energy(cards[0],x));
@@ -61,12 +62,15 @@ public class Deck extends CardsGroup{
 	/* Method for testing purpose only */
 	public void buildDeckTest(){
 		ArrayList<ability> newAbility = new ArrayList<ability>();
-		Energy[] EnergyInfo = {new Energy("Fighting")};
-		newAbility.add(new damageAbility("Attack", 10, EnergyInfo,"Pokemon"));
+		ArrayList<Energy> EnergyInfo = new ArrayList<Energy>();
+		EnergyInfo.add(new Energy("Fighting"));
+		newAbility.add(new damageAbility("Attack", 10, EnergyInfo,"opponentactive", null));
 		int j=0;
 		for(;j<18;j++){
 				this.getGroupCards().add(new Pokemon(j, "Pikachu", new basicPokemon(), 20, newAbility));
-				this.getGroupCards().add(new Trainer("Heal Trainer",j+18, new healingAbility("Heal pokemon",30)));
+
+				this.getGroupCards().add(new Trainer(j+18, "Heal Trainer", "item", new healingAbility("Heal pokemon",30,"youractive")));
+
 				this.getGroupCards().add(new Energy("Fighting Energy",j+36));
 		}
 		for(;j<60;j++){
@@ -80,7 +84,7 @@ public class Deck extends CardsGroup{
 	}
 	
 	public void shufflecards(){
-		//Collections.shuffle(this.getGroupCards());
+		Collections.shuffle(this.getGroupCards());
 		//Debug.showCard(this.getGroupCards().toArray(new cardItem[this.getGroupCards().size()]));
 	}
 	

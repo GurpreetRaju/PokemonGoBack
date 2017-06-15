@@ -9,7 +9,6 @@ public class Player {
 	protected cardItem deck;
 	protected cardItem inhand;
 	protected Pokemon activePokemon;
-	protected ArrayList<ability> activeAbilities;
 	protected boolean turn;
 	protected CardsGroup bench;
 	protected CardsGroup userDiscardPile;
@@ -22,7 +21,6 @@ public class Player {
 		this.name = name;
 		this.deck = new Deck(1);
 		((Deck) this.deck).buildDeck();
-		this.activeAbilities = new ArrayList<ability>();
 		this.inhand = new CardsGroup();
 		this.bench = new CardsGroup();
 		this.userDiscardPile = new CardsGroup();
@@ -74,30 +72,10 @@ public class Player {
 		return this.activePokemon;
 	}
 	
-	public ability[] getActiveAbilities(){
-		return this.activeAbilities.toArray(new ability[this.activeAbilities.size()]);
-	}
-	
-	public String getAbilityIndex(ability newAbility){
-		for(int i=0;i<this.activeAbilities.size();i++){
-			if(this.activeAbilities.get(i) == newAbility){
-				return Integer.toString(i);
-			}
-		}
-		return null;
-	}
-	
 	public Deck getDeck(){
 		return (Deck) this.deck;
 	}
 	
-	public void removeAbility(ability newAbility){
-		this.activeAbilities.remove(newAbility);
-	}
-	
-	public void addActiveAbility(ability newAbility){
-		this.activeAbilities.add(newAbility);
-	}
 		
 	public boolean getTurn(){
 		return this.turn;

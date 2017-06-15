@@ -57,20 +57,27 @@ public class Turn {
 			user.setTurn(false);
 			GameController.getInstance().dealCard("ai");
 			ai.setTurn(true);
-		}else{
+			//Pokemon.getTurnEndAbilities(ai);
+		}
+		else{
 			user.setTurn(true);
 			GameController.getInstance().dealCard("user");
-			ai.setTurn(false);			
+			ai.setTurn(false);		
+			//Pokemon.getTurnEndAbilities(user);
 		}
+		
 	}
 	
 	public Player getOpponent(){
-		if(user.getTurn()){
-			return ai;
+		if(user!=null){
+			if(user.getTurn()){
+				return ai;
+			}
+			else{
+				return user;
+			}
 		}
-		else{
-			return user;
-		}
+		return null;
 	}
 	
 	public boolean[] toss(){

@@ -1,16 +1,19 @@
 package model;
 
-public class damageAbility implements ability {
+import java.util.ArrayList;
+
+public class damageAbility extends ability {
 	private int damageValue;
-	private String name;
-	private Energy[] energyRequired;
-	private String target;
+	private String count;
+	private ArrayList<Energy> energyRequired;
 	
-	public damageAbility(String newName, int newDamage, Energy[] newEnergyInfo,String newTarget){
+	public damageAbility(String newName, int newDamage, ArrayList<Energy> newEnergyInfo, String newtarget, String count){
 		this.name = newName;
 		this.damageValue = newDamage;
 		this.energyRequired = newEnergyInfo;
-		this.target = newTarget;
+		this.abilitytarget = newtarget;
+		this.count = count; //damageValue = count*damageValue {count = opp active energy}
+		//dam:target:opponent-active:count(target:opponent-active:energy)*10 
 	}
 	
 	public void setDamage(int newDamage){
@@ -19,34 +22,27 @@ public class damageAbility implements ability {
 	
 	public void useAbility(){
 		//Debug.message("Attacking Opponent pokemon "+Turn.getInstance().getOpponent().getActivePokemon().getName());
-		if(Turn.getInstance().getOpponent().getActivePokemon()!=null){
-			Turn.getInstance().getOpponent().getActivePokemon().addDamage(this.damageValue);
+		Pokemon pk = (Pokemon) this.getTargetObject().getTarget();
+		if(pk!=null){
+			pk.addDamage(this.damageValue);
 		}
 		Turn.getInstance().changeTurn();
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
 	}
 	
 	public int getDamage(){
 		return this.damageValue;
 	}
 	
-	public Energy[] getEnergyInfo(){
+	public ArrayList<Energy> getEnergyInfo(){
 		return this.energyRequired;
-	}
-	public String getTarget(){
-		return target;
 	}
 	
 	public boolean equals(Object o){
-		damageAbility tempAbility = (damageAbility) o;
-		if(this.name == tempAbility.name){
-			return true;
+		if(o instanceof damageAbility){
+			if(this.name == ((damageAbility) o).name && this.damageValue == ((damageAbility) o).damageValue){
+				return true;
+			}
 		}		
 		return false;
-	}
-	
+	}	
 }

@@ -30,6 +30,7 @@ import model.Debug;
 import model.Energy;
 import model.Player;
 import model.Pokemon;
+import model.Trainer;
 import model.Turn;
 import model.UserPlayer;
 import model.ability;
@@ -140,7 +141,7 @@ public class GameController {
     	HBox tempLoc = pokemonCard.getLocation();
     	
     	if(tempLoc==userHand){
-    		if(pokemonCard.getCard().getStage()=="Basic"){
+    		if(pokemonCard.getCard().getStage()=="basic"){
     			if(userActivePokemon.getChildren().isEmpty()){
     				optionsList.add("Make active");
     			}
@@ -166,11 +167,9 @@ public class GameController {
     	}
     	else{
     		DialogBoxHandler dialog = new DialogBoxHandler();
-        	Optional<String> result = dialog.getDialog(optionsList);
-    		String selected = "cancelled.";
+    		String selected = dialog.getDialog(optionsList);
         		
-        	if (result.isPresent()) {
-        		selected = result.get();
+        	if (selected!=null) {
         		switch(selected){
         			case "Make active":
         				pokemonCard.setLayoutX(0);
@@ -256,7 +255,7 @@ public class GameController {
             			for(ability a : user.getActivePokemon().getAbilities()){
             				FlowPane temppane = new FlowPane();
             				RadioButton rb = new RadioButton(a.getName());
-            				if(!(user.getActivePokemon().getAttachedCardsCount()>=((damageAbility) a).getEnergyInfo().length)){
+            				if(!(user.getActivePokemon().getAttachedCardsCount()>=((damageAbility) a).getEnergyInfo().size())){
             					rb.setDisable(true);
             				}
             				rb.setUserData(a.getName());
@@ -305,7 +304,7 @@ public class GameController {
 	private GeneralCard createCard(cardItem card, HBox panel){
     	GeneralCard newCard = new GeneralCard(card);
     	
-    	if(panel == userHand || panel == userBench)
+    	if(panel == userHand)
     	{
     		newCard.addOptionsActionListener(new EventHandler<ActionEvent>() {
     			@Override 
@@ -313,98 +312,61 @@ public class GameController {
     				if(card instanceof Energy){
     					EnergyOptions(newCard);
     				}
-    				//trainerOptions(button, optionsList);
+    				else if(card instanceof Trainer){
+    					trainerOptions(newCard);
+    				}
     			}
-    	
     		});
     	}   	
     	return newCard;
     }
-    
-    @SuppressWarnings("unchecked")
-	private void EnergyOptions(GeneralCard newcard) {
-		ArrayList<String> optionsList = new ArrayList<String>();
-    	if(! userActivePokemon.getChildren().isEmpty())
-	    {
-    		optionsList.add("ActivePokemon");
-	    }
-    	if(! userBench.getChildren().isEmpty())
-    	{
-    		optionsList.add("BenchPokemon");
-    	}
-    	if(!optionsList.isEmpty()){
-    		List<String> dialogData = Arrays.asList(optionsList.toArray(new String[optionsList.size()]));
+   
 
-    		@SuppressWarnings({ "rawtypes" })
-    		Dialog dialog = new ChoiceDialog(dialogData.get(0), dialogData);
-    		dialog.setTitle("Select pokemon");
-    		dialog.setHeaderText("Select your choice");
-
-    		Optional<String> result = dialog.showAndWait();
-    		String selected = "cancelled.";
-    				
-    		if (result.isPresent()) {
-    		    selected = result.get();
-    		    if(selected=="ActivePokemon"){
-			    	
-			    	//Debug.message(((Label) button.getParent().lookup(".cardID")).getText().trim());
-			    		userHand.getChildren().remove(newcard);
-			    		((CardsGroup) user.getInhand()).removeCard(newcard.getCard());
-			    		user.getActivePokemon().attachCard(newcard.getCard());
-			    		//Debug.message(((Label) button.getParent().lookup(".cardID")).getText().trim());
-			    }
-			    else if(selected=="BenchPokemon")
-			    {
-			    	ArrayList<String> benchCards = new ArrayList<String>();
-			    	for(Node card : userBench.getChildren()){
-						PokemonCard tempCard = (PokemonCard) card;
-						int id = tempCard.getCard().getID();
-						Debug.message(id);
-						benchCards.add(String.valueOf(id));
-			    	}
-			    	List<String> benchData = Arrays.asList(benchCards.toArray(new String[benchCards.size()]));
-			    	
-					@SuppressWarnings({ "rawtypes" })
-					Dialog benchDialog = new ChoiceDialog(benchData.get(0), benchData);
-					benchDialog.setTitle("Select pokemon");
-					benchDialog.setHeaderText("Select your choice");
-
-					Optional<String> benchOp = benchDialog.showAndWait();
-					String select = "cancelled.";
-					if(benchOp.isPresent())
-					{
-						select = benchOp.get();
-						Debug.message(select);
-						Pokemon benchC = null;
-						for(cardItem pokemon: user.getBench().getCard())
-						{
-							if(pokemon.getID() == Integer.parseInt(select))
-							{
-								benchC = (Pokemon) pokemon;
-							}
-						}
-				    	
-			    		userHand.getChildren().remove(newcard);
-			    		((CardsGroup) user.getInhand()).removeCard(newcard.getCard());
-			    		benchC.attachCard(newcard.getCard());
-						
-					}
-			    }    
-    		}
-    	}
+	private void trainerOptions(GeneralCard newCard) {
+		ButtonType UseCard = new ButtonType("Use Card", ButtonBar.ButtonData.YES);
+        ButtonType Cancel = new ButtonType("Cancel", ButtonBar.ButtonData.NO);
+        Alert ts = new Alert(Alert.AlertType.INFORMATION,"Card Description",UseCard,Cancel);
+        ts.initStyle(StageStyle.UNDECORATED);
+        ts.setHeaderText(null);
+        ts.setX(475);
+        ts.setY(270);
+        Optional<ButtonType> result1 = ts.showAndWait();
+        if (result1.get().getButtonData() == ButtonBar.ButtonData.YES){
+        	((Trainer) newCard.getCard()).getAbility().useAbility();
+        }
+	}
+	
+	private void EnergyOptions(GeneralCard newcard){
+		Pokemon benchC = this.getHandandBenchPokemonsDialog(user);
+		userHand.getChildren().remove(newcard);
+		((CardsGroup) user.getInhand()).removeCard(newcard.getCard());
+		benchC.attachCard(newcard.getCard());
     }
         
-    public HBox getUserBench(){
-    	return this.userBench;
+    public HBox getBench(Player player){
+    	if(player instanceof UserPlayer){
+    		return this.userBench;
+    	}
+    	else{
+    		return this.AIBench;
+    	}
+    	
     }
-    public HBox getAIBench(){
-    	return this.AIBench;
-    }
-    public HBox getUserHand(){
-    	return this.userHand;
-    }
-    public HBox getAIHand(){
-    	return this.AIHand;
+    public HBox getactivepokemon(Player player){
+    	if(player instanceof UserPlayer){
+    		return this.userActivePokemon;
+    	}
+    	else{
+    		return this.aiActivePokemon;
+    	}
+    	}
+    public HBox getHand(Player player){
+    	if(player instanceof UserPlayer){
+        	return this.userHand;
+    	}
+    	else{
+    		return this.AIHand;
+    	}
     }
 
 	public void refreshCards(Player player) {
@@ -488,7 +450,7 @@ public class GameController {
 		ArrayList<PokemonCard> basicpokemons = new ArrayList<PokemonCard>();
 		if(!userActivePokemon.getChildren().isEmpty()){
 			PokemonCard tempCard = (PokemonCard) userActivePokemon.getChildren().get(0);
-			if(tempCard.getCard().getStage().equals("Basic")){
+			if(tempCard.getCard().getStage().equals("basic")){
 				if(tempCard.getCard().getName().equals(basicPname)){
 //					tempCard.evolve(card.getCard());
 					basicpokemons.add(tempCard);
@@ -497,7 +459,7 @@ public class GameController {
 		}
 		for(Node tempNode : userBench.getChildren()){
 			PokemonCard tempCard = (PokemonCard) tempNode;
-			if(tempCard.getCard().getStage().equals("Basic") && tempCard.getCard().getName().equals(basicPname)){
+			if(tempCard.getCard().getStage().equals("basic") && tempCard.getCard().getName().equals(basicPname)){
 				basicpokemons.add(tempCard);
 			}
 		}
@@ -508,11 +470,9 @@ public class GameController {
 		}
 		if(!optionsList.isEmpty()){
 			DialogBoxHandler dialog = new DialogBoxHandler();
-			Optional<String> result = dialog.getDialog(optionsList);
-			String selected = "cancelled.";
+			String selected = dialog.getDialog(optionsList);
 		
-			if (result.isPresent()) {
-				selected = result.get();
+			if (selected!=null) {
 				for(PokemonCard tempCard : basicpokemons){
 					if(tempCard.getCard().getID()==(Integer.parseInt(selected))){
 						return tempCard;
@@ -525,6 +485,7 @@ public class GameController {
 	
 	public void knockout(){
 		Player player = Turn.getInstance().getOpponent();
+		if(player!=null){
 		if(player instanceof UserPlayer){
 			PokemonCard card = (PokemonCard) userActivePokemon.getChildren().remove(0);
 			user.getDiscardPile().addCard(card.getCard());
@@ -534,11 +495,9 @@ public class GameController {
 					optionsList.add(Integer.toString(pCard.getID()));
 				}
 				DialogBoxHandler dialog = new DialogBoxHandler();
-				Optional<String> result = dialog.getDialog(optionsList);
-				String selected = "cancelled.";
+				String selected = dialog.getDialog(optionsList);
 			
-				if (result.isPresent()) {
-					selected = result.get();
+				if (selected!=null) {
 					for(Node nodeCard : userBench.getChildren()){
 						if(((PokemonCard) nodeCard).getCard().getID() == Integer.parseInt(selected)){
 							((PokemonCard) nodeCard).setLocation(userActivePokemon);
@@ -562,6 +521,7 @@ public class GameController {
 			else{
 				winOrLoss();
 			}
+		}
 		}
 	}
 	
@@ -597,7 +557,7 @@ public class GameController {
 		double maxWidth = screenBounds.getWidth();
 		double handHeight = maxHeight/8;
 		double boardAreaHeight = maxHeight-(2*handHeight);
-		double boardWidth = maxWidth - 200.0;
+		//double boardWidth = maxWidth - 200.0;
 		
 		gameStage.setPrefHeight(maxHeight);
 		gameStage.setPrefWidth(maxWidth);
@@ -617,6 +577,87 @@ public class GameController {
     	//aiDisc_deck.setLayoutX(gameBoard.getPrefWidth()/6);
     	//UIDisc_deck.setLayoutY(gameBoard.getPrefHeight()/2.5);
     	
+	}
+	
+	public Pokemon getHandandBenchPokemonsDialog(Player player){
+		HBox panelActive = null;
+		HBox panelBench = null;
+		if(player instanceof UserPlayer){
+			panelActive = userActivePokemon;
+			panelBench = userBench;
+		}
+		else{
+			panelActive = aiActivePokemon;
+			panelBench = AIBench;
+		}
+		ArrayList<String> optionsList = new ArrayList<String>();
+    	if(! panelActive.getChildren().isEmpty())
+	    {
+    		optionsList.add("ActivePokemon");
+	    }
+    	if(! panelBench.getChildren().isEmpty())
+    	{
+    		optionsList.add("BenchPokemon");
+    	}
+    	if(!optionsList.isEmpty()){
+    		DialogBoxHandler dBox = new DialogBoxHandler();
+    		String selected = dBox.getDialog(optionsList);
+    		
+    		if (selected!=null) {
+    		    if(selected=="ActivePokemon"){
+			    	return player.getActivePokemon();
+			    }
+			    else if(selected=="BenchPokemon")
+			    {
+			    	return this.getPanelPokemonDialog(player,"bench");
+			    }
+    		}
+    	}
+    	return null;
+	}
+	
+	
+	public Pokemon getPanelPokemonDialog(Player player,String panelOpt){
+		HBox panel = null;
+		if(player instanceof UserPlayer){
+			if(panelOpt.equals("bench")){
+				panel = userBench;
+			}
+			else{
+				panel = userHand;
+			}
+		}
+		else{
+			if(panelOpt.equals("bench")){
+				panel = AIBench;
+			}
+			else{
+				panel = AIHand;
+			}
+		}
+		ArrayList<String> benchCards = new ArrayList<String>();
+    	for(Node card : panel.getChildren()){
+			PokemonCard tempCard = (PokemonCard) card;
+			int id = tempCard.getCard().getID();
+			//Debug.message(id);
+			benchCards.add(String.valueOf(id));
+    	}
+    	DialogBoxHandler dBox = new DialogBoxHandler();
+		String select = dBox.getDialog(benchCards);
+
+		Pokemon benchC = null;
+		if(select!=null)
+		{
+			//Debug.message(select);
+			for(cardItem pokemon: player.getBench().getCard())
+			{
+				if(pokemon.getID() == Integer.parseInt(select))
+				{
+					benchC = (Pokemon) pokemon;
+				}
+			}
+		}
+		return benchC;
 	}
 	
 }
