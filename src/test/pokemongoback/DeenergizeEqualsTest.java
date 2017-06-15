@@ -15,7 +15,7 @@ public class DeenergizeEqualsTest {
 	
 	@Test
 	public void test() {
-		Deenergize o1=new Deenergize("Flash", "opponentActive", 10);
+		Deenergize o1=new Deenergize("Flash", "opponentActive", "10");
 		CardsGroup cg=new CardsGroup();
 		expected=false;
 		actual=o1.equals(cg);
@@ -24,7 +24,7 @@ public class DeenergizeEqualsTest {
 	
 	@Test
 	public void test1() {
-		Deenergize o2=new Deenergize("Flash", "opponentActive", 10);
+		Deenergize o2=new Deenergize("Flash", "opponentActive", "10");
 		actual=o2.equals(o2);
 		expected=true;
 		assertEquals(expected,actual);
