@@ -24,16 +24,15 @@ public class condAbility extends ability{
 	 */
 	private String condition;
 	private ability ability1, ability2, conditionAbility;
-	private ArrayList<Energy> EnergyInfo;
 	
-	public condAbility(String name, String condition, ability newConditionAbility, ability newAbility1, ability newAbility2)
+	public condAbility(String name, String condition, ability newConditionAbility, ability newAbility1, ability newAbility2, ArrayList<Energy> energyInfo)
 	{
 		this.name = name;
 		this.condition = condition;
 		this.ability1 = newAbility1;
 		this.ability2 = newAbility2;
 		this.conditionAbility = newConditionAbility;
-		//this.EnergyInfo = EnergyInfo;
+		this.energyRequired = energyInfo;
 	}
 	
 	@SuppressWarnings("unused")
