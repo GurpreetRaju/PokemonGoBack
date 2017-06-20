@@ -4,23 +4,19 @@ public class Redamage extends ability{
 
 	private int amount;
 	private String targetSource;
-	private String source;
-	private String destination;
 	
-	public Redamage(String name, String newTargetSource,String newSource, String newTargetDestination,String newDestination, int newAmount){
+	public Redamage(String name, String newTargetSource,String newTargetDestination, int newAmount){
 		this.name = name;
 		this.targetSource = newTargetSource;
-		this.source = newSource;
 		this.abilitytarget = newTargetDestination;
-		this.destination = newDestination;
 		this.amount = newAmount;
 	}
 	
 	
 	public void useAbility() {
 		
-		Pokemon pSource = (Pokemon) this.getTargetLocation(source, targetSource);
-		Pokemon pDestination = (Pokemon) this.getTargetLocation(destination, this.abilitytarget);
+		Pokemon pSource = (Pokemon) target.getTargetObject(targetSource).getTarget();
+		Pokemon pDestination = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
 		
 		pDestination.addDamage(pSource.getDamage()*amount);
 		

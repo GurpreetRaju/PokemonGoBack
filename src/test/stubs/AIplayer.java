@@ -1,8 +1,16 @@
-package model;
+package test.stubs;
 
 import java.util.ArrayList;
 
 import controller.GameController;
+import model.Debug;
+import model.Deck;
+import model.Energy;
+import model.Player;
+import model.Turn;
+import model.ability;
+import model.cardItem;
+import model.damageAbility;
 
 public class AIplayer extends Player {
 	
@@ -41,9 +49,9 @@ public class AIplayer extends Player {
 		if(cards.size()!=0){
 			if(bench.getGroupCards().size()<5){
 				Pokemon card2 = cards.remove(0);
-				bench.addCard(card2);
+			//	bench.addCard(card2);
 				Debug.message("Card added to bench: "+ card2.getName());
-				((CardsGroup) this.inhand).removeCard(card2);
+			//	((CardsGroup) this.inhand).removeCard(card2);
 				updateGUI();
 			}
 		}
@@ -117,10 +125,10 @@ public class AIplayer extends Player {
 		ArrayList<Pokemon> cards = ((CardsGroup) this.inhand).getAllBasicPokemonCard();
 		if(this.activePokemon==null){
 			if(!this.bench.getGroupCards().isEmpty()){
-				this.activePokemon = (Pokemon) this.bench.getGroupCards().get(0);
+		//		this.activePokemon = (Pokemon) this.bench.getGroupCards().get(0);
 			}
 			else if(cards.size()!=0){
-				this.activePokemon = cards.remove(0);
+		//		this.activePokemon = cards.remove(0);
 				((CardsGroup) this.inhand).removeCard(this.activePokemon);
 				Debug.message("Active pokemon set: "+this.activePokemon.getName());
 				updateGUI();
@@ -136,3 +144,4 @@ public class AIplayer extends Player {
 	}
 	
 }
+

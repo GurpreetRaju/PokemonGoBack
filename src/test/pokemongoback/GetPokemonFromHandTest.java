@@ -30,6 +30,8 @@ public class GetPokemonFromHandTest {
 	public void test1() {
 		
 		cardItem[] card=p1.dealMultipleCards(4);
+		//because the first four cards in the deck are not of pokemon type
+		//hence the function returns null
 		
 		expected= null;
 		actual=p1.getPokemonFromHand();
