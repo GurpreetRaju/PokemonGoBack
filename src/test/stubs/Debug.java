@@ -1,6 +1,6 @@
 package test.stubs;
 
-import model.cardItem;
+import test.stubs.cardItem;
 
 public class Debug {
 	public static void message(String message){

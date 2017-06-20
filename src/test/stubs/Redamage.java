@@ -1,7 +1,7 @@
 package test.stubs;
 
-import model.Pokemon;
-import model.ability;
+import test.stubs.Pokemon;
+import test.stubs.ability;
 
 public class Redamage extends ability{
 

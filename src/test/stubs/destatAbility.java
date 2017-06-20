@@ -1,8 +1,6 @@
 package test.stubs;
 
-import model.Pokemon;
-import model.ability;
-import model.target;
+import test.stubs.*;
 
 public class destatAbility extends ability {
 	

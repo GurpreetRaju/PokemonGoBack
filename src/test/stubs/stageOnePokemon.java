@@ -1,7 +1,6 @@
 package test.stubs;
 
-import model.Pokemon;
-import model.pokemonStage;
+import test.stubs.*;
 
 public class stageOnePokemon extends pokemonStage{
 	private String stage = "stage-one";

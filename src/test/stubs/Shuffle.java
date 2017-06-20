@@ -1,8 +1,6 @@
 package test.stubs;
 
-import model.Deck;
-import model.ability;
-import model.target;
+import test.stubs.*;
 
 public class Shuffle extends ability{
 	

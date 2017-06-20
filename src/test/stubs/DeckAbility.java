@@ -1,10 +1,6 @@
 package test.stubs;
 
-import controller.GameController;
-import model.CardsGroup;
-import model.ability;
-import model.cardItem;
-import model.target;
+import test.stubs.*;
 
 public class DeckAbility extends ability {
 

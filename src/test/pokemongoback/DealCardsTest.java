@@ -4,7 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import test.stubs.*;
+import model.Player;
+import model.Trainer;
+import model.cardItem;
+
+
 
 public class DealCardsTest {
 	String expected;

@@ -2,9 +2,9 @@ package test.stubs;
 
 import java.util.ArrayList;
 
-import model.Energy;
-import model.Turn;
-import model.ability;
+import test.stubs.Energy;
+import test.stubs.Turn;
+import test.stubs.ability;
 
 public class damageAbility extends ability {
 	private int damageValue;

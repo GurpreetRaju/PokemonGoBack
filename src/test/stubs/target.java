@@ -1,7 +1,6 @@
 package test.stubs;
 
-import controller.GameController;
-import model.Turn;
+import test.stubs.*;
 
 public enum target {
 	

@@ -2,12 +2,12 @@ package test.stubs;
 
 import java.util.ArrayList;
 
-import model.Energy;
+import test.stubs.Energy;
 import test.stubs.Pokemon;
 import test.stubs.Trainer;
-import model.cardItem;
+import test.stubs.cardItem;
 
-public class CardsGroup {
+public class CardsGroup implements cardItem {
 	
 	private ArrayList<cardItem> groupCards = new ArrayList<cardItem>();
 	

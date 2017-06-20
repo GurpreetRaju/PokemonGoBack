@@ -3,9 +3,11 @@ package test.stubs;
 import java.util.ArrayList;
 
 import controller.GameController;
-import model.ability;
+import model.CardsGroup;
+import model.Player;
 import model.cardItem;
 import model.target;
+import test.stubs.*;
 import view.DialogBoxHandler;
 
 public class Search extends ability{
@@ -61,10 +63,12 @@ public class Search extends ability{
 			DialogBoxHandler dbox = new DialogBoxHandler();
 			dbox.setOptionList(cards);
 			int id = Integer.parseInt(dbox.getDialog());
-			CardsGroup hand = (CardsGroup) ((Player) target.getTargetObject(abilitytarget).getTarget()).getInhand();
-			hand.addCard(source.getCard(id));
-			//GameController.getInstance().addCardToPanel(source.getCard(id), GameController.getInstance().getHand((Player) target.getTargetObject(abilitytarget).getTarget()));
-			source.removeCard(source.getCard(id));
+			CardsGroup hand = (CardsGroup) ((Player) target.getTargetObject(this.abilitytarget).getTarget()).getInhand();
+			cardItem tempcard = source.getCard(id);
+			hand.addCard(tempcard);
+			GameController.getInstance().addCardToPanel(source.getCard(id), GameController.getInstance().getHand((Player) target.getTargetObject(abilitytarget).getTarget()));
+			source.removeCard(tempcard);
+			cards.remove(tempcard);
 		}
 		
 	}
