@@ -45,9 +45,6 @@ public class Search extends ability{
 					break;
 				case "evolvesfrom":
 					String pokemonName = ((Pokemon) target.getTargetObject("choiceyour").getTarget()).getName();
-					//Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
-					//at model.Search.useAbility(Search.java:47)
-					//at controller.GameController.trainerOptions(GameController.java:337)
 					for(Pokemon pk :source.getAllPokemonCard("stage-one")){
 						if(pk.getBasePokemonName().equals(pokemonName)){
 							cards.add(pk);

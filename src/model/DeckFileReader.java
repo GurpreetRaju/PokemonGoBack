@@ -12,7 +12,7 @@ public class DeckFileReader {
 	private String deck2file = "resources/deck2.txt";
 	private String cardsfile = "resources/cards.txt";
 	private String abilityfile = "resources/abilities.txt";
-	private String abilityR[] = new String[74];
+	protected String abilityR[] = new String[74];
 	private ArrayList<String[]> deck = new ArrayList<String[]>();
 	
 	public DeckFileReader (int i){

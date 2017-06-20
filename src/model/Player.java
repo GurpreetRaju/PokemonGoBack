@@ -103,7 +103,13 @@ public class Player {
 	
 	public static void main(String arg[]){
 		Player newPlayer = new Player("Flash");
-		Debug.showCard(newPlayer.dealCard());
+		Debug.showCard(newPlayer.dealMultipleCards(7));
+		Debug.message(((CardsGroup) newPlayer.getInhand()).getAllBasicPokemonCard().get(0).getName());
+		for(ability a : ((CardsGroup) newPlayer.getInhand()).getAllBasicPokemonCard().get(0).getAbilities()){
+			Debug.message(a.getName());
+			Debug.message(((damageAbility) a).getEnergyInfo().size());
+		}
+		
 	}
 
 	public CardsGroup getBench(){
@@ -111,5 +117,9 @@ public class Player {
 	}	
 	public CardsGroup getDiscardPile(){
 		return this.userDiscardPile;
+	}
+
+	public String getName() {
+		return this.name;
 	}
 }

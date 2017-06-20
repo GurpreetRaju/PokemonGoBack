@@ -44,7 +44,7 @@ public class Turn {
 	}
 	
 	public Player getCurrentPlayer(){
-		if(!user.getTurn()){
+		if(ai.getTurn()){
 			return ai;
 		}
 		else{

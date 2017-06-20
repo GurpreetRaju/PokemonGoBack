@@ -13,14 +13,18 @@ public class GetAbilityIndexTest {
 	public void test() {
 		Pokemon p1=new Pokemon(0, null, null, 0, null);
 		healingAbility h1=new healingAbility("healing", 0, null);
-		swapAbility s1=new swapAbility("swap", null, null);
+		swapAbility s1=new swapAbility(actual, actual, actual);
 		Search s2=new Search("search", null, null, null, null, 0);
+
+		//Deenergize d1=new Deenergize("deenergize", null, 0);
+
 		Deenergize d1=new Deenergize("deenergize", null, null);
+
 		
 		p1.addActiveAbility(h1);
 		p1.addActiveAbility(s1);
 		p1.addActiveAbility(s2);
-		p1.addActiveAbility(d1);
+	//	p1.addActiveAbility(d1);
 		
 		expected="1";
 		actual=p1.getAbilityIndex(s1);

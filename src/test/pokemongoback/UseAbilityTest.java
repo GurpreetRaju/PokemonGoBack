@@ -1,16 +1,26 @@
 package test.pokemongoback;
+import model.healingAbility;
+import model.pokemonStage;
+import model.swapAbility;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Test;
 import model.AIplayer;
+
+import model.Deenergize;
+
 import model.CardsGroup;
+
 import model.Energy;
-import model.Player;
 import model.Pokemon;
+
+import model.Reenergize;
+
 import model.Redamage;
 import model.Reenergize;
 import model.Shuffle;
+
 import model.Turn;
 import model.UserPlayer;
 import model.ability;
@@ -29,11 +39,40 @@ import model.DeckAbility;
 
 public class UseAbilityTest {
 	
-	
+
 	@Test
 	public void damageTestAndReDamage() {
 		
 		// it will check for damage 
+
+		
+		UserPlayer player= new UserPlayer("john");
+	
+		pokemonStage basic=new basicPokemon();
+		 ArrayList<ability> newAbilities=new ArrayList<ability>();
+		Pokemon rh = new Pokemon(1, "Raichu", basic, 60, newAbilities);
+		//UserPlayer opposite= new UserPlayer("Sam");
+		player.setActivePokemon(rh);
+		//String activepk = "Pikachu";
+		String target="Raichu";
+		ArrayList<Energy> newEnergyInfo = null;
+		String count = null;
+		System.out.println(rh.getDamage());
+		ability ablt = new damageAbility("Pikachu", 10, newEnergyInfo , target, count);
+		ablt.useAbility();
+		//pk.useAbility(ablt);
+		//rh.addDamage(10);
+		
+		System.out.println(rh.getDamage());
+
+
+		
+	}
+	
+	
+	  @Test
+	  public void test5() {
+
 		UserPlayer player= new UserPlayer("john");
 	    player.setTurn(true);
 	    AIplayer ai = new AIplayer("Me");
@@ -59,6 +98,7 @@ public class UseAbilityTest {
 
 	
 	  @Test
+
 	
 	public void swapTest() {
 		
@@ -89,11 +129,15 @@ public class UseAbilityTest {
 			
 	  }
 
+		
+
+	
 	  @Test
 		
 		public void healTest() {
 			
 			// it will check for healing ability
+
 		    UserPlayer player= new UserPlayer("john");
 		    player.setTurn(true);
 		    Turn.getInstance().setPlayer(new AIplayer("Me"), player);
@@ -111,22 +155,56 @@ public class UseAbilityTest {
 
 		
 		
+
 	  @Test
 		
 		public void deenergizeAndReenergizeTest() {
 			
 			// it will check for deenergize and reenergize 
-		    UserPlayer player= new UserPlayer("john");
+		  UserPlayer player= new UserPlayer("john");
+		//  cardItem card= new Pokemon(2, "Pikachu", basic, 80, newAbilities);
+		   ArrayList<ability> newAbilities=new ArrayList<ability>();
+					pokemonStage basic=new basicPokemon();
+		  Pokemon pk=new Pokemon(2, "Pikachu", basic, 80, newAbilities);
+			player.setActivePokemon(pk);
+			
+			
+		//	Pokemon rh = new Pokemon(1, "Raichu", basic, 60, newAbilities);
+			
+			String activepk = "Pikachu";
+			String target="Raichu";
+			System.out.println(pk.totalEnergyRequired());
+			ability ablt = new Deenergize("john", target, "1");
+			pk.addActiveAbility(ablt);
+			pk.useAbility(ablt);
+			System.out.println(pk.totalEnergyRequired());
+			//ability ablt = new Deenergize("john", target, 10);
+			
+			//rh.addDamage(10);
+			assertEquals(0, pk.totalEnergyRequired());
+			ability ablty = new Reenergize("john", target, activepk, 1);
+			pk.useAbility(ablty);
+			System.out.println(pk.totalEnergyRequired());
+			
+			assertEquals(1, pk.totalEnergyRequired());
+		
+
+
+
+		    UserPlayer player1= new UserPlayer("john");
 		    player.setTurn(true);
 		    Turn.getInstance().setPlayer(new AIplayer("Me"), player);
-		    ArrayList<ability> newAbilities=new ArrayList<ability>();
-			pokemonStage basic=new basicPokemon();
-			Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);			
-			player.setActivePokemon(pk);
+		    ArrayList<ability> newAbilities1=new ArrayList<ability>();
+			pokemonStage basic2=new basicPokemon();
+			Pokemon pk2 = new Pokemon(2, "Pikachu", basic2, 80, newAbilities1);			
+			player.setActivePokemon(pk2);
 			String newEnergy = null;
 			cardItem card= new Energy(newEnergy);
 		    
 			pk.attachCard(card);
+
+		
+
 			System.out.println("energy cards before deenerggize---"+pk.getAttachedCardsCount());
 		    
 			ability ablt4 = new Deenergize("Deenergize", "youractive","1");

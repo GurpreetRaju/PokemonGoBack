@@ -11,9 +11,20 @@ public class Deenergize extends ability{
 	}
 	
 	public void useAbility() {
-		Pokemon pk = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
+		Pokemon pk = (Pokemon) target.getTargetObject(this.abilitytarget).getTarget();
+		int value = 0; 
+		if(this.amount.equals("youractive energy")){
+			value = pk.getAttachedCardsCount(Energy.class);
+		}
+		else{
+			value = Integer.valueOf(this.amount);
+		}
+		cardItem[] discardedEnergy = null;
 		if(pk!=null){
-			pk.dettachCardType(Energy.class, Integer.valueOf(this.amount));
+			discardedEnergy = pk.dettachCardType(Energy.class, value);
+		}
+		if(discardedEnergy!=null){
+			target.getTargetObject(abilitytarget).getPlayer().getDiscardPile().addCards(discardedEnergy);;
 		}
 	}
 	

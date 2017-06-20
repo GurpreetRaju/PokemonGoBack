@@ -1,4 +1,4 @@
-package model;
+package test.stubs;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
