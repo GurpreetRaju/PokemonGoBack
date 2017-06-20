@@ -27,7 +27,7 @@ public class TotalEnergyRequiredTest {
 	@Test
 	public void test1() {
 		// tests if energy required is 0
-		//System.out.println(pk.totalEnergyRequired());
+	
 		assertTrue(pk.totalEnergyRequired()==0);
 		
 	}
@@ -40,12 +40,11 @@ public class TotalEnergyRequiredTest {
 			
 			
 			pk.attachCard(rk);
-			rk.getAbilities();
-				for(ability ablt : rk.getAbilities())
-				System.out.println(((damageAbility) ablt).getEnergyInfo());
+			//rk.getAbilities();
+		
 				
-				System.out.println(rk.totalEnergyRequired());
-				//pk.totalEnergyRequired();
+			System.out.println("22"+rk.totalEnergyRequired());
+			
 				
 			
 			
