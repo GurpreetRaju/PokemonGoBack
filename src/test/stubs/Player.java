@@ -2,8 +2,7 @@ package test.stubs;
 
 import java.util.ArrayList;
 
-import model.Debug;
-import model.cardItem;
+import test.stubs.*;
 
 public class Player {
 	

@@ -1,7 +1,6 @@
 package test.stubs;
 
-import model.Pokemon;
-import model.ability;
+import test.stubs.*;
 
 public class healingAbility extends ability {
 	

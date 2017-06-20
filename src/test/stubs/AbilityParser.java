@@ -182,7 +182,7 @@ public class AbilityParser {
 				source = "choiceopponent";
 				destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
 				count = a_join.contains("count") ? "opponentdamage": a_join.substring(indexOf("\\d", a_join)-1);
-				abilityo = new Redamage(name, source, destination, count);
+				abilityo = new Redamage(name, source, destination, count, a_join, 0);
 				break;
 			case "reenergize":
 				source = "choiceyour";
@@ -203,7 +203,7 @@ public class AbilityParser {
 				break;
 			case "destat":
 				target = "choiceyour";
-				abilityo = new destatAbility(name, target);
+				abilityo = new destatAbility(name);
 				break;
 			case "heal":
 				if(a[2].equalsIgnoreCase("choice"))

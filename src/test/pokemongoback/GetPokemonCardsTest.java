@@ -35,7 +35,7 @@ public class GetPokemonCardsTest {
 		cg.addCard(energycard);
 		
 		expected= (Pokemon) pokemon1;
-		actual=(cg.getAllPokemonCard("Basic")).get(0);
+		actual=(cg.getAllPokemonCard("basic")).get(0);
 		
 		assertEquals(expected,actual);
 	}

@@ -1,9 +1,6 @@
 package test.stubs;
 
-import model.Energy;
-import model.Pokemon;
-import model.ability;
-import model.target;
+import test.stubs.*;
 
 public class Deenergize extends ability{
 

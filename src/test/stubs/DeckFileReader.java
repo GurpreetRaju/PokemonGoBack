@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.*;
 
-import model.ability;
+import test.stubs.ability;
 
 public class DeckFileReader {
 	private String deck1file = "resources/deck1.txt";

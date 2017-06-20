@@ -1,14 +1,13 @@
 package test.stubs;
 
-import model.Deck;
-import model.Player;
+import test.stubs.*;
 
 public class UserPlayer extends Player {
 		
 	public UserPlayer(String newName){
 		super(newName);
 		this.name = newName;
-		deck = new Deck(2);
+		deck = (cardItem) new Deck(2);
 //		((Deck) deck).buildDeck();
 		((Deck) deck).buildDeckTest();
 	}

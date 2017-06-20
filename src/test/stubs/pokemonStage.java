@@ -1,6 +1,6 @@
 package test.stubs;
 
-import model.Pokemon;
+import test.stubs.Pokemon;
 
 public abstract class pokemonStage {
 	public abstract String getStage();

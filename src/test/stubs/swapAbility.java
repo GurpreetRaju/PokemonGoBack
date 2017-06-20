@@ -9,11 +9,8 @@ import model.target;
 import controller.GameController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
-import model.Turn;
-import model.UserPlayer;
-import model.ability;
-import model.cardItem;
-import model.target;
+
+import test.stubs.*;
 
 
 
