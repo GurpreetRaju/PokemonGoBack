@@ -4,7 +4,7 @@ public class Add extends ability{
 
 	//add:target:your:trigger:opponent:turn-end:(heal:target:self:20)
 	
-	private String trigger, triggerCondition;
+	private String trigger;
 	ability addAbility;
 	
 	public Add(String name, String target, String trigger, String triggerCondition, ability addAbility)

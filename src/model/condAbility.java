@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class condAbility extends ability{
 
@@ -21,39 +22,96 @@ public class condAbility extends ability{
 		cond:choice:shuffle:target:opponent
 		cond:flip:heal:target:your-active:10
 	 */
-	private UserPlayer user;
-	private String condition, ability;
+	private String condition;
+	private ability ability1, ability2, conditionAbility;
 	private ArrayList<Energy> EnergyInfo;
 	
-	public condAbility(String name, String condition, String ability, ArrayList<Energy> EnergyInfo)
+	public condAbility(String name, String condition, ability newConditionAbility, ability newAbility1, ability newAbility2)
 	{
 		this.name = name;
 		this.condition = condition;
-		this.ability = ability;
-		this.EnergyInfo = EnergyInfo;
+		this.ability1 = newAbility1;
+		this.ability2 = newAbility2;
+		this.conditionAbility = newConditionAbility;
+		//this.EnergyInfo = EnergyInfo;
 	}
 	
+	@SuppressWarnings("unused")
 	public void useAbility() {
-		AbilityParser ap = new AbilityParser();
-		if(condition.equals("flip"))
-		{
-			ap.getAbility(name, ability.split(" "), EnergyInfo);
-		}
-		else if(condition.equals("choice"))
-		{
-			
-		}
-		else if(condition.equals("ability"))
-		{
-			
-		}
-		else if(condition.equals("count"))
-		{
-			
-		}
-		else if(condition.equals("healed"))
-		{
-			
+		switch(condition){
+			case "flip":
+				Random random = new Random();
+	            int number = random.nextInt(2);
+	            if(number == 0){
+	            	//this.ability1.useAbility();
+	            	if(this.ability1 instanceof CompositeAbility){
+	            		for(ability a:((CompositeAbility) this.ability1).getAbilities()){
+	            			Debug.message(a.getClass().getSimpleName());
+	            		}
+	            	}
+	            	else{
+		            	Debug.message(this.ability1.getClass().getSimpleName());	
+	            	}
+	            }
+	            else{
+	            	if(this.ability2!=null){
+	            		Debug.message("else "+this.ability2.getClass().getSimpleName());
+	            		//this.ability2.useAbility();
+	            	}
+	            }
+	            break;
+			case "choice":
+				if(true){
+	            	//this.ability1.useAbility();
+	            	Debug.message(this.ability1.getClass().getSimpleName());
+	            }
+	            else{
+	            	if(this.ability2!=null){
+	            		Debug.message(this.ability2.getClass().getSimpleName());
+	            		//this.ability2.useAbility();
+	            	}
+	            }
+				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
+				break;
+			case "ability":
+				if(this.conditionAbility!=null){
+	            	//this.ability1.useAbility();
+	            	Debug.message(this.ability1.getClass().getName());
+	            }
+	            else{
+	            	if(this.ability2!=null){
+	            		Debug.message(this.ability2.getClass().getName());
+	            		//this.ability2.useAbility();
+	            	}
+	            }
+				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
+				break;
+			case "count":
+				if(this.ability2==null){
+	            	//this.ability1.useAbility();
+	            	Debug.message(this.ability1.getClass().getName() + condition +" Test");
+	            }
+	            else{
+	            	if(this.ability2!=null){
+	            		Debug.message(this.ability2.getClass().getName());
+	            		//this.ability2.useAbility();
+	            	}
+	            }
+				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
+				break;
+			case "healed":
+				if(this.ability2!=null){
+	            	//this.ability1.useAbility();
+	            	Debug.message(this.ability1.getClass().getName());
+	            }
+	            else{
+	            	if(this.ability2!=null){
+	            		Debug.message(this.ability2.getClass().getName());
+	            		//this.ability2.useAbility();
+	            	}
+	            }
+				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
+				break;
 		}
 	}
 	

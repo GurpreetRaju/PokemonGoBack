@@ -293,6 +293,7 @@ public class GameController {
             				for(ability b: user.getActivePokemon().getAbilities()){
             					if(b.getName()==result2.get()){
             						b.useAbility();
+            						Debug.message("Adding Damage to "+ai.getActivePokemon().getName() +" "+ai.getActivePokemon().getDamage());
             						aiDamage.setText(Integer.toString(ai.getActivePokemon().getDamage()));
             					}
         		    		}
@@ -335,6 +336,7 @@ public class GameController {
         Optional<ButtonType> result1 = ts.showAndWait();
         if (result1.get().getButtonData() == ButtonBar.ButtonData.YES){
         	((Trainer) newCard.getCard()).getAbility().useAbility();
+        	
         }
 	}
 	
@@ -519,9 +521,6 @@ public class GameController {
 		else{
 			if(ai.getBench().getCard().length != 0){
 				PokemonCard card = (PokemonCard) aiActivePokemon.getChildren().remove(0);
-				//Exception in thread "JavaFX Application Thread" java.lang.ClassCastException:
-				//javafx.scene.layout.FlowPane cannot be cast to view.PokemonCard
-				//error on knockout
 				ai.getDiscardPile().addCard(card.getCard());
 				ai.activePokemonMove();
 			}
