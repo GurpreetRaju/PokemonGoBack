@@ -102,9 +102,9 @@ public class GameController {
     	}
     }
     
-    public void removeCard(String id, HBox panel){
+    public void removeCard(cardItem card, HBox panel){
     	for(Node node: panel.getChildren()){
-    		if(node.getStyleClass().contains(id)){
+    		if(node.getStyleClass().contains(card)){
     			panel.getChildren().remove(node);
     		}
     	}

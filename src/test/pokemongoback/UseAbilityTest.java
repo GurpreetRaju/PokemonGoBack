@@ -2,7 +2,6 @@ package test.pokemongoback;
 import model.healingAbility;
 import model.pokemonStage;
 import model.swapAbility;
-
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Test;
@@ -36,42 +35,12 @@ import model.damageAbility;
 import model.destatAbility;
 import model.DeckAbility;
 
-
 public class UseAbilityTest {
 	
-
 	@Test
 	public void damageTestAndReDamage() {
 		
-		// it will check for damage 
-
-		
-		UserPlayer player= new UserPlayer("john");
-	
-		pokemonStage basic=new basicPokemon();
-		 ArrayList<ability> newAbilities=new ArrayList<ability>();
-		Pokemon rh = new Pokemon(1, "Raichu", basic, 60, newAbilities);
-		//UserPlayer opposite= new UserPlayer("Sam");
-		player.setActivePokemon(rh);
-		//String activepk = "Pikachu";
-		String target="Raichu";
-		ArrayList<Energy> newEnergyInfo = null;
-		String count = null;
-		System.out.println(rh.getDamage());
-		ability ablt = new damageAbility("Pikachu", 10, newEnergyInfo , target, count);
-		ablt.useAbility();
-		//pk.useAbility(ablt);
-		//rh.addDamage(10);
-		
-		System.out.println(rh.getDamage());
-
-
-		
-	}
-	
-	
-	  @Test
-	  public void test5() {
+		// it will check for damage and redamage
 
 		UserPlayer player= new UserPlayer("john");
 	    player.setTurn(true);
@@ -99,7 +68,6 @@ public class UseAbilityTest {
 	
 	  @Test
 
-	
 	public void swapTest() {
 		
 		// it will check for swap 
@@ -129,8 +97,6 @@ public class UseAbilityTest {
 			
 	  }
 
-		
-
 	
 	  @Test
 		
@@ -153,8 +119,6 @@ public class UseAbilityTest {
 			
 		}
 
-		
-		
 
 	  @Test
 		
