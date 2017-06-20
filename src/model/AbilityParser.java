@@ -67,7 +67,6 @@ public class AbilityParser {
 					String a = sub.get(i);
 					if(a.contains("(") && !a.contains(")"))
 					{
-					
 						a = sub.get(i) + "," + sub.get(i+1);
 						sub.remove(i+1);
 					}
@@ -135,7 +134,24 @@ public class AbilityParser {
 				condition = a[1];
 				condAbility = a_join.substring(a_join.indexOf(a[1]));		
 				ability[] abilities = conditionAbilityParser(condAbility,condition);
-				
+				if(condition.contains("count(")){
+					Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(condAbility);
+					String temp = null;
+				    while(m.find()) {
+				       temp = m.group(1);    
+				    }
+				    String temp2 = null;
+				    m = Pattern.compile("\\)([^\\d]+)\\d").matcher(condAbility);
+				    while(m.find()){
+				    	temp2= m.group(1);
+				    }
+				    temp = temp + " " + temp2;
+				    m = Pattern.compile(temp2+"([^\\s]+)\\s").matcher(condAbility);
+				    while(m.find()){
+				    	temp2 = m.group(1);
+				    }
+				    condition = condition + temp+" "+temp2;					
+				}
 				abilityo = new condAbility(name, condition, abilities[2], abilities[0], abilities[1]);
 				//abilityo = new Search("Search pokemon", "you", "deck","pokemon","basic",2);
 				break;
@@ -212,7 +228,7 @@ public class AbilityParser {
 			case "deenergize":
 				//deenergize:target:your-active:count(target:your-active:energy)
 				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));
-				count = a_join.contains("count") ? "youractive energy" : String.valueOf(a_join.charAt(indexOf("\\d", a_join)));
+				count = a_join.contains("count") ? "youractive energy" : a_join.substring(indexOf("\\d", a_join)-1);
 				abilityo = new Deenergize(name, target, count);
 				break;
 			case "applystat":
@@ -282,23 +298,13 @@ public class AbilityParser {
 		if(abilityCondition!=null){
 			abilities[2] = this.parseAbility(abilityCondition);
 		}
-		if(condAbility.contains(",") && condAbility.contains("(") && condAbility.contains(")")){
-		    Matcher m = Pattern.compile("\\(([^,]+)\\,").matcher(condAbility);
-			String temp = null;
-		    while(m.find()) {
-		       temp = m.group(1);    
-		    }
-		    String temp2 = null;
-		    Debug.message(temp);
-		    m = Pattern.compile("\\,([^)]+)\\)").matcher(condAbility);
-		    while(m.find()){
-		    	temp2= m.group(1);
-		    }
-		    condAbility = temp+","+temp2;
-		    Debug.message(condAbility);
-		}
+		if(condAbility.contains("(")){
+			//condAbility = condAbility.substring(condAbility.indexOf("(")+1,condAbility.indexOf(")")-1);
+			condAbility = condAbility.replace("(", "");
+			condAbility = condAbility.replace(")", "");
+		}		
 		abilities[0] = this.parseAbility(condAbility);
-		Debug.message(abilities[0].getName());
+		//Debug.message(abilities[0].getName());
 		
 		return abilities;
 	}
@@ -310,7 +316,7 @@ public class AbilityParser {
 		cond:flip:dam:target:opponent-active:30
 		cond:flip:applystat:status:paralyzed:opponent-active
 		cond:flip:dam:target:opponent-active:10
-		cond:flip:deenergize:target:opponent-active:1***
+		cond:flip:deenergize:target:opponent-active:1
 		cond:flip:dam:target:opponent-active:30
 		cond:flip:deenergize:target:opponent-active:1
 		cond:flip:dam:target:opponent-active:20
@@ -320,16 +326,14 @@ public class AbilityParser {
 		cond:flip:dam:target:opponent-active:30:else:dam:target:your-active:30
 		cond:flip:(applystat:status:asleep:opponent-active,applystat:status:poisoned:opponent-active)
 		cond:healed:target:your-active:dam:target:opponent-active:80
-		cond:count(target:your-active:energy:psychic)>0:dam:target:opponent-active:20***
+		cond:count(target:your-active:energy:psychic)>0:dam:target:opponent-active:20
 		cond:ability:deck:destination:discard:target:choice:you:1:(search:target:you:source:deck:filter:top:8:1,shuffle:target:you)
 		cond:choice:shuffle:target:opponent
+		cond:ability:deenergize:target:your-active:1:(search:target:your:source:discard:filter:cat:item:1)
 	 */
-		String a = "cond:choice:shuffle:target:opponent";
+		String a = "cond:count(target:your-active:energy:psychic)>0:dam:target:opponent-active:20";
 		a = a.replace(":", " ");
 		String array[] = a.replace("-", "").split(" ");
-		for(String s: array){
-			Debug.message(s+"*");
-		}
 		ability abilt = ap.getAbility("ConditionAbilityTest", array, energyinfo);
 		abilt.useAbility();
 		Debug.message("End");
