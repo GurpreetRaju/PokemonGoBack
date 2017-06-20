@@ -1,10 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
 public abstract class ability {
 	
 	protected String name;
 	protected String abilitytarget;
 	protected String triggerCondition;
+	protected ArrayList<Energy> energyRequired;
 	
 	public String getName(){
 		return this.name;
@@ -30,6 +33,9 @@ public abstract class ability {
 			default:
 				return null;
 		}
+	}
+	public ArrayList<Energy> getEnergyInfo(){
+		return this.energyRequired;
 	}
 	
 	public abstract boolean equals(Object o);
