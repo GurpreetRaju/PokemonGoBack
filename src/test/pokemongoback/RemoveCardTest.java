@@ -30,11 +30,11 @@ public class RemoveCardTest {
 		ArrayList<ability> newAbilities1=new ArrayList<ability>();
 		pokemonStage basic=new basicPokemon();
 
-		cardItem card= new Pokemon(4, "Pikachu",  basic, 80, newAbilities1);
+		Pokemon card= new Pokemon(4, "Pikachu",  basic, 80, newAbilities1);
 		
 		GameController.getInstance().addCardToPanel(card, panel);
 		System.out.println("before removing it should be 1---"+panel.getChildren().get(0));
-		GameController.getInstance().removeCard(card,panel);
+		GameController.getInstance().removeCard("Pikachu",panel);
 		System.out.println("after removing it should be 0---"+panel.getChildren().get(0));
 		Node actual = panel.getChildren().get(0);
 		//assertEquals(expected,actual);
