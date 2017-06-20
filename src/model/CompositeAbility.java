@@ -22,6 +22,10 @@ public class CompositeAbility extends ability{
 		this.abilities.remove(newAbility);
 	}
 	
+	public ability[] getAbilities(){
+		return this.abilities.toArray(new ability[this.abilities.size()]);
+	}
+	
 	public  ArrayList<ability> get(){
 		return this.abilities;
 	}

@@ -4,9 +4,14 @@ public abstract class ability {
 	
 	protected String name;
 	protected String abilitytarget;
+	protected String triggerCondition;
 	
 	public String getName(){
 		return this.name;
+	}
+	
+	public String getTriggerCondition(){
+		return this.triggerCondition;
 	}
 	
 	public target getTargetObject(){

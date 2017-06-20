@@ -57,13 +57,15 @@ public class Turn {
 			user.setTurn(false);
 			GameController.getInstance().dealCard("ai");
 			ai.setTurn(true);
-			//Pokemon.getTurnEndAbilities(ai);
+			if(ai.getActivePokemon() !=null && user.getActivePokemon() !=null)
+				Pokemon.getTurnEndAbilities(ai);
 		}
 		else{
 			user.setTurn(true);
 			GameController.getInstance().dealCard("user");
 			ai.setTurn(false);		
-			//Pokemon.getTurnEndAbilities(user);
+			if(ai.getActivePokemon() !=null && user.getActivePokemon() !=null)
+				Pokemon.getTurnEndAbilities(user);
 		}
 		
 	}

@@ -17,7 +17,6 @@ public class Pokemon implements cardItem{
 	private String status = "normal";
 	private ArrayList<cardItem> attachedCards;
 	private ArrayList<ability> activeAbilities;
-	private static ArrayList<ability> turnendAbilities; //trigger abilities
 	private PokemonCard uiCard;
 	
 	public Pokemon(int newId, String name, pokemonStage newPokemonStage, int newHp, ArrayList<ability> newAbilities){
@@ -134,7 +133,7 @@ public class Pokemon implements cardItem{
 	
 	public void evolve(Pokemon basicCard){
 		this.pStage.evolve(basicCard);
-		if(basicCard.getActiveAbilities()!=null){
+		if(basicCard.getActiveAbilities().length != 0){
 			for(ability a:basicCard.getActiveAbilities()){
 				this.addActiveAbility(a);
 			}
@@ -207,11 +206,16 @@ public class Pokemon implements cardItem{
 	
 	public static void getTurnEndAbilities(Player player)
 	{
-		for( ability a: player.getActivePokemon().getActiveAbilities())
+		if(player.getActivePokemon().getActiveAbilities().length != 0)
 		{
-			//if ability id turnend then
-			turnendAbilities.add(a);
-			
+			for( ability a: player.getActivePokemon().getActiveAbilities())
+			{
+				Debug.message("get turnend abiltites");
+				if(a.getTriggerCondition() == "turnend")
+				{
+					a.useAbility();	
+				}
+			}
 		}
 	}
 
