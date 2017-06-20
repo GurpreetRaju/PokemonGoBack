@@ -38,7 +38,23 @@ public class condAbility extends ability{
 	
 	@SuppressWarnings("unused")
 	public void useAbility() {
-		switch(condition){
+		Debug.message("Hello");
+    	
+		if(condition.contains("count")){
+			if(this.ability2==null){
+            	//this.ability1.useAbility();
+				Debug.message(this.ability1.getClass().getName() + condition +" Test");
+            }
+            else{
+            	if(this.ability2!=null){
+            		Debug.message(this.ability2.getClass().getName());
+            		//this.ability2.useAbility();
+            	}
+            }
+			Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
+		}
+		else{
+			switch(condition){
 			case "flip":
 				Random random = new Random();
 	            int number = random.nextInt(2);
@@ -86,19 +102,6 @@ public class condAbility extends ability{
 	            }
 				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
 				break;
-			case "count":
-				if(this.ability2==null){
-	            	//this.ability1.useAbility();
-	            	Debug.message(this.ability1.getClass().getName() + condition +" Test");
-	            }
-	            else{
-	            	if(this.ability2!=null){
-	            		Debug.message(this.ability2.getClass().getName());
-	            		//this.ability2.useAbility();
-	            	}
-	            }
-				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
-				break;
 			case "healed":
 				if(this.ability2!=null){
 	            	//this.ability1.useAbility();
@@ -112,6 +115,7 @@ public class condAbility extends ability{
 	            }
 				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
 				break;
+			}
 		}
 	}
 	
