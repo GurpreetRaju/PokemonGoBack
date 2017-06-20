@@ -16,8 +16,6 @@ import model.pokemonStage;
 
 public class DettachCardTypeTests {
 
-	
-		
 		
 		ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage basic=new basicPokemon();
@@ -28,9 +26,9 @@ public class DettachCardTypeTests {
 		public void test1() {
 		// test if  card have 0 attached energy card,then detach 1 card
 				// result should be 0.
-		int expected=0;
+		int expected1=0;
 		pk.dettachCardType(Energy.class, 1);
-		assertEquals(expected,pk.getAttachedCardsCount());
+		assertEquals(expected1,pk.getAttachedCardsCount());
 		}
 		
 		@Test
@@ -52,6 +50,9 @@ public class DettachCardTypeTests {
 		// result should be 4.
 		int expected2=4;
 		pk.dettachCardType(Energy.class, 1);
+		
+		
+		System.out.println("Energy ==4"+pk.getAttachedCardsCount());
 		assertEquals(expected2,pk.getAttachedCardsCount());
 		}
 		
@@ -95,6 +96,7 @@ public class DettachCardTypeTests {
 				// result should be 4
 		int expected5=4;
 		pk.dettachCardType(Trainer.class, 1);
+		System.out.println("Trainer ==4"+pk.getAttachedCardsCount());
 		assertEquals(expected5,pk.getAttachedCardsCount());
 		}
 		
