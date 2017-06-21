@@ -1,17 +1,15 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AbilityParser {
 
-	private String abilityName, target, destination, drawCards, status, energyinfo, abilityparse, amount ;
+	private String abilityName, target, destination, drawCards, status, amount ;
 	private String damage, condition, condAbility, trigger, triggerCond, source, filter, filterCat, count, choice;
 
 	ability addAbility = null;
-	ArrayList<Energy> EnergyInfo = new ArrayList<Energy>();;
 
 	public int indexOf(String pattern, String s) {
 		Pattern patternString = Pattern.compile(pattern);
@@ -19,36 +17,15 @@ public class AbilityParser {
 	    return matcher.find() ? matcher.end() : -1;
 	}
 
-	public ability parseAbilities(String ablty)
-	{
+	public ability parseAbilities(String ablty, ArrayList<Energy> energyInfo){
 		//parse abilities.txt			
-
-//		for(String ablty: abilityR)
-//		{
-//		String[] abilityvar = ablty.split("\\s+");
-//		switch(abilityvar.length){
-//		case 1:
-//			energyinfo = null;
-//			abilityparse = abilityvar[0];
-//		case 3:
-//			 energyinfo = abilityvar[0] + " " + abilityvar[1];
-//			 abilityparse = abilityvar[2];
-//			 break;
-//		case 5:
-//			energyinfo = abilityvar[0] + " " + abilityvar[1] + " " + abilityvar[2] + " " + abilityvar[3];
-//			 abilityparse = abilityvar[4];
-//			 break;
-//		}
-//			abilityName = abilityparse.substring(0, abilityparse.indexOf(":"));
-//			String abilityElement = abilityparse.replace(":", " ").substring(abilityparse.indexOf(":")+1);
-
-			abilityName = ablty.substring(0, ablty.indexOf(":"));
-			String abilityElement = ablty.replace(":", " ").substring(ablty.indexOf(":")+1);
-					return parseAbility(abilityElement);
-		}
+		abilityName = ablty.substring(0, ablty.indexOf(":"));
+		String abilityElement = ablty.replace(":", " ").substring(ablty.indexOf(":")+1);
+		return parseAbility(abilityElement, energyInfo);
+	}
 			
 			//}
-		public ability parseAbility(String abilityElement){
+		public ability parseAbility(String abilityElement, ArrayList<Energy> energyInfo){
 			abilityElement = abilityElement.replace("(", " (");
 			ability ability = null;
 			ArrayList<String> sub = new ArrayList<String>();
@@ -61,7 +38,7 @@ public class AbilityParser {
 				//composite ability do here
 					//Debug.message(a);
 				}
-				ability compositeAbility = new CompositeAbility();
+				ability compositeAbility = new CompositeAbility(abilityName);
 				for(int i=0; i<sub.size();i++)
 				{
 					String a = sub.get(i);
@@ -72,22 +49,17 @@ public class AbilityParser {
 					}
 					if(sub.size()>1){
 						String array[] = a.replace("-", "").split(" ");
-						((CompositeAbility) compositeAbility).add(getAbility(abilityName, array,EnergyInfo));
+						((CompositeAbility) compositeAbility).add(getAbility(abilityName, array,energyInfo));
 					// add composite ability here and then add composite ability to abilities arraylist.
 					}
 					else{
 						String array[] = a.replace("-", "").split(" ");
 						//Debug.message("Normal ability: " +abilityName);
-						ability = (getAbility(abilityName, array, EnergyInfo));
+						ability = (getAbility(abilityName, array, energyInfo));
 					}
 					
 				}
 				if(((CompositeAbility) compositeAbility).size()!=0){
-					int i = 0;
-					for(ability a: ((CompositeAbility) compositeAbility).get()){
-						//Debug.message("Composite - "+i+" Ability "+ a.getName());
-						i++;
-					}
 					ability = compositeAbility;
 				}
 				
@@ -96,7 +68,7 @@ public class AbilityParser {
 			else{
 				//String[] a = abilitytest;
 					String array[] = abilityElement.replace("-", "").split(" ");
-					ability = getAbility(abilityName, array,EnergyInfo);
+					ability = getAbility(abilityName, array,energyInfo);
 					//change type void to ability of get ability and return ability.
 					//add the return object to the ability arraylist.
 			}
@@ -105,14 +77,7 @@ public class AbilityParser {
 		}
 
 	
-	public void getEnergy(String energytype, String energynumber){
-		for(int e =0; e < Integer.valueOf(energynumber);e++){
-			//Debug.message(energytype);
-			EnergyInfo.add(new Energy(energytype));
-		}
-	}
-	
-	public ability getAbility(String name,String[] a, ArrayList<Energy> energyinfo)
+	public ability getAbility(String name,String[] a, ArrayList<Energy> energyInfo)
 	{
 		String a_join = String.join(" ", a);
 
@@ -128,31 +93,38 @@ public class AbilityParser {
 				{
 					count = a_join.substring(indexOf("\\(target ", a_join), a_join.indexOf(")", indexOf("\\(target ", a_join)));
 				}
-				abilityo = new damageAbility(name, Integer.valueOf(damage), energyinfo, target, count);
+				abilityo = new damageAbility(name, Integer.valueOf(damage), energyInfo, target, count);
 				break;
 			case "cond":
 				condition = a[1];
-				condAbility = a_join.substring(a_join.indexOf(a[1]));		
-				ability[] abilities = conditionAbilityParser(condAbility,condition);
-				if(condition.contains("count(")){
-					Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(condAbility);
+				condAbility = a_join.substring(a_join.indexOf(a[1]));
+				//Debug.message(condAbility);
+				ability[] abilities = conditionAbilityParser(condAbility,condition, energyInfo);
+				if(condition.contains("count")){
+					//Debug.message(a_join);
+					Matcher m = Pattern.compile("count\\s+\\(target\\s([^)]+)\\)([^\\d]+)([^\\s]+)\\s").matcher(a_join);
 					String temp = null;
-				    while(m.find()) {
-				       temp = m.group(1);    
+					String temp2 = null;
+				    String temp3 = null;
+					while(m.find()) {
+				       temp = m.group(1);
+				       temp2= m.group(2);
+				       temp3 = m.group(3);
 				    }
-				    String temp2 = null;
-				    m = Pattern.compile("\\)([^\\d]+)\\d").matcher(condAbility);
-				    while(m.find()){
-				    	temp2= m.group(1);
-				    }
-				    temp = temp + " " + temp2;
-				    m = Pattern.compile(temp2+"([^\\s]+)\\s").matcher(condAbility);
-				    while(m.find()){
-				    	temp2 = m.group(1);
-				    }
-				    condition = condition + temp+" "+temp2;					
+				    condition = condition + " " + temp + " " + temp2 + " " +temp3;	
+				    //Debug.message(condition);
 				}
-				abilityo = new condAbility(name, condition, abilities[2], abilities[0], abilities[1],energyinfo);
+				else if(condition.contains("healed")){
+					//Debug.message(a_join);
+					Matcher m = Pattern.compile("healed\\starget\\s([^\\s]+)\\s").matcher(a_join);
+					String temp = null;
+					while(m.find()) {
+				       temp = m.group(1);
+				    }
+				    condition = condition + " " + temp;
+				   //Debug.message(condition);
+				}
+				abilityo = new condAbility(name, condition, abilities[2], abilities[0], abilities[1],energyInfo);
 				//abilityo = new Search("Search pokemon", "you", "deck","pokemon","basic",2);
 				break;
 			case "swap":
@@ -180,7 +152,7 @@ public class AbilityParser {
 				drawCards = String.valueOf(indexOf("\\d", a_join));
 				// drawCards empty in 1st 2 cases
 				choice = a_join.contains("count") ? a_join.substring(a_join.indexOf("count ("), a_join.indexOf(" ", a_join.indexOf("count ("))).replace(" ", "").replace("-",  "") : "null";
-				abilityo = new DeckAbility(name, target, destination,Integer.valueOf(drawCards), choice);
+				abilityo = new DeckAbility(name, target, destination,Integer.valueOf(drawCards), choice, energyInfo);
 				break;
 			case "search":
 				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));	
@@ -258,7 +230,7 @@ public class AbilityParser {
 				trigger = a[4];
 				triggerCond = a[5];
 				//add:target:your:trigger:opponent:turn-end:(heal:target:self:20)
-				addAbility = getAbility(name, a[6].replace("(", "").concat(" " + a[7]).concat(" " + a[8]).concat(" "+ a[9]).split(" "), EnergyInfo);
+				addAbility = getAbility(name, a[6].replace("(", "").concat(" " + a[7]).concat(" " + a[8]).concat(" "+ a[9]).split(" "), energyInfo);
 				abilityo = new Add(name, target, trigger, triggerCond, addAbility);
 				break;
 			case "shuffle":
@@ -268,7 +240,7 @@ public class AbilityParser {
 		return abilityo;
 	}
 
-	private ability[] conditionAbilityParser(String condAbility, String newCondition) {
+	private ability[] conditionAbilityParser(String condAbility, String newCondition, ArrayList<Energy> energyInfo) {
 		ability[] abilities = new ability[3];
 		if(newCondition.contains("count")){
 			newCondition = "count";
@@ -282,7 +254,7 @@ public class AbilityParser {
 				condAbility = condAbility.substring(nthIndexOf(condAbility, ' ', 3)+1);
 				break;
 			case "count":
-				condAbility = condAbility.substring(nthIndexOf(condAbility, ' ', 4)+1);
+				condAbility = condAbility.substring(nthIndexOf(condAbility, ' ', 5)+1);
 				break;	
 			case "ability":
 				abilityCondition = condAbility.substring(0,condAbility.indexOf("(")-1);
@@ -291,54 +263,25 @@ public class AbilityParser {
 				//condAbility = condAbility.substring(condAbility.indexOf("(")+1, condAbility.indexOf(")")-1);
 				break;
 		}
+		//Debug.message(condAbility);
 		if(condAbility.contains("else")){
-			abilities[1] = this.parseAbility(condAbility.substring(condAbility.indexOf("else")+5));
+			abilities[1] = this.parseAbility(condAbility.substring(condAbility.indexOf("else")+5),energyInfo);
 			condAbility = condAbility.substring(0,condAbility.indexOf("else")-2);
 		}
 		if(abilityCondition!=null){
-			abilities[2] = this.parseAbility(abilityCondition);
+			abilities[2] = this.parseAbility(abilityCondition, energyInfo);
 		}
 		if(condAbility.contains("(")){
 			//condAbility = condAbility.substring(condAbility.indexOf("(")+1,condAbility.indexOf(")")-1);
 			condAbility = condAbility.replace("(", "");
 			condAbility = condAbility.replace(")", "");
 		}		
-		abilities[0] = this.parseAbility(condAbility);
+		abilities[0] = this.parseAbility(condAbility, energyInfo);
 		//Debug.message(abilities[0].getName());
 		
 		return abilities;
 	}
 
-	public static void main(String[] arg){
-		AbilityParser ap = new AbilityParser();
-		ArrayList<Energy> energyinfo = null;
-		/*
-		cond:flip:dam:target:opponent-active:30
-		cond:flip:applystat:status:paralyzed:opponent-active
-		cond:flip:dam:target:opponent-active:10
-		cond:flip:deenergize:target:opponent-active:1
-		cond:flip:dam:target:opponent-active:30
-		cond:flip:deenergize:target:opponent-active:1
-		cond:flip:dam:target:opponent-active:20
-		cond:flip:heal:target:your-active:10
-		cond:flip:dam:target:opponent-active:10
-		cond:flip:dam:target:opponent-active:40:else:applystat:status:paralyzed:opponent-active
-		cond:flip:dam:target:opponent-active:30:else:dam:target:your-active:30
-		cond:flip:(applystat:status:asleep:opponent-active,applystat:status:poisoned:opponent-active)
-		cond:healed:target:your-active:dam:target:opponent-active:80
-		cond:count(target:your-active:energy:psychic)>0:dam:target:opponent-active:20
-		cond:ability:deck:destination:discard:target:choice:you:1:(search:target:you:source:deck:filter:top:8:1,shuffle:target:you)
-		cond:choice:shuffle:target:opponent
-		cond:ability:deenergize:target:your-active:1:(search:target:your:source:discard:filter:cat:item:1)
-	 */
-		String a = "cond:count(target:your-active:energy:psychic)>0:dam:target:opponent-active:20";
-		a = a.replace(":", " ");
-		String array[] = a.replace("-", "").split(" ");
-		ability abilt = ap.getAbility("ConditionAbilityTest", array, energyinfo);
-		abilt.useAbility();
-		Debug.message("End");
-	}
-	
 	public static int nthIndexOf(String text, char needle, int n){
 	    for (int i = 0; i < text.length(); i++){
 	        if (text.charAt(i) == needle) {

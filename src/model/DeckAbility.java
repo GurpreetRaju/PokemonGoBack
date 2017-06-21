@@ -1,6 +1,6 @@
 package model;
 
-import controller.GameController;
+import java.util.ArrayList;
 
 public class DeckAbility extends ability {
 
@@ -8,12 +8,13 @@ public class DeckAbility extends ability {
 	private int amount;
 	private String choice;
 	
-	public DeckAbility(String newName, String newTarget, String newTargetDestination, int newAmount, String newChoice){
+	public DeckAbility(String newName, String newTarget, String newTargetDestination, int newAmount, String newChoice, ArrayList<Energy> newEnergyInfo){
 		this.name = newName;
 		this.abilitytarget = newTarget;
 		this.targetDestination = newTargetDestination;
 		this.amount = newAmount;
 		this.choice = newChoice; //count = yourhand, opponenthand
+		this.energyRequired = newEnergyInfo;
 	}
 	
 	public void useAbility() {

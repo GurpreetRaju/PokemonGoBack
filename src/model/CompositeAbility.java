@@ -10,7 +10,8 @@ public class CompositeAbility extends ability{
 		this.abilities = newAbility;
 	}
 	
-	public CompositeAbility() {
+	public CompositeAbility(String abilityName) {
+		this.name = abilityName;
 		this.abilities = new ArrayList<ability>();
 	}
 
