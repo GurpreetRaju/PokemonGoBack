@@ -44,7 +44,7 @@ public class GameController {
 	@FXML private static GameController controller;
 	private UserPlayer user;
 	private AIplayer ai;
-	
+	private boolean[] turn;
 
 	@FXML private ScrollPane userScrollPane;
 	@FXML private HBox userBench;
@@ -60,6 +60,7 @@ public class GameController {
 	@FXML private Pane gameStage;
 	@FXML private BorderPane gameBoard;
 	@FXML private VBox btndn_rew,aiDisc_deck,AIReward,UIDisc_deck;
+	
 	private GameController(){
 	}
 	
@@ -70,9 +71,11 @@ public class GameController {
         return controller;
     }
 	
+	public void toss(){
+		turn = Turn.getInstance().toss();
+	}
+	
  	public void init(){
-		
- 		boolean[] turn = Turn.getInstance().toss();
 		user = new UserPlayer("Flash");
 		ai = new AIplayer("Future Flash");
 		UserEndTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -232,7 +235,7 @@ public class GameController {
         				if(card!=null){
         					card.evolve(pokemonCard.getCard());
         					userHand.getChildren().remove(pokemonCard);
-        					user.evolve(pokemonCard.getCard(), pokemonCard.getBasicCard());
+        					user.evolve(card.getCard(), card.getBasicCard());
         				}
         				else{
         					Debug.message("No pokemon found");
@@ -255,8 +258,9 @@ public class GameController {
             			for(ability a : user.getActivePokemon().getAbilities()){
             				FlowPane temppane = new FlowPane();
             				RadioButton rb = new RadioButton(a.getName());
+            				rb.setUserData(a.getName());
             				
-            				if(a instanceof damageAbility && !(user.getActivePokemon().getAttachedCardsCount()>=((damageAbility) a).getEnergyInfo().size())){
+            				if(user.getActivePokemon().getAttachedCardsCount() >= a.getEnergyInfo().size()){
             					rb.setDisable(true);
             				}
             				rb.setUserData(a.getName());
@@ -269,7 +273,7 @@ public class GameController {
             			abilitiesDialog.getDialogPane().setContent(grid);
             			abilitiesDialog.getResult();
             			abilitiesDialog.setResultConverter(dialogButton -> {
-            				if (dialogButton == attackButton) {
+            				if (dialogButton == attackButton){
             					return group.getSelectedToggle().getUserData().toString();
             				}
             				return null;

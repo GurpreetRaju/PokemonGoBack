@@ -3,6 +3,7 @@ package test.stubs;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import test.stubs.*;
 
 public class AbilityParser {
 
@@ -121,7 +122,7 @@ public class AbilityParser {
 				//Debug.message(condAbility);
 				break;
 			case "swap":
-				abilityo = (new swapAbility(name, a[2], a[5]));
+				abilityo =new swapAbility(name, a[2], a[5]);
 				break;
 			case "draw":
 				if(a.length == 3)

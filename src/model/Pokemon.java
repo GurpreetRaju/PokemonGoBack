@@ -133,8 +133,8 @@ public class Pokemon implements cardItem{
 	
 	public void evolve(Pokemon basicCard){
 		this.pStage.evolve(basicCard);
-		if(basicCard.getActiveAbilities().length != 0){
-			for(ability a:basicCard.getActiveAbilities()){
+		if(basicCard.getActiveAbilities()!=null && !basicCard.getActiveAbilities().isEmpty()){
+			for(ability a : basicCard.getActiveAbilities()){
 				this.addActiveAbility(a);
 			}
 		}
@@ -191,8 +191,8 @@ public class Pokemon implements cardItem{
 		this.activeAbilities.add(newAbility);
 	}
 	
-	public ability[] getActiveAbilities(){
-		return this.activeAbilities.toArray(new ability[this.activeAbilities.size()]);
+	public ArrayList<ability> getActiveAbilities(){
+		return this.activeAbilities;
 	}
 	
 	public String getAbilityIndex(ability newAbility){
@@ -206,7 +206,7 @@ public class Pokemon implements cardItem{
 	
 	public static void getTurnEndAbilities(Player player)
 	{
-		if(player.getActivePokemon().getActiveAbilities().length != 0)
+		if(player.getActivePokemon().getActiveAbilities().size() != 0)
 		{
 			for( ability a: player.getActivePokemon().getActiveAbilities())
 			{

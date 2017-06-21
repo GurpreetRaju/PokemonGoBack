@@ -99,6 +99,7 @@ public class PokemonCard extends FlowPane{
 	public void evolve(Pokemon stageOne){
 		Pokemon tempcard = this.card;
 		this.card = stageOne;
+		this.baseCard = tempcard;
 		this.evolved = true;
 		init();
 	}

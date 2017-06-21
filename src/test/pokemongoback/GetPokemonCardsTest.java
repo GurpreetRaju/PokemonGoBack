@@ -9,9 +9,13 @@ import org.junit.Test;
 import model.CardsGroup;
 import model.Energy;
 import model.Pokemon;
+import model.Search;
 import model.Trainer;
+import model.ability;
 import model.basicPokemon;
 import model.cardItem;
+import model.healingAbility;
+import model.swapAbility;
 
 public class GetPokemonCardsTest {
 
@@ -21,9 +25,20 @@ public class GetPokemonCardsTest {
 	
 	@Test
 	public void test() {
+		ArrayList<ability> abilities = new ArrayList<ability>();
+		
+		Pokemon p1=new Pokemon(0, null, null, 0, abilities);
+		healingAbility h1=new healingAbility("healing", 0, null);
+		swapAbility s1=new swapAbility("swap", "Pikachu", "Raichu");
+		Search s2=new Search("search", null, null, null, null, 0);
+		
+		abilities.add(h1);
+		abilities.add(s1);
+		abilities.add(s2);
 		
 		
-		cardItem pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0, null);
+		
+		cardItem pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0, abilities);
 		cg.addCard(pokemon1);
 		
 		cardItem trainercard=new Trainer(32,"Potion", null, null);
