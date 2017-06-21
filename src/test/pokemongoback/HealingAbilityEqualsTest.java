@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import model.CardsGroup;
-import model.Deenergize;
+import test.stubs.CardsGroup;
+//import model.Deenergize;
 import model.healingAbility;
 
 public class HealingAbilityEqualsTest {
