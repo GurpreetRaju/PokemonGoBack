@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import model.Pokemon;
-import model.cardItem;
+import test.stubs.*;
 
 public class GetBasicPokemonCardTest {
 

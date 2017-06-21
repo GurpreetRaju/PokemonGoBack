@@ -2,10 +2,11 @@ package model;
 
 public class Redamage extends ability{
 
-	private int amount;
+	private String amount;
 	private String targetSource;
+	private int count;
 	
-	public Redamage(String name, String newTargetSource,String newTargetDestination, int newAmount){
+	public Redamage(String name, String newTargetSource,String newTargetDestination, String newAmount){
 		this.name = name;
 		this.targetSource = newTargetSource;
 		this.abilitytarget = newTargetDestination;
@@ -17,8 +18,8 @@ public class Redamage extends ability{
 		
 		Pokemon pSource = (Pokemon) target.getTargetObject(targetSource).getTarget();
 		Pokemon pDestination = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
-		
-		pDestination.addDamage(pSource.getDamage()*amount);
+		//distribute count to different pokemons
+		pDestination.addDamage(pSource.getDamage()*count);
 		
 	}
 	

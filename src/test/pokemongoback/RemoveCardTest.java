@@ -15,9 +15,12 @@ public class RemoveCardTest {
 	HBox panel;
 	
 	@Test
-	public void TestRemoveCard(){
+	public void test(){
 		Node expected = null;
 		GameController.getInstance().addCardsToPanel(null, panel);
+		System.out.println(panel.getChildren().get(0));
+		GameController.getInstance().removeCard(null,panel);
+		System.out.println(panel.getChildren().get(0));
 		Node actual = panel.getChildren().get(0);
 		assertEquals(expected,actual);
 	}

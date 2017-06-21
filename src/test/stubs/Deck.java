@@ -3,17 +3,7 @@ package test.stubs;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import model.Debug;
-import model.DeckFileReader;
-import model.Energy;
-import model.Search;
-import model.ability;
-import model.basicPokemon;
-import model.cardItem;
-import model.damageAbility;
-import model.healingAbility;
-import model.pokemonStage;
-import model.stageOnePokemon;
+import test.stubs.*;
 
 public class Deck extends CardsGroup{
 	

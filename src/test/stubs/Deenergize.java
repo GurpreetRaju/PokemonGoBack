@@ -1,15 +1,12 @@
 package test.stubs;
 
-import model.Energy;
-import model.Pokemon;
-import model.ability;
-import model.target;
+import test.stubs.*;
 
 public class Deenergize extends ability{
 
-	private int amount;
+	private String amount;
 	
-	public Deenergize(String newName, String newTarget, int newAmount){
+	public Deenergize(String newName, String newTarget, String newAmount){
 		this.name = newName;
 		this.abilitytarget = newTarget;
 		this.amount = newAmount;
@@ -18,18 +15,18 @@ public class Deenergize extends ability{
 	public void useAbility() {
 		Pokemon pk = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
 		if(pk!=null){
-			pk.dettachCardType(Energy.class, this.amount);
+			pk.dettachCardType(Energy.class, Integer.valueOf(this.amount));
 		}
 	}
 	
 	public int getAmount(){
-		return this.amount;
+		return Integer.valueOf(this.amount);
 	}
 	
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof Deenergize){
-			if(((Deenergize) o).getName().equals(name) && ((Deenergize) o).getAmount() == this.amount)
+			if(((Deenergize) o).getName().equals(name) && ((Deenergize) o).getAmount() == Integer.valueOf(this.amount))
 				return true;
 		}
 		return false;

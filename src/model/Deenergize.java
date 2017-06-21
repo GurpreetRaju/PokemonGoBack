@@ -2,29 +2,40 @@ package model;
 
 public class Deenergize extends ability{
 
-	private int amount;
+	private String amount;
 	
-	public Deenergize(String newName, String newTarget, int newAmount){
+	public Deenergize(String newName, String newTarget, String newAmount){
 		this.name = newName;
 		this.abilitytarget = newTarget;
 		this.amount = newAmount;
 	}
 	
 	public void useAbility() {
-		Pokemon pk = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
+		Pokemon pk = (Pokemon) target.getTargetObject(this.abilitytarget).getTarget();
+		int value = 0; 
+		if(this.amount.equals("youractive energy")){
+			value = pk.getAttachedCardsCount(Energy.class);
+		}
+		else{
+			value = Integer.valueOf(this.amount);
+		}
+		cardItem[] discardedEnergy = null;
 		if(pk!=null){
-			pk.dettachCardType(Energy.class, this.amount);
+			discardedEnergy = pk.dettachCardType(Energy.class, value);
+		}
+		if(discardedEnergy!=null){
+			target.getTargetObject(abilitytarget).getPlayer().getDiscardPile().addCards(discardedEnergy);;
 		}
 	}
 	
 	public int getAmount(){
-		return this.amount;
+		return Integer.valueOf(this.amount);
 	}
 	
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof Deenergize){
-			if(((Deenergize) o).getName().equals(name) && ((Deenergize) o).getAmount() == this.amount)
+			if(((Deenergize) o).getName().equals(name) && ((Deenergize) o).getAmount() == Integer.valueOf(this.amount))
 				return true;
 		}
 		return false;

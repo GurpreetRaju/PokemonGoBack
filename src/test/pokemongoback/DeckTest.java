@@ -11,11 +11,11 @@ public class DeckTest {
 	@Test
 	public void test() {
 		
-		Deck deck= new Deck(1);
+Deck deck= new Deck(1);
+
 		deck.buildDeck();
 		int actual=deck.getGroupCards().size();
 		cardItem[] cards = deck.getCard();
-		Pokemon pokemon = (Pokemon) cards[0];
 		int expected=60;
 		
 		assertEquals(expected,actual);

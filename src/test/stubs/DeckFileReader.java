@@ -7,16 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.*;
 
-import model.Add;
-import model.Energy;
-import model.Search;
-import model.Shuffle;
-import model.ability;
-import model.applystatAbility;
-import model.damageAbility;
-import model.drawAbility;
-import model.healingAbility;
-import model.swapAbility;
+import test.stubs.ability;
 
 public class DeckFileReader {
 	private String deck1file = "resources/deck1.txt";
@@ -24,10 +15,11 @@ public class DeckFileReader {
 	private String cardsfile = "resources/cards.txt";
 	private String abilityfile = "resources/abilities.txt";
 	private String abilityName, target, destination, drawCards, status, energyinfo, abilityparse ;
-	private String damage, condition, condAbility, trigger, triggerCond, addAbility, source, filter, filterCat, count;
+	private String damage, condition, condAbility, trigger, triggerCond, source, filter, filterCat, count;
+	private boolean choice;
 	ArrayList<Energy> EnergyInfo = new ArrayList<Energy>();
 	String abilityR[] = new String[74];
-
+	ability addAbility = null;
 	ArrayList<String[]> deck = new ArrayList<String[]>();
 	ArrayList<ability> abilities = new ArrayList<ability>();
 	
@@ -42,8 +34,8 @@ public class DeckFileReader {
 		}
 	}
 	
-	public void readDeck(String filename){
-		
+	public void readDeck(String filename)
+	{	
 		BufferedReader br = null;
 		BufferedReader cr = null;
 		BufferedReader ar = null;
@@ -87,89 +79,6 @@ public class DeckFileReader {
 			}
 
 			
-			for(String [] card:deck)
-			{
-				//String PokemonName = card[0];
-				//parse cards.txt
-				switch(card[1])
-				{	
-					case "pokemon":
-						EnergyInfo.clear();
-						String carditem = String.join(" ", card);
-						//String retreat = carditem.substring(carditem.indexOf("retreat cat"), carditem.indexOf("attack"));
-						String ability = carditem.substring(carditem.indexOf("attack"));
-						
-						
-						String ability1, ability2; 
-						int index = indexOf("\\d\\s+\\d+", ability);
-						//Debug.message(index);
-						ability1 = ability.substring(8, index);
-						//Debug.message(ability1);
-						
-						String[] abilityone = ability1.split(",");
-						String[] substring11 = abilityone[0].split("\\s+");
-						switch(abilityone.length)
-						{
-						//create objects of separate abilities and pass to a new class composite ability
-							case 1:
-								//parseAbilities((substring11[1]+" "+substring11[2]+" "+ abilityR[Integer.parseInt(substring11[3])-1]));
-								parseAbilities(abilityR[Integer.parseInt(substring11[3])-1]);
-								getEnergy(substring11[1], substring11[2]);
-								
-								break;
-							case 2:
-								String[] substring12 = abilityone[1].split("\\s+");
-								//parseAbilities((substring11[1]+" "+substring11[2]+" "+substring12[1]+" "+substring12[2]+" "+abilityR[Integer.parseInt(substring12[3])-1]));
-								parseAbilities(abilityR[Integer.parseInt(substring12[3])-1]);
-								getEnergy(substring11[1], substring11[2]);
-								getEnergy(substring12[1],substring12[2]);
-								break;
-						}
-						
-						if(ability.length() >= index+2)
-						{
-							ability2 = ability.substring(index+2);
-							//Debug.message(ability2);
-						
-							String[] abilitytwo = ability2.split(",");
-							String[] substring21 = abilitytwo[0].split("\\s+");
-							switch(abilitytwo.length)
-							{
-								case 1:
-//									Debug.message(substring21[3]);
-//									Debug.message(abilityR[Integer.parseInt(substring21[3])-1]);
-									//parseAbilities((substring21[1]+" "+substring21[2]+" "+ abilityR[Integer.parseInt(substring21[3])-1]));
-									parseAbilities(abilityR[Integer.parseInt(substring21[3])-1]);
-									getEnergy(substring21[1], substring21[2]);
-									break;
-								case 2:
-									String[] substring22 = abilitytwo[1].split("\\s+");
-									//parseAbilities((substring21[1]+" "+substring21[2]+" "+substring22[1]+" "+substring22[2]+" "+ abilityR[Integer.parseInt(substring22[3])-1]));
-									parseAbilities(abilityR[Integer.parseInt(substring22[3])-1]);
-									getEnergy(substring21[1], substring21[2]);
-									getEnergy(substring22[1],substring22[2]);
-									break;
-							}
-						}
-
-//						for(String ab: abilityInfo)
-//						{
-//							Debug.message(ab);
-//						}
-						//Pokemon pk = new Pokemon();
-
-						break;
-					
-					case "trainer":
-						
-						break;
-						
-					case "energy":
-						break;      
-				}
-				//switch()
-			}
-			
 
 		} catch (IOException e) {
 
@@ -201,236 +110,5 @@ public class DeckFileReader {
 	public static void main(String[] arg){
 		DeckFileReader deck = new DeckFileReader(1);
 		deck.getDeck();
-	}
-	
-	public static int indexOf(String pattern, String s) {
-		Pattern patternString = Pattern.compile(pattern);
-	    Matcher matcher = patternString.matcher(s);
-	    return matcher.find() ? matcher.end() : -1;
-	}
-	
-	public void parseAbilities(String ablty)
-	{
-		//parse abilities.txt			
-
-//		for(String ablty: abilityR)
-//		{
-//		String[] abilityvar = ablty.split("\\s+");
-//		switch(abilityvar.length){
-//		case 1:
-//			energyinfo = null;
-//			abilityparse = abilityvar[0];
-//		case 3:
-//			 energyinfo = abilityvar[0] + " " + abilityvar[1];
-//			 abilityparse = abilityvar[2];
-//			 break;
-//		case 5:
-//			energyinfo = abilityvar[0] + " " + abilityvar[1] + " " + abilityvar[2] + " " + abilityvar[3];
-//			 abilityparse = abilityvar[4];
-//			 break;
-//		}
-//			abilityName = abilityparse.substring(0, abilityparse.indexOf(":"));
-//			String abilityElement = abilityparse.replace(":", " ").substring(abilityparse.indexOf(":")+1);
-
-			abilityName = ablty.substring(0, ablty.indexOf(":"));
-			String abilityElement = ablty.replace(":", " ").substring(ablty.indexOf(":")+1);
-			abilityElement = abilityElement.replace("(", " (");
-	
-			ArrayList<String> sub = new ArrayList<String>();
-			String [] abilitytest = abilityElement.split(",");
-			if(abilitytest.length>1){
-				for (String a: abilitytest)
-				{
-					sub.add(a);
-				//composite ability do here
-					//Debug.message(a);
-				}
-			
-				for(String a: sub)
-				{
-					if(a.contains("(") && !a.contains(")"))
-					{
-					
-						a = sub.get(0) + "," + sub.get(1);
-						sub.remove(1);
-					}
-					if(sub.size()>1){
-					String array[] = a.replace("-", "").split(" ");
-					getAbility(abilityName, array,EnergyInfo);
-					// add composite ability here and then add composite ability to abilities arraylist.
-					}
-					else{
-						String array[] = a.replace("-", "").split(" ");
-						abilities.add(getAbility(abilityName, array,EnergyInfo));
-						
-					}
-					
-				}
-			}
-				
-			else{
-				//String[] a = abilitytest;
-					String array[] = abilityElement.replace("-", "").split(" ");
-					abilities.add(getAbility(abilityName, array,EnergyInfo));
-					//change type void to ability of get ability and return ability.
-					//add the return object to the ability arraylist.
-				}
-
-			
-			}
-			
-			//}
-
-
-	
-	public void getEnergy(String energytype, String energynumber){
-		for(int e =0; e < Integer.valueOf(energynumber);e++){
-			//Debug.message(energytype);
-			EnergyInfo.add(new Energy(energytype));
-		}
-	}
-	
-	public ability getAbility(String name,String[] a, ArrayList<Energy> energyinfo)
-	{
-		String a_join = String.join(" ", a);
-		//Debug.message(a_join);
-//		for(String ab: a)
-//			Debug.message(ab);
-		//String[] energyvalues = energyinfo.split("//s+");
-		ability abilityo = null;
-		switch(a[0])
-		{
-			case "dam":
-				damage = a_join.substring(indexOf("\\d", a_join)-1);
-				target = a_join.contains("choice") ? "choiceopponent" : a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));
-				count = null;
-				if(a_join.contains("count"))
-				{
-					count = a_join.substring(indexOf("\\(target ", a_join), a_join.indexOf(" ", indexOf("\\(target ", a_join)));
-				}
-
-				else
-				{
-					//contains choice
-				}
-				abilityo = (new damageAbility(name, Integer.valueOf(damage), energyinfo, target, count));
-
-				break;
-			case "cond":
-				condition = a[1];
-				condAbility = a_join.substring(a_join.indexOf(a[1]));
-//				Debug.message(condAbility);
-				break;
-			case "swap":
-
-//				for(String ab: a)
-//					Debug.message(ab);
-				abilityo = (new swapAbility(name,a[1],(a[2]+a[4])));
-
-				break;
-			case "draw":
-				if(a.length == 3)
-				{
-					target=a[1];
-					drawCards = a[2];
-				}
-				else
-				{
-					drawCards = a[1];
-					target = null;
-				}
-
-				//Debug.message(drawCards);
-				abilityo = (new drawAbility(name,Integer.valueOf(a[1]),target));
-
-				break;
-			case "deck":
-				//deck:destination:discard:target:choice:you:1:(search:target:you:source:deck:filter:top:8:1,shuffle:target:you)
-				//deck:target:opponent:destination:deck:count(opponent:hand)
-				//deck:destination:deck:count(your:hand),shuffle:target:you,draw:5
-				//deck:target:them:destination:deck:bottom:choice:target:1
-//				Debug.message(a_join);
-//				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));
-				int i = 0;
-				for(String ab: a)
-				{
-					//Debug.message(a_join);
-					if(ab.contains("target") && a[i+1].matches("[a-z]+"))
-					{
-						target = a[i+1];  //remove hyphen in opponent-active
-					}
-					if(ab.contains("destination"))
-					{
-						destination = a[i+1];
-						//Debug.message(target);
-					}
-					drawCards= String.valueOf(indexOf("\\d", ab));
-					//Debug.message("deck"+drawCards);
-					i++;
-				}
-				break;
-			case "search":
-				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));	
-				source = a_join.substring(indexOf("source ", a_join), a_join.indexOf(" ", indexOf("source ", a_join)));	
-				drawCards = a[a.length -1];
-				filter = null;
-				filterCat = null;
-				if(a_join.contains("filter"))
-				{
-					filter = a_join.substring(indexOf("filter ", a_join), a_join.indexOf(" ", indexOf("filter ", a_join)));
-					if(a_join.contains("type"))
-					{
-						filterCat = a_join.substring(indexOf("type ", a_join), a_join.indexOf(" ", indexOf("type ", a_join)));
-					}
-					else if(a_join.contains("top"))
-					{
-						filterCat = a_join.substring(indexOf("top ", a_join), a_join.indexOf(" ", indexOf("top ", a_join)));
-					}
-					else if(a_join.contains("cat"))
-					{
-						filter = null;
-						filterCat = a_join.substring(indexOf("cat ", a_join), a_join.indexOf(" ", indexOf("cat ", a_join)));
-					}
-					if(a_join.contains("evolvesfrom"))
-					{
-						target = "yourbasic";
-						filter = "null";
-						filterCat="evolvesfrom";
-					}
-				}
-				abilities.add(new Search(name, target, source, filter, filterCat, Integer.valueOf(drawCards)));
-				break;
-			case "redamage":
-//				Debug.message(a_join);
-				break;
-			case "reenergize":
-				break;
-			case "deenergize":
-				break;
-			case "applystat":
-				status = a[2];
-				target = a[3];
-				abilities.add(new applystatAbility(name, target, status));
-				break;
-			case "destat":
-				break;
-			case "heal":
-				abilities.add(new healingAbility(name, Integer.valueOf(a[3]), a[2]));
-				break;
-			case "add":
-				target = a[2];
-				trigger = a[4];
-				triggerCond = a[5];
-				addAbility = a_join.substring(a_join.indexOf("(")+1, a_join.indexOf(")"));
-				abilities.add(new Add(name, target, trigger, triggerCond, addAbility));
-				break;
-			case "shuffle":
-
-				//target = a[2];
-				abilityo = (new Shuffle(name,a[2]));
-
-				break;
-		}
-		return abilityo;
 	}
 }

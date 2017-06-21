@@ -2,15 +2,7 @@ package test.stubs;
 
 import java.util.ArrayList;
 
-import controller.GameController;
-import model.Debug;
-import model.Deck;
-import model.Energy;
-import model.Player;
-import model.Turn;
-import model.ability;
-import model.cardItem;
-import model.damageAbility;
+import test.stubs.*;
 
 public class AIplayer extends Player {
 	
@@ -21,7 +13,7 @@ public class AIplayer extends Player {
 	public AIplayer(String newName){
 		super(newName);
 		this.name = newName;
-		deck = new Deck(1);
+		deck = (cardItem) new Deck(1);
 		((Deck) deck).buildDeck();
 	}
 	
@@ -66,7 +58,7 @@ public class AIplayer extends Player {
 		ArrayList<Trainer> trainerCard = ((CardsGroup) this.inhand).getAllTrainerCards();
 		if(!trainerCard.isEmpty() && this.activePokemon!=null){
 			if(trainerCard.get(0).getAbility().getClass().getSimpleName()=="healingAbility" && this.activePokemon.getDamage()>20){
-				((CardsGroup) this.inhand).removeCard(trainerCard.get(0));
+				((CardsGroup) this.inhand).removeCard((test.stubs.cardItem) trainerCard.get(0));
 				trainerCard.get(0).getAbility().useAbility();
 				Debug.message("Trainer card used "+ trainerCard.get(0).getName());
 				updateGUI();
@@ -111,7 +103,7 @@ public class AIplayer extends Player {
 			for(cardItem card : bench.getGroupCards()){
 				Pokemon pokemon = (Pokemon) card;
 				if(pokemon.getAttachedCards().length<pokemon.totalEnergyRequired()){
-					pokemon.attachCard(energyCards.get(0));
+				//	pokemon.attachCard(energyCards.get(0));
 					((CardsGroup) this.inhand).removeCard(energyCards.get(0));
 					Debug.message("Energy card added to "+pokemon.getName());
 					return true;
@@ -134,7 +126,7 @@ public class AIplayer extends Player {
 				updateGUI();
 			}
 			else{
-				//declare Mulligan
+				
 			}
 		}
 	}

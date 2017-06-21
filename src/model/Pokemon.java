@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Composite;
 import java.util.ArrayList;
 
 import controller.GameController;
@@ -16,7 +17,6 @@ public class Pokemon implements cardItem{
 	private String status = "normal";
 	private ArrayList<cardItem> attachedCards;
 	private ArrayList<ability> activeAbilities;
-	private static ArrayList<ability> addAbilities; //trigger abilities
 	private PokemonCard uiCard;
 	
 	public Pokemon(int newId, String name, pokemonStage newPokemonStage, int newHp, ArrayList<ability> newAbilities){
@@ -26,7 +26,8 @@ public class Pokemon implements cardItem{
 		this.hitpoints = newHp;
 		this.attachedCards = new ArrayList<cardItem>();
 		this.activeAbilities = new ArrayList<ability>();
-		this.abilities = newAbilities;
+		this.abilities = new ArrayList<ability>();
+		this.abilities.addAll(newAbilities);
 	}
 	
 	public void addDamage(int newDamage){
@@ -116,7 +117,13 @@ public class Pokemon implements cardItem{
 	public int totalEnergyRequired(){
 		int totalEnergy = 0;
 		for(ability ablt : this.getAbilities()){
-			int temp = ((damageAbility) ablt).getEnergyInfo().size();
+			int temp = 0;
+			if(ablt instanceof damageAbility){
+				temp = ((damageAbility) ablt).getEnergyInfo().size();
+			}
+			else if(ablt instanceof CompositeAbility){
+				temp = ((CompositeAbility) ablt).getEnergyInfo().size();
+			}
 			if(temp>totalEnergy){
 				totalEnergy = temp;
 			}
@@ -126,8 +133,11 @@ public class Pokemon implements cardItem{
 	
 	public void evolve(Pokemon basicCard){
 		this.pStage.evolve(basicCard);
-		for(ability a:basicCard.getActiveAbilities())
-			this.addActiveAbility(a);
+		if(basicCard.getActiveAbilities().length != 0){
+			for(ability a:basicCard.getActiveAbilities()){
+				this.addActiveAbility(a);
+			}
+		}
 	}
 	
 	public boolean equals(Object o){
@@ -194,12 +204,28 @@ public class Pokemon implements cardItem{
 		return null;
 	}
 	
-//	public static void getTurnEndAbilities(Player player)
-//	{
-//		for( ability a: player.getActivePokemon().getActiveAbilities())
-//		{
-//			addAbilities.add(a);
-//			if()
-//		}
-//	}
+	public static void getTurnEndAbilities(Player player)
+	{
+		if(player.getActivePokemon().getActiveAbilities().length != 0)
+		{
+			for( ability a: player.getActivePokemon().getActiveAbilities())
+			{
+				Debug.message("get turnend abiltites");
+				if(a.getTriggerCondition() == "turnend")
+				{
+					a.useAbility();	
+				}
+			}
+		}
+	}
+
+	public int getAttachedCardsCount(Class<?> classtype) {
+		int i=0;
+		for(cardItem tempcard : this.attachedCards){
+			if(tempcard.getClass()==classtype){
+				i++;
+			}
+		}
+		return i;
+	}
 }

@@ -1,7 +1,7 @@
 package test.stubs;
 
-import model.ability;
-import model.cardItem;
+import test.stubs.cardItem;
+import test.stubs.ability;
 
 public class Trainer implements cardItem{
 

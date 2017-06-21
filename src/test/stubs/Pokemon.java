@@ -2,16 +2,10 @@ package test.stubs;
 
 import java.util.ArrayList;
 
-import controller.GameController;
-import model.Turn;
-import model.ability;
-import model.cardItem;
-import model.damageAbility;
-import model.pokemonStage;
-import model.stageOnePokemon;
-import view.PokemonCard;
+import test.stubs.*;
+import test.stubs.PokemonCard;
 
-public class Pokemon{
+public class Pokemon implements cardItem{
 	private int id;
 	private String cardName;
 	private int hitpoints;
@@ -84,8 +78,8 @@ public class Pokemon{
 		return this.status;
 	}
 	
-	public void attachCard(cardItem newCard){
-		this.attachedCards.add(newCard);
+	public void attachCard(test.stubs.cardItem cardItem){
+		this.attachedCards.add((test.stubs.cardItem) cardItem);
 	}
 	
 	public void dettachCard(cardItem newCard){
@@ -131,7 +125,9 @@ public class Pokemon{
 	}
 	
 	public void evolve(Pokemon basicCard){
-		
+		//this.pStage.evolve(basicCard);
+		for(ability a:basicCard.getActiveAbilities())
+			this.addActiveAbility(a);
 	}
 	
 	public boolean equals(Object o){
@@ -143,21 +139,6 @@ public class Pokemon{
 		}
 		return false;
 	}
-	
-//	public static void main(String[] arg){
-//		pokemonStage newPokemonStage = new stageOnePokemon("Pikachu");
-//		pokemonStage newPokemon2Stage = new basicPokemon();
-//		ArrayList<ability> newAbilities = new ArrayList<ability>();
-//		Energy[] energyRequired = {new Energy("Lighting",6)};
-//		newAbilities.add(new damageAbility("Thunder Bolt", 20, energyRequired, "Pokemon"));
-//		Pokemon pikachu = new Pokemon(2, "Raichu", newPokemonStage, 80, newAbilities);
-//		ability[] ability = pikachu.getAbilities();
-//		
-//		System.out.println(pikachu.getStage() +" "+ pikachu.getName() + " " + pikachu.getDamage() +" "+ ability[0].getClass().getName());
-//		
-//		Pokemon meow = new Pokemon(1, "Meow", newPokemon2Stage, 80, newAbilities); 
-//		System.out.print(meow.getStage());
-//	}
 
 	public int getHP() {
 		return this.hitpoints;

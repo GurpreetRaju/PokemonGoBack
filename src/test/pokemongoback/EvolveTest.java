@@ -18,7 +18,7 @@ public class EvolveTest {
 	// pending
 	@Test
 	public void test() {
-		String expected= "StageOne";
+		String expected= "stage-one";
 		ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage newPokemonStage=new basicPokemon();
 		

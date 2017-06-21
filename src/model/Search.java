@@ -23,7 +23,14 @@ public class Search extends ability{
 	
 
 	public void useAbility() {
-		CardsGroup source = (CardsGroup) this.getTargetLocation(targetSource, abilitytarget);
+		CardsGroup source = null;
+		
+		if(this.abilitytarget == "choiceyour"){
+			this.abilitytarget = "you";
+		}
+		
+		source = (CardsGroup) this.getTargetLocation(this.targetSource, this.abilitytarget);
+		
 		ArrayList<cardItem> cards = new ArrayList<cardItem>();
 		if(filterCategory!=null){
 			switch(filterCategory){
@@ -35,6 +42,14 @@ public class Search extends ability{
 					break;
 				case "stadium": case "supporter": case "item":
 					cards.addAll(source.getAllTrainerCards(filterCategory));
+					break;
+				case "evolvesfrom":
+					String pokemonName = ((Pokemon) target.getTargetObject("choiceyour").getTarget()).getName();
+					for(Pokemon pk :source.getAllPokemonCard("stage-one")){
+						if(pk.getBasePokemonName().equals(pokemonName)){
+							cards.add(pk);
+						}
+					}
 					break;
 			}
 		}
@@ -57,10 +72,12 @@ public class Search extends ability{
 			DialogBoxHandler dbox = new DialogBoxHandler();
 			dbox.setOptionList(cards);
 			int id = Integer.parseInt(dbox.getDialog());
-			CardsGroup hand = (CardsGroup) ((Player) target.getTargetObject(abilitytarget).getTarget()).getInhand();
-			hand.addCard(source.getCard(id));
+			CardsGroup hand = (CardsGroup) ((Player) target.getTargetObject(this.abilitytarget).getTarget()).getInhand();
+			cardItem tempcard = source.getCard(id);
+			hand.addCard(tempcard);
 			GameController.getInstance().addCardToPanel(source.getCard(id), GameController.getInstance().getHand((Player) target.getTargetObject(abilitytarget).getTarget()));
-			source.removeCard(source.getCard(id));
+			source.removeCard(tempcard);
+			cards.remove(tempcard);
 		}
 		
 	}

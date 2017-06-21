@@ -2,7 +2,8 @@ package model;
 
 public class destatAbility extends ability {
 	
-	public destatAbility(String abilityTarget){
+	public destatAbility(String name, String abilityTarget){
+		this.name = name;
 		this.abilitytarget = abilityTarget;
 	}
 

@@ -2,11 +2,11 @@ package test.stubs;
 
 import java.util.ArrayList;
 
-import model.Energy;
-import model.Turn;
-import model.UserPlayer;
+import test.stubs.AbilityParser;
+import test.stubs.UserPlayer;
+import test.stubs.ability;
 
-public class condAbility extends model.ability{
+public class condAbility extends ability{
 
 	private UserPlayer user;
 	private String condition, ability;
@@ -21,19 +21,10 @@ public class condAbility extends model.ability{
 	}
 	
 	public void useAbility() {
-		DeckFileReader db;
-		if(Turn.getInstance().getCurrentPlayer() == user)
-		{
-			db = new DeckFileReader(2);
-		}
-		else
-		{
-			db = new DeckFileReader(1);
-		}
-		
+		AbilityParser ap = new AbilityParser();
 		if(condition.equals("flip"))
 		{
-			db.getAbility(name, ability.split(" "), EnergyInfo);
+			ap.getAbility(name, ability.split(" "), EnergyInfo);
 		}
 		else if(condition.equals("choice"))
 		{
