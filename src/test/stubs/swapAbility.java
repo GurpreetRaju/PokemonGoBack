@@ -14,7 +14,7 @@ import test.stubs.*;
 
 
 
-public class swapAbility extends model.ability{
+public class swapAbility extends ability{
 
 
 

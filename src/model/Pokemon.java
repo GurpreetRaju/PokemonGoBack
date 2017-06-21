@@ -18,6 +18,7 @@ public class Pokemon implements cardItem{
 	private ArrayList<cardItem> attachedCards;
 	private ArrayList<ability> activeAbilities;
 	private PokemonCard uiCard;
+	private boolean healed = false;
 	
 	public Pokemon(int newId, String name, pokemonStage newPokemonStage, int newHp, ArrayList<ability> newAbilities){
 		this.id = newId;
@@ -45,6 +46,15 @@ public class Pokemon implements cardItem{
 		else{
 			this.damage -= newHealing;
 		}
+		this.healed = true;
+	}
+	
+	public boolean isHealed(){
+		return this.healed;
+	}
+	
+	public void resetHealStatus(){
+		this.healed = false;
 	}
 	
 	public void setState(String newState){

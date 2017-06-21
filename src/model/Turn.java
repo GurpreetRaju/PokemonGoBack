@@ -53,6 +53,18 @@ public class Turn {
 	}
 	
 	public void changeTurn(){
+		
+		if(this.getCurrentPlayer().getActivePokemon()!=null){
+			if(this.getCurrentPlayer().getActivePokemon().isHealed()){
+				this.getCurrentPlayer().getActivePokemon().resetHealStatus();
+			}
+		}
+		if(!this.getCurrentPlayer().getBench().getAllPokemonCard().isEmpty()){
+			for(Pokemon p:this.getCurrentPlayer().getBench().getAllPokemonCard()){
+				p.resetHealStatus();
+			}
+		}
+		
 		if(user.getTurn()){
 			user.setTurn(false);
 			GameController.getInstance().dealCard("ai");

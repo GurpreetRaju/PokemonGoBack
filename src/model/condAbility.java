@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import controller.GameController;
+
 public class condAbility extends ability{
 
 	/*cond:flip:dam:target:opponent-active:30
@@ -25,10 +27,10 @@ public class condAbility extends ability{
 	private String condition;
 	private ability ability1, ability2, conditionAbility;
 	
-	public condAbility(String name, String condition, ability newConditionAbility, ability newAbility1, ability newAbility2, ArrayList<Energy> energyInfo)
+	public condAbility(String name, String newCondition, ability newConditionAbility, ability newAbility1, ability newAbility2, ArrayList<Energy> energyInfo)
 	{
 		this.name = name;
-		this.condition = condition;
+		this.condition = newCondition;
 		this.ability1 = newAbility1;
 		this.ability2 = newAbility2;
 		this.conditionAbility = newConditionAbility;
@@ -37,20 +39,38 @@ public class condAbility extends ability{
 	
 	@SuppressWarnings("unused")
 	public void useAbility() {
-		Debug.message("Hello");
-    	
+		
 		if(condition.contains("count")){
-			if(this.ability2==null){
-            	//this.ability1.useAbility();
-				Debug.message(this.ability1.getClass().getName() + condition +" Test");
-            }
-            else{
-            	if(this.ability2!=null){
-            		Debug.message(this.ability2.getClass().getName());
-            		//this.ability2.useAbility();
-            	}
-            }
-			Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
+			String[] countA = condition.split(" ");
+			String energyType = countA[3];
+			int digit = Integer.parseInt(countA[5]);
+			int cardsInt = ((Pokemon) target.getTargetObject(countA[1]).getTarget()).getAttachedCardsCount(Energy.class);
+			//Debug.message(cardsInt + " comparing with " + digit);
+			if(cardsInt>digit){
+				//Debug.message("Ability name: "+ this.name+" Ability type: "+ this.ability1.getClass().getSimpleName());
+				this.ability1.useAbility();
+			}
+			else if(this.ability2!=null){
+				this.ability2.useAbility();
+			}			
+		}
+		else if(condition.contains("healed")){
+			String temptarget = condition.substring(condition.indexOf(" ")+1);
+			Pokemon p = ((Pokemon) target.getTargetObject(temptarget).getTarget());
+			if(p!=null){		
+				if(p.isHealed()){
+					this.ability1.useAbility();
+					//Debug.message(this.ability1.getClass().getName());
+				}
+				else{
+					if(this.ability2!=null){
+						//Debug.message(this.ability2.getClass().getName());
+						this.ability2.useAbility();
+					}
+					//Debug.message("checkpoint");
+					}
+			}
+			//Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
 		}
 		else{
 			switch(condition){
@@ -58,61 +78,38 @@ public class condAbility extends ability{
 				Random random = new Random();
 	            int number = random.nextInt(2);
 	            if(number == 0){
-	            	//this.ability1.useAbility();
-	            	if(this.ability1 instanceof CompositeAbility){
-	            		for(ability a:((CompositeAbility) this.ability1).getAbilities()){
-	            			Debug.message(a.getClass().getSimpleName());
-	            		}
-	            	}
-	            	else{
-		            	Debug.message(this.ability1.getClass().getSimpleName());	
-	            	}
+	            	this.ability1.useAbility();
 	            }
 	            else{
 	            	if(this.ability2!=null){
-	            		Debug.message("else "+this.ability2.getClass().getSimpleName());
-	            		//this.ability2.useAbility();
+	            		//Debug.message("else "+this.ability2.getClass().getSimpleName());
+	            		this.ability2.useAbility();
 	            	}
 	            }
 	            break;
 			case "choice":
-				if(true){
-	            	//this.ability1.useAbility();
-	            	Debug.message(this.ability1.getClass().getSimpleName());
+				if(GameController.getInstance().getAbilityChoice()){
+	            	this.ability1.useAbility();
 	            }
 	            else{
 	            	if(this.ability2!=null){
-	            		Debug.message(this.ability2.getClass().getSimpleName());
-	            		//this.ability2.useAbility();
+	            		this.ability2.useAbility();
 	            	}
 	            }
-				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
 				break;
 			case "ability":
-				if(this.conditionAbility!=null){
-	            	//this.ability1.useAbility();
-	            	Debug.message(this.ability1.getClass().getName());
+				if(GameController.getInstance().getAbilityChoice()){
+					this.conditionAbility.useAbility();
+	            	this.ability1.useAbility();
+	            	//Debug.message(this.ability1.getClass().getName());
 	            }
 	            else{
 	            	if(this.ability2!=null){
-	            		Debug.message(this.ability2.getClass().getName());
-	            		//this.ability2.useAbility();
+	            		//Debug.message(this.ability2.getClass().getName());
+	            		this.ability2.useAbility();
 	            	}
 	            }
-				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
-				break;
-			case "healed":
-				if(this.ability2!=null){
-	            	//this.ability1.useAbility();
-	            	Debug.message(this.ability1.getClass().getName());
-	            }
-	            else{
-	            	if(this.ability2!=null){
-	            		Debug.message(this.ability2.getClass().getName());
-	            		//this.ability2.useAbility();
-	            	}
-	            }
-				Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
+				//Debug.message("Ability name: "+ this.name+" Ability condition: "+this.condition);
 				break;
 			}
 		}

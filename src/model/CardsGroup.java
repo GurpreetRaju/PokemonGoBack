@@ -63,6 +63,17 @@ public class CardsGroup implements cardItem {
 		}
 		return pokemonCards;
 	}
+	
+	public ArrayList<Pokemon> getAllPokemonCard(){
+		ArrayList<Pokemon> pokemonCards = new ArrayList<Pokemon>();
+		for(cardItem card : groupCards){
+			if(card instanceof Pokemon){
+				pokemonCards.add((Pokemon) card);
+			}
+		}
+		return pokemonCards;
+	}
+	
 	public ArrayList<Energy> getAllEnergyCards(){
 		ArrayList<Energy> energyCards = new ArrayList<Energy>();
 		for(cardItem card : groupCards){
