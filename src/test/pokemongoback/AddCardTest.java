@@ -11,7 +11,10 @@ import model.CardsGroup;
 import test.stubs.*;
 import model.Pokemon;
 import model.Trainer;
+import model.ability;
+import model.basicPokemon;
 import model.cardItem;
+import model.pokemonStage;
 
 public class AddCardTest {
 	CardsGroup cg=new CardsGroup();
@@ -21,8 +24,10 @@ public class AddCardTest {
 	@Test
 	public void addCardTest(){
 		
+		ArrayList<ability> newAbilities=new ArrayList<ability>();
+		pokemonStage basic=new basicPokemon();
 		cardItem trainercard=new Trainer(32,"Potion", null, null);
-		cardItem pokemon1=new Pokemon(80, "Pikachu", null, 0, null);
+		cardItem pokemon1=new Pokemon(80, "Pikachu", basic, 0, newAbilities);
 	
 		ArrayList<cardItem> pokemoncard = new ArrayList<cardItem>();
 		pokemoncard.add(null);

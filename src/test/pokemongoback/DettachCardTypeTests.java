@@ -46,18 +46,6 @@ public class DettachCardTypeTests {
 		pk.attachCard(newCard3);
 		pk.attachCard(newCard4);
 		
-		// test if  card have 5 attached energy cards,then detach 1 card
-		// result should be 4.
-		int expected2=4;
-		pk.dettachCardType(Energy.class, 1);
-		
-		
-		System.out.println("Energy ==4"+pk.getAttachedCardsCount());
-		assertEquals(expected2,pk.getAttachedCardsCount());
-		}
-		
-		@Test
-		public void test3() {
 		
 		// test if  card have 5 attached energy cards,then detach 5 card
 		// result should be 0.
