@@ -1,16 +1,22 @@
 package model;
 
-public class damageAbility implements ability {
+import java.util.ArrayList;
+
+import controller.GameController;
+
+
+
+public class damageAbility extends ability {
 	private int damageValue;
-	private String name;
-	private Energy[] energyRequired;
-	private String target;
+	private String count;
 	
-	public damageAbility(String newName, int newDamage, Energy[] newEnergyInfo,String newTarget){
+	public damageAbility(String newName, int newDamage, ArrayList<EnergyNode> newEnergyInfo, String newtarget, String newCount){
 		this.name = newName;
 		this.damageValue = newDamage;
-		this.energyRequired = newEnergyInfo;
-		this.target = newTarget;
+		this.energyInfo = newEnergyInfo;
+		this.abilitytarget = newtarget;
+		this.count = newCount; //damageValue = count*damageValue {count = opp active energy}
+		//dam:target:opponent-active:count(target:opponent-active:energy)*10 
 	}
 	
 	public void setDamage(int newDamage){
@@ -18,35 +24,30 @@ public class damageAbility implements ability {
 	}
 	
 	public void useAbility(){
+		Pokemon pokm = (Pokemon) target.getTargetObject(this.abilitytarget).getTarget();
+		int times = 1;
+		if(count!=null){
+			Debug.message("Pokemon name "+ pokm.getName() +"  Energy info "+pokm.getAttachedCardsCount(Energy.class));
+			times = pokm.getAttachedCardsCount(Energy.class);
+		}
 		//Debug.message("Attacking Opponent pokemon "+Turn.getInstance().getOpponent().getActivePokemon().getName());
-		if(Turn.getInstance().getOpponent().getActivePokemon()!=null){
-			Turn.getInstance().getOpponent().getActivePokemon().addDamage(this.damageValue);
+		if(pokm!=null){
+			pokm.addDamage(this.damageValue*times);
 		}
 		Turn.getInstance().changeTurn();
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
+	   // GameController.getInstance().ulabelUpdate();
 	}
 	
 	public int getDamage(){
 		return this.damageValue;
 	}
 	
-	public Energy[] getEnergyInfo(){
-		return this.energyRequired;
-	}
-	public String getTarget(){
-		return target;
-	}
-	
 	public boolean equals(Object o){
-		damageAbility tempAbility = (damageAbility) o;
-		if(this.name == tempAbility.name){
-			return true;
+		if(o instanceof damageAbility){
+			if(this.name == ((damageAbility) o).name && this.damageValue == ((damageAbility) o).damageValue){
+				return true;
+			}
 		}		
 		return false;
-	}
-	
+	}	
 }

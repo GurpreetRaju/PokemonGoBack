@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.GameController;
+
 public class Player {
 	
 	protected String name;
@@ -9,20 +11,21 @@ public class Player {
 	protected cardItem deck;
 	protected cardItem inhand;
 	protected Pokemon activePokemon;
-	protected ArrayList<ability> activeAbilities;
 	protected boolean turn;
-	protected ArrayList<Pokemon> bench;
+	protected CardsGroup bench;
+	protected CardsGroup userDiscardPile;
+	protected CardsGroup rewardCards;
 	
 //	public abstract String getName();
 //	public abstract int getScore();
 	
 	public Player(String name){
 		this.name = name;
-		this.deck = new Deck();
-		((Deck) this.deck).buildDeck(1);
-		this.activeAbilities = new ArrayList<ability>();
+		this.deck = new Deck(1);
+		((Deck) this.deck).buildDeck();
 		this.inhand = new CardsGroup();
-		bench = new ArrayList<Pokemon>();
+		this.bench = new CardsGroup();
+		this.userDiscardPile = new CardsGroup();
 	}
 	
 	public cardItem getDeckCard(){
@@ -37,9 +40,15 @@ public class Player {
 		return cards.toArray(new cardItem[cards.size()]);
 	}
 	
+	public void addRewardCards(int i){
+		rewardCards.addCards(dealMultipleCards(i));
+		GameController.getInstance().ulabelUpdate();
+	}
+	
 	public cardItem dealCard(){
 		cardItem newcard = getDeckCard();
 		((CardsGroup) inhand).addCard(newcard);
+		GameController.getInstance().ulabelUpdate();
 		return newcard;
 	}
 	
@@ -48,14 +57,18 @@ public class Player {
 		for(int x=0; x<i; x++){
 			((CardsGroup) this.inhand).addCard(dealt[x]);
 		}
+		GameController.getInstance().ulabelUpdate();
 		return dealt;
 	}
 	
 	public cardItem[] getInhandCards(){
+		//GameController.getInstance().ulabelUpdate();
 		return ((CardsGroup) this.inhand).getCard();
+		
 	}
 	
 	public cardItem getInhand(){
+		GameController.getInstance().ulabelUpdate();
 		return this.inhand;
 	}
 	
@@ -67,30 +80,10 @@ public class Player {
 		return this.activePokemon;
 	}
 	
-	public ability[] getActiveAbilities(){
-		return this.activeAbilities.toArray(new ability[this.activeAbilities.size()]);
-	}
-	
-	public String getAbilityIndex(ability newAbility){
-		for(int i=0;i<this.activeAbilities.size();i++){
-			if(this.activeAbilities.get(i) == newAbility){
-				return Integer.toString(i);
-			}
-		}
-		return null;
-	}
-	
 	public Deck getDeck(){
 		return (Deck) this.deck;
 	}
 	
-	public void removeAbility(ability newAbility){
-		this.activeAbilities.remove(newAbility);
-	}
-	
-	public void addActiveAbility(ability newAbility){
-		this.activeAbilities.add(newAbility);
-	}
 		
 	public boolean getTurn(){
 		return this.turn;
@@ -102,20 +95,47 @@ public class Player {
 				return card;
 			}
 		}
+		//GameController.getInstance().ulabelUpdate();
 		return null;
+	}
+	
+	public void evolve(Pokemon stageOnePokemon, Pokemon basicPokemon){
+		stageOnePokemon.evolve(basicPokemon);
+		((CardsGroup) this.getInhand()).removeCard(stageOnePokemon);
+		if(this.getActivePokemon() == basicPokemon){
+			this.setActivePokemon(stageOnePokemon);
+		}
+		else{
+			this.getBench().addCard(stageOnePokemon);
+		}
+		GameController.getInstance().ulabelUpdate();
 	}
 	
 	public static void main(String arg[]){
 		Player newPlayer = new Player("Flash");
-		
-		Debug.showCard(newPlayer.dealCard());
-	}
-	public Pokemon[] getBenchCards(){
-		return this.bench.toArray(new Pokemon[this.bench.size()]);
+		for(Pokemon pCard : newPlayer.getDeck().getAllPokemonCard("basic")){
+			Debug.message("Card name : " + pCard.getName());
+			for(ability a : pCard.getAbilities()){
+				Debug.message("Ability Name:"+a.getName()+" energy required: "+a.getEnergyInfo().size());
+			}
+		}
 	}
 
-	public void addCardonBench(Pokemon newPokemon){
-		bench.add(newPokemon);
-		
+	public CardsGroup getBench(){
+		return this.bench;		
+	}	
+	public CardsGroup getDiscardPile(){
+		return this.userDiscardPile;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+	
+	public ArrayList<Pokemon> getPokemonFromBenchAndActive(){
+		ArrayList<Pokemon> allPokemons = new ArrayList<Pokemon>();
+		allPokemons.addAll(this.bench.getAllPokemonCard());
+		allPokemons.add(this.activePokemon);
+		return allPokemons;
 	}
 }

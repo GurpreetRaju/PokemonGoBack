@@ -1,9 +1,7 @@
 package test.pokemongoback;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import model.CardsGroup;
 import model.cardItem;
 import model.pokemonStage;
@@ -17,13 +15,11 @@ public class MulliganStageTest {
 	cardItem[] card;
 
 	@Test
-	public void testMulliganStage() {
-		
+	public void test() {
 	
 	 card= ((CardsGroup) this.inhand).getCard();
 
-		for(int i=0;i>((CardsGroup) this.inhand).getCard().length;i++){
-			
+		for(int i=0;i>((CardsGroup) this.inhand).getCard().length;i++){	
 		actual=pStage;
 		assertEquals(expected,actual);
 		}

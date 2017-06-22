@@ -2,6 +2,7 @@ package test.IntegrationTest;
 
 import model.Deck;
 import model.DeckFileReader;
+import model.Pokemon;
 import model.cardItem;
 
 import org.junit.experimental.categories.Category;
@@ -17,8 +18,13 @@ public class DeckTest {
 	@Test
 	public void integrationDeckTest(){
 	
-		Deck deck = new Deck();
-		deck.buildDeck(1);
+
+	//	Deck deck = new Deck();
+		Deck deck = new Deck(1);
+		//ArrayList<String[]> cardsList = null;
+		deck.buildDeck();
+		
+
 		ArrayList<cardItem> deckCards = deck.getGroupCards();
 		
 		String[] expectedDeck = {"Doduo GEN 55","1 Dodrio GEN 56","1 Meowth AOR 61","1 Meowth GEN 53","1 Persian GEN 54"

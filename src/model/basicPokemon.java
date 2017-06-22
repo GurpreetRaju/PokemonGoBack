@@ -1,7 +1,7 @@
 package model;
 
 public class basicPokemon extends pokemonStage{
-	private String stage = "Basic";
+	private String stage = "basic";
 	
 	public basicPokemon(){}
 	
@@ -11,6 +11,6 @@ public class basicPokemon extends pokemonStage{
 
 	@Override
 	public void evolve(Pokemon basicCard) {
-		System.out.println("I cant evolve.");
+		System.out.println("Ooopss....I cant evolve.");
 	}
 }

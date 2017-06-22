@@ -2,30 +2,44 @@
     -fx-background-color: #207cf1;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
-#gullu{
-     -fx-background-image: url("poke.png");
-     -fx-background-repeat: stretch;
-     -fx-background-size: 622  417;
-     -fx-background-position: center center;
+#gameBoard{
+     -fx-background-color: #fff;
      -fx-effect: dropshadow(three-pass-box, black, 10, 0.5, 0, 0);
  }
- #gullu1{
-     -fx-background-color: #f7c042;
-     -fx-effect: dropshadow(three-pass-box, black, 10, 0.5, 0, 0);
+ #gameStage{
+ 	-fx-alignment: top-center;
+    -fx-background-color: #f7c042;
+    -fx-effect: dropshadow(three-pass-box, black, 10, 0.5, 0, 0);
  }
+ #innergamebox{
+ 	-fx-alignment: center;
+ }
+#PlayArea{
+	-fx-padding: 10px; 	
+}
+#AIBench{
+	-fx-alignment:top-center;
+}
+#userBench{
+	-fx-alignment:bottom-center;
+}
+ScrollPane{
+	-fx-background-color:transparent ;
+}
 #userBench, #pane7, #AIBench, #AIHand, #userBench, #userHand{
-     -fx-border-color: #2e5b10;
-         -fx-border-width: 2px;
+	-fx-background-color: transparent ;
+    -fx-border-color: #2e5b10;
+	-fx-border-width: 2px;
 }
 #userActivePokemon, #aiActivePokemon{
 	     -fx-border-color: #2e3b57;
          -fx-border-width: 1px;
 }
 #userActivePokemon .pokemonCard, #aiActivePokemon .pokemonCard{
-	-fx-hpos:left;
+	
 }
-.pokemonCard, .card{
-	-fx-pref-width: 3cm;
+#userBench .pokemonCard,#userHand .pokemonCard,#userHand .card,#AIBench .pokemonCard,#AIHand .pokemonCard,#AIHand .card{
+	-fx-pref-width: 150px;
 	-fx-background-color: #fff;
 	-fx-border-color: #000;
 	-fx-border-width: 1px;
@@ -34,4 +48,5 @@
 	-fx-opacity:0;
 	-fx-padding:-7;
 }
+ 
 

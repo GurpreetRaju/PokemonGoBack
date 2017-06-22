@@ -1,24 +1,36 @@
 package model;
 
-public class healingAbility implements ability {
+import controller.GameController;
+
+public class healingAbility extends ability {
 	
-	private String cardName;
 	private int healingValue;
 	
-	public healingAbility(String name, int value){
-		this.cardName = name;
+	public healingAbility(String name, int value,String newtarget){
+		this.name = name;
 		this.healingValue = value;
+		this.abilitytarget = newtarget;
 	}
 	
-	@Override
-	public String getName() {
-		return cardName;
-	}
-
 	@Override
 	public void useAbility() {
 		//Debug.message(Turn.getInstance().getCurrentPlayer().name);
-		Turn.getInstance().getCurrentPlayer().getActivePokemon().removeDamage(healingValue);
+		Pokemon pokemon = (Pokemon) this.getTargetObject().getTarget();
+		if(pokemon!=null){
+			pokemon.removeDamage(healingValue);
+		}
+		//GameController.getInstance().ulabelUpdate();
+		
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof healingAbility){
+			if(this.healingValue == ((healingAbility) o).healingValue && this.name == ((healingAbility) o).name){
+				return true;
+			}
+		}		
+		return false;	
 	}
 
 }
