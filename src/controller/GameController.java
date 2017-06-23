@@ -48,6 +48,11 @@ public class GameController {
 	private AIplayer ai;
 	private boolean[] turn;
 	boolean energyused =false;
+<<<<<<< HEAD
+=======
+	public boolean test = false;
+
+>>>>>>> master
 	@FXML private ScrollPane userScrollPane;
 	@FXML private HBox userBench;
 	@FXML private HBox userHand;
@@ -135,9 +140,9 @@ public class GameController {
     	GameController.getInstance().ulabelUpdate();
     }
     
-    public void removeCard(String id, HBox panel){
+    public void removeCard(String string, HBox panel){
     	for(Node node: panel.getChildren()){
-    		if(node.getStyleClass().contains(id)){
+    		if(node.getStyleClass().contains(string)){
     			panel.getChildren().remove(node);
     		}
     	}
@@ -390,6 +395,11 @@ public class GameController {
         Optional<ButtonType> result1 = ts.showAndWait();
         if (result1.get().getButtonData() == ButtonBar.ButtonData.YES){
         	((Trainer) newCard.getCard()).getAbility().useAbility();
+        	Player player = Turn.getInstance().getCurrentPlayer();
+        	this.getHand(player).getChildren().remove(newCard);
+        	((CardsGroup) player.getInhand()).removeCard(newCard.getCard());
+        	player.getDiscardPile().addCard(newCard.getCard());
+        	this.ulabelUpdate();
         }
         
 	}
@@ -577,6 +587,7 @@ public class GameController {
 						}
 					}
 				}
+				refreshCards(user);
 			}
 			else{
 				winOrLoss();
@@ -595,7 +606,7 @@ public class GameController {
 			}
 		}
 		}
-		GameController.getInstance().ulabelUpdate();
+		//GameController.getInstance().ulabelUpdate();
 	}
 
 		
@@ -742,15 +753,24 @@ public class GameController {
 
 
 	public void ulabelUpdate() {
+<<<<<<< HEAD
+=======
+		if(!test){
+		// TODO Auto-generated method stub
+>>>>>>> master
 		AIDeck.setText("AIDeck "+ ai.getDeck().getGroupCards().size());
 		UserDeck.setText("User Deck "+ user.getDeck().getGroupCards().size());
 		UserDiscardPile.setText("DiscardPile "+ user.getDiscardPile().getGroupCards().size());
 		AIDiscardPile.setText("DiscardPile " + ai.getDiscardPile().getGroupCards().size());
 		Userhand.setText("Uhand "+ user.getInhandCards().length);
 		AIhand.setText("AIHand "+ai.getInhandCards().length);
+<<<<<<< HEAD
 		UserRewardCards.setText("Reward Cards " + user.getRewardCards().getGroupCards().size());
 		AIRewardCards.setText("Reward Cards "+ai.getRewardCards().getGroupCards().size());
 	}
+=======
+	}}
+>>>>>>> master
 
 	public boolean getAbilityChoice(){
 		ButtonType Yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);

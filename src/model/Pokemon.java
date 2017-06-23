@@ -150,12 +150,15 @@ public class Pokemon implements cardItem{
 		}
 		
 		if(!(a.getEnergyInfoSize() <= energyCard.size())){
+			Debug.message(a.getEnergyInfoSize()+" "+energyCard.size());
+			
 			return false;
 		}
 		
 		for(EnergyNode e: a.getEnergyInfo()){
 			if(!e.getEnergyType().equals("colorless")){
 				for(Energy eCard : energyCard){
+					Debug.message("1"+eCard.getName());
 					if(eCard.getName().equals(e.getEnergyType())){
 						tempEnergyCount++;
 					}

@@ -90,6 +90,7 @@ public class AbilityParser {
 		{
 			case "dam":
 				damage = a_join.substring(indexOf("\\d", a_join)-1,indexOf("\\d+", a_join));
+				Debug.message(damage);
 				target = a_join.contains("choice") ? "opponentbench" : a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));
 				count = null;
 				if(a_join.contains("count"))
@@ -211,7 +212,11 @@ public class AbilityParser {
 				break;
 			case "redamage":
 				source = "choiceopponent";
-				destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
+				Matcher m1 = Pattern.compile("destination\\s+([^\\s]+)\\s").matcher(a_join);
+				while(m1.find()) {
+			       destination = m1.group(1);
+			    }
+				//destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
 				count = a_join.contains("count") ? "opponentdamage": a_join.substring(indexOf("\\d", a_join)-1);
 				abilityo = new Redamage(name, source, destination, count);
 				break;
@@ -226,6 +231,7 @@ public class AbilityParser {
 				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));
 				count = a_join.contains("count") ? "youractive energy" : a_join.substring(indexOf("\\d", a_join)-1);
 				abilityo = new Deenergize(name, target, count);
+				Debug.message("Scavenge "+name+target+count);
 				break;
 			case "applystat":
 				status = a[2];
@@ -273,6 +279,7 @@ public class AbilityParser {
 		switch(newCondition){
 			case "flip": case "choice":
 				condAbility = condAbility.substring(condAbility.indexOf(" ")+1);
+				Debug.message(condAbility);
 				break;
 			case "healed":
 				condAbility = condAbility.substring(nthIndexOf(condAbility, ' ', 3)+1);
@@ -281,8 +288,11 @@ public class AbilityParser {
 				condAbility = condAbility.substring(nthIndexOf(condAbility, ' ', 5)+1);
 				break;	
 			case "ability":
-				abilityCondition = condAbility.substring(0,condAbility.indexOf("(")-1);
+				abilityCondition = condAbility.substring(8,condAbility.indexOf("(")-1);
 				condAbility = condAbility.substring(condAbility.indexOf("("));				
+				Debug.message(abilityCondition);
+				
+				
 				
 				//condAbility = condAbility.substring(condAbility.indexOf("(")+1, condAbility.indexOf(")")-1);
 				break;
@@ -290,7 +300,7 @@ public class AbilityParser {
 		//Debug.message(condAbility);
 		if(condAbility.contains("else")){
 			abilities[1] = this.parseAbility(condAbility.substring(condAbility.indexOf("else")+5),energyInfo);
-			condAbility = condAbility.substring(0,condAbility.indexOf("else")-2);
+			condAbility = condAbility.substring(0,condAbility.indexOf("else")-1);
 		}
 		if(abilityCondition!=null){
 			abilities[2] = this.parseAbility(abilityCondition, energyInfo);

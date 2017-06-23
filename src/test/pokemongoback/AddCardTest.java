@@ -12,6 +12,9 @@ import model.Pokemon;
 import model.Search;
 import model.Trainer;
 import model.ability;
+import model.basicPokemon;
+import model.cardItem;
+import model.pokemonStage;
 import model.cardItem;
 import model.healingAbility;
 import model.swapAbility;
@@ -23,7 +26,7 @@ public class AddCardTest {
 
 	@Test
 	public void addCardTest(){
-		
+
 ArrayList<ability> abilities = new ArrayList<ability>();
 		
 		healingAbility h1=new healingAbility("healing", 0, null);
