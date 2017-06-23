@@ -11,10 +11,13 @@ import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
+import controller.GameController;
+
 public class DealCardsTest {
 	
 	@Test
 	public void integrationTestDealCard(){
+		GameController.getInstance().test=true;
 		Player userPlayer=new Player("h");
 		Deck deck=userPlayer.getDeck();
 		cardItem[] cards=deck.getCard();
