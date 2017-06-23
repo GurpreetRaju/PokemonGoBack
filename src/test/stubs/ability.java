@@ -1,7 +1,7 @@
 package test.stubs;
 
-import model.Player;
-import model.target;
+import test.stubs.Player;
+import test.stubs.target;
 
 public abstract class ability {
 	
