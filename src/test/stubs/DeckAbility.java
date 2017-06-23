@@ -1,7 +1,5 @@
 package test.stubs;
 
-import test.stubs.*;
-
 public class DeckAbility extends ability {
 
 	private String targetDestination;
