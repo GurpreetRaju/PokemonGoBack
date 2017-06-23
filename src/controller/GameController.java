@@ -573,6 +573,7 @@ public class GameController {
 						}
 					}
 				}
+				refreshCards(user);
 			}
 			else{
 				winOrLoss();

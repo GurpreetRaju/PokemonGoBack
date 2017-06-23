@@ -212,7 +212,11 @@ public class AbilityParser {
 				break;
 			case "redamage":
 				source = "choiceopponent";
-				destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
+				Matcher m1 = Pattern.compile("destination\\s+([^\\s]+)\\s").matcher(a_join);
+				while(m1.find()) {
+			       destination = m1.group(1);
+			    }
+				//destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
 				count = a_join.contains("count") ? "opponentdamage": a_join.substring(indexOf("\\d", a_join)-1);
 				abilityo = new Redamage(name, source, destination, count);
 				break;
