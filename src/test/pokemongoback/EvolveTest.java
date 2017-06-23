@@ -12,12 +12,14 @@ import model.ability;
 import model.basicPokemon;
 import model.pokemonStage;
 import model.stageOnePokemon;
+import controller.GameController;
 
 public class EvolveTest {
 
 	// pending
 	@Test
 	public void test() {
+		GameController.getInstance().test=true;
 		String expected= "stage-one";
 		ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage newPokemonStage=new basicPokemon();
