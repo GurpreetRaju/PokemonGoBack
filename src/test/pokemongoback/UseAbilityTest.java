@@ -2,7 +2,6 @@ package test.pokemongoback;
 import model.healingAbility;
 import model.pokemonStage;
 import model.swapAbility;
-
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Test;
@@ -36,13 +35,11 @@ import model.damageAbility;
 import model.destatAbility;
 import model.DeckAbility;
 
-
 public class UseAbilityTest {
 	
-
 	@Test
 	public void damageTestAndReDamage() {
-		
+
 		// it will check for damage 
 
 		
@@ -72,7 +69,6 @@ public class UseAbilityTest {
 	
 	  @Test
 	  public void test5() {
-
 		UserPlayer player= new UserPlayer("john");
 	    player.setTurn(true);
 	    AIplayer ai = new AIplayer("Me");
@@ -99,7 +95,6 @@ public class UseAbilityTest {
 	
 	  @Test
 
-	
 	public void swapTest() {
 		
 		// it will check for swap 
@@ -129,8 +124,6 @@ public class UseAbilityTest {
 			
 	  }
 
-		
-
 	
 	  @Test
 		
@@ -153,8 +146,6 @@ public class UseAbilityTest {
 			
 		}
 
-		
-		
 
 	  @Test
 		

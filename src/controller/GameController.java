@@ -134,9 +134,9 @@ public class GameController {
     	GameController.getInstance().ulabelUpdate();
     }
     
-    public void removeCard(String id, HBox panel){
+    public void removeCard(String string, HBox panel){
     	for(Node node: panel.getChildren()){
-    		if(node.getStyleClass().contains(id)){
+    		if(node.getStyleClass().contains(string)){
     			panel.getChildren().remove(node);
     		}
     	}
