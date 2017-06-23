@@ -389,6 +389,11 @@ public class GameController {
         Optional<ButtonType> result1 = ts.showAndWait();
         if (result1.get().getButtonData() == ButtonBar.ButtonData.YES){
         	((Trainer) newCard.getCard()).getAbility().useAbility();
+        	Player player = Turn.getInstance().getCurrentPlayer();
+        	this.getHand(player).getChildren().remove(newCard);
+        	((CardsGroup) player.getInhand()).removeCard(newCard.getCard());
+        	player.getDiscardPile().addCard(newCard.getCard());
+        	this.ulabelUpdate();
         }
         
 	}
