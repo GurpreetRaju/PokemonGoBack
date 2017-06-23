@@ -42,9 +42,9 @@ public class CheckAndPlayEnergyTest {
 		ArrayList<ability> newAbilities=new ArrayList<ability>();;
 		newAbilities.add(damage);
 		
-		Pokemon p2=new Pokemon(0, null, null, 0, newAbilities);
+		Pokemon p2=new Pokemon(0, null, null, 0, newAbilities, null);
 		p2.checkEnergyNeeds(damage);
-		Pokemon pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0,newAbilities );
+		Pokemon pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0,newAbilities, null );
 		
 		p1.setActivePokemon(pokemon1);
 		pokemon1.attachCard(energyCards.get(0));
@@ -73,7 +73,7 @@ ArrayList<Energy> energyCards = new ArrayList<Energy>();
 		
 		ArrayList<ability> newAbilities=new ArrayList<ability>();;
 		newAbilities.add(damage);
-		Pokemon pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0,newAbilities );
+		Pokemon pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0,newAbilities, null );
 		
 		p1.setActivePokemon(pokemon1);
 		pokemon1.attachCard(energyCards.get(0));
@@ -81,13 +81,13 @@ ArrayList<Energy> energyCards = new ArrayList<Energy>();
 		
 		//for else part true condition
 		
-		cardItem pokemon2=new Pokemon(80, "Pikachu", new basicPokemon(), 0, newAbilities);
+		cardItem pokemon2=new Pokemon(80, "Pikachu", new basicPokemon(), 0, newAbilities, null);
 		//cardItem trainercard=new Trainer(32,"Potion", null,null);
 		cardItem[] newcards = {pokemon2};
 		p1.getBench().addCards(newcards);
 		((Pokemon) pokemon2).attachCard(energy1);
 		
-		Pokemon p2=new Pokemon(0, null, null, 0, newAbilities);
+		Pokemon p2=new Pokemon(0, null, null, 0, newAbilities, null);
 		p2.checkEnergyNeeds(damage);
 		
 		expected=true;
@@ -114,7 +114,7 @@ ArrayList<Energy> energyCards = new ArrayList<Energy>();
 		damageAbility damage=new damageAbility(null, 0, EnergyInfo, null, null);
 		ArrayList<ability> newAbilities=new ArrayList<ability>();;
 		newAbilities.add(damage);
-		Pokemon pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0,newAbilities );
+		Pokemon pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0,newAbilities, null );
 		
 		p1.setActivePokemon(pokemon1);
 		pokemon1.attachCard(energyCards.get(0));
@@ -122,14 +122,14 @@ ArrayList<Energy> energyCards = new ArrayList<Energy>();
 		
 		//for else part true condition
 		
-		cardItem pokemon2=new Pokemon(80, "Pikachu", new basicPokemon(), 0, newAbilities);
+		cardItem pokemon2=new Pokemon(80, "Pikachu", new basicPokemon(), 0, newAbilities, null);
 		//cardItem trainercard=new Trainer(32,"Potion", null,null);
 		cardItem[] newcards = {pokemon2};
 		p1.getBench().addCards(newcards);
 		((Pokemon) pokemon2).attachCard(energy1);
 		((Pokemon) pokemon2).attachCard(energy2);
 		
-		Pokemon p2=new Pokemon(0, null, null, 0, newAbilities);
+		Pokemon p2=new Pokemon(0, null, null, 0, newAbilities, null);
 		p2.checkEnergyNeeds(damage);
 		
 		

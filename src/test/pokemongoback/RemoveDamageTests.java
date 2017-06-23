@@ -23,7 +23,7 @@ public class RemoveDamageTests {
 	
 		ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage basic=new basicPokemon();
-		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);
+		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);
 		// test if damage is 0, heal is 10, result should be 0.
 		int expected=0,expected1=10,expected2=20;
 		pk.removeDamage(10);

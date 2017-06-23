@@ -21,7 +21,11 @@ public class DeckAbility extends ability {
 	
 	public void useAbility() {
 		if(choice!=null){
-				this.amount = ((CardsGroup) target.getTargetObject(this.choice).getTarget()).getGroupCards().size();
+			Debug.message(this.choice);
+			CardsGroup cardsGroup = ((CardsGroup) target.getTargetObject(this.choice).getTarget());
+			if(cardsGroup!=null){	
+				this.amount = cardsGroup.getGroupCards().size();
+			}
 		}
 		for(int i=0;i<amount;i++){
 			cardItem nCard = ((CardsGroup) target.getTargetObject(this.choice).getTarget()).removeFirstCard();

@@ -22,9 +22,9 @@ public class EvolveTest {
 		ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage newPokemonStage=new basicPokemon();
 		
-		Pokemon p= new Pokemon(2, "Pikachu", newPokemonStage, 80, newAbilities);
+		Pokemon p= new Pokemon(2, "Pikachu", newPokemonStage, 80, newAbilities, null);
 		pokemonStage stageone = new stageOnePokemon("Pikachu");
-		Pokemon e= new Pokemon(3, "Raichu", stageone, 80, newAbilities);
+		Pokemon e= new Pokemon(3, "Raichu", stageone, 80, newAbilities, null);
 		UserPlayer up= new UserPlayer("alex");
 		
 		up.setActivePokemon(p);

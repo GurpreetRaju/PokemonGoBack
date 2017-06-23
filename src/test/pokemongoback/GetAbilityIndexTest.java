@@ -23,7 +23,7 @@ public class GetAbilityIndexTest {
 	public void test() {
 		ArrayList<ability> abilities = new ArrayList<ability>();
 		
-		Pokemon p1=new Pokemon(0, null, null, 0, abilities);
+		Pokemon p1=new Pokemon(0, null, null, 0, abilities, null);
 		healingAbility h1=new healingAbility("healing", 0, null);
 		swapAbility s1=new swapAbility("swap", "Pikachu", "Raichu");
 		Search s2=new Search("search", null, null, null, null, 0);

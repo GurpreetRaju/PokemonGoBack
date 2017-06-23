@@ -22,7 +22,7 @@ public class DettachCardTypeTests {
 		
 		ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage basic=new basicPokemon();
-		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);
+		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);
 		
 		// test if  card have 0 attached energy card,then detach 1 card
 				// result should be 0.

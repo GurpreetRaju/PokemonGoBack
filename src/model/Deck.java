@@ -40,7 +40,7 @@ public class Deck extends CardsGroup{
 						this.getGroupCards().add(cparser.createTrainer(x, card));
 						break;
 					case "energy":
-						this.getGroupCards().add(new Energy(card[0],x));
+						this.getGroupCards().add(new Energy(card[3],x));
 						//this.getGroupCards().
 						break;
 				}

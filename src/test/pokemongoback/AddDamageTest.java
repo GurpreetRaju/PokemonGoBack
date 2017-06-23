@@ -16,7 +16,7 @@ public class AddDamageTest {
 	
 	ArrayList<ability> newAbilities=new ArrayList<ability>();
 	pokemonStage basic=new basicPokemon();
-	Pokemon pk = new Pokemon(2, "Pikachu", basic, 60, newAbilities);
+	Pokemon pk = new Pokemon(2, "Pikachu", basic, 60, newAbilities, null);
 	UserPlayer up= new UserPlayer("john");
 
 	@Test
