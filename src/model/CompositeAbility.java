@@ -6,13 +6,15 @@ public class CompositeAbility extends ability{
 
 	private ArrayList<ability> abilities;
 	
-	public CompositeAbility(ArrayList<ability> newAbility){
+	public CompositeAbility(ArrayList<ability> newAbility, ArrayList<EnergyNode> nEnergyInfo){
 		this.abilities = newAbility;
+		this.energyInfo = nEnergyInfo;
 	}
 	
-	public CompositeAbility(String abilityName) {
+	public CompositeAbility(String abilityName, ArrayList<EnergyNode> nEnergyInfo) {
 		this.name = abilityName;
 		this.abilities = new ArrayList<ability>();
+		this.energyInfo = nEnergyInfo;
 	}
 
 	public void add(ability newAbility){
@@ -35,16 +37,6 @@ public class CompositeAbility extends ability{
 		for(ability a : this.abilities){
 			a.useAbility();
 		}
-	}
-	
-	public ArrayList<Energy> getEnergyInfo(){
-		ArrayList<Energy> energyRequired = new ArrayList<Energy>();
-		for(ability a: this.abilities){
-			if(a instanceof damageAbility){
-				energyRequired.addAll(((damageAbility) a).getEnergyInfo());
-			}
-		}
-		return energyRequired;
 	}
 	
 	public int size(){

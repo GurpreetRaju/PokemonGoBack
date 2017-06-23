@@ -27,14 +27,15 @@ public class condAbility extends ability{
 	private String condition;
 	private ability ability1, ability2, conditionAbility;
 	
-	public condAbility(String name, String newCondition, ability newConditionAbility, ability newAbility1, ability newAbility2, ArrayList<Energy> energyInfo)
+
+	public condAbility(String name, String newCondition, ability newConditionAbility, ability newAbility1, ability newAbility2, ArrayList<EnergyNode> energyInfo)
 	{
 		this.name = name;
 		this.condition = newCondition;
 		this.ability1 = newAbility1;
 		this.ability2 = newAbility2;
 		this.conditionAbility = newConditionAbility;
-		this.energyRequired = energyInfo;
+		this.energyInfo = energyInfo;
 	}
 	
 	@SuppressWarnings("unused")
@@ -113,6 +114,7 @@ public class condAbility extends ability{
 				break;
 			}
 		}
+		GameController.getInstance().ulabelUpdate();
 	}
 	
 	public boolean equals(Object o) {

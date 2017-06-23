@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.*;
 
+import controller.GameController;
+
 public class DeckFileReader {
+	private static int decksize ;
 	private String deck1file = "resources/deck1.txt";
 	private String deck2file = "resources/deck2.txt";
 	private String cardsfile = "resources/cards.txt";
@@ -96,7 +99,11 @@ public class DeckFileReader {
 	}
 	
 	public ArrayList<String[]> getDeck(){
+		
+		//decksize = deck.size();
+		//GameController.getInstance().ulabelUpdate();
 		return this.deck;
+		
 	}
 	
 	public String getAbilityR(int index)

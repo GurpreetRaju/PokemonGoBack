@@ -8,13 +8,16 @@ import org.junit.Test;
 
 import model.CardsGroup;
 
-import test.stubs.*;
 import model.Pokemon;
+import model.Search;
 import model.Trainer;
 import model.ability;
 import model.basicPokemon;
 import model.cardItem;
 import model.pokemonStage;
+import model.cardItem;
+import model.healingAbility;
+import model.swapAbility;
 
 public class AddCardTest {
 	CardsGroup cg=new CardsGroup();
@@ -23,11 +26,19 @@ public class AddCardTest {
 
 	@Test
 	public void addCardTest(){
+
+ArrayList<ability> abilities = new ArrayList<ability>();
 		
-		ArrayList<ability> newAbilities=new ArrayList<ability>();
-		pokemonStage basic=new basicPokemon();
+		healingAbility h1=new healingAbility("healing", 0, null);
+		swapAbility s1=new swapAbility("swap", "Pikachu", "Raichu");
+		Search s2=new Search("search", null, null, null, null, 0);
+		
+		abilities.add(h1);
+		abilities.add(s1);
+		abilities.add(s2);
+		
 		cardItem trainercard=new Trainer(32,"Potion", null, null);
-		cardItem pokemon1=new Pokemon(80, "Pikachu", basic, 0, newAbilities);
+		cardItem pokemon1=new Pokemon(80, "Pikachu", null, 0, abilities, null);
 	
 		ArrayList<cardItem> pokemoncard = new ArrayList<cardItem>();
 		pokemoncard.add(null);
@@ -38,8 +49,7 @@ public class AddCardTest {
 		
 		for(int i=0; i<3; i++){
 			assertEquals(pokemoncard.get(i),cg.getGroupCards().get(i));
-		}	
-			
+		}		
  	}
-		}
+}
 

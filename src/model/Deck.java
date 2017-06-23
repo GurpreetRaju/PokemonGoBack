@@ -40,7 +40,7 @@ public class Deck extends CardsGroup{
 						this.getGroupCards().add(cparser.createTrainer(x, card));
 						break;
 					case "energy":
-						this.getGroupCards().add(new Energy(card[0],x));
+						this.getGroupCards().add(new Energy(card[3],x));
 						//this.getGroupCards().
 						break;
 				}
@@ -55,27 +55,29 @@ public class Deck extends CardsGroup{
 		int j=0;
 		for(;j<18;j++){
 			ArrayList<ability> newAbility = new ArrayList<ability>();
-			ArrayList<Energy> EnergyInfo = new ArrayList<Energy>();
-			EnergyInfo.add(new Energy("Fighting"));
-			String a = "ConditionAbility:cond:healed:target:your-active:dam:target:opponent-active:80";
+			ArrayList<EnergyNode> EnergyInfo = new ArrayList<EnergyNode>();
+			EnergyInfo.add(new EnergyNode(new Energy("Fighting Energy"),0));
+			String a = "Ear Influence:redamage:source:choice:opponent:destination:opponent:count(target:last:source:damage)";
 			AbilityParser ap = new AbilityParser();
 			ability abilt = ap.parseAbilities(a, EnergyInfo);
 			newAbility.add(abilt);
+			Retreat retreat = new Retreat("Fighting Energy",1);
 			//Debug.message(abilt.getName());
-				this.getGroupCards().add(new Pokemon(j, "Pikachu", new basicPokemon(), 80, newAbility));
+				this.getGroupCards().add(new Pokemon(j, "Pikachu", new basicPokemon(), 200, newAbility,retreat));
 
 //				this.getGroupCards().add(new Trainer(j+18, "Heal Trainer", "item", new healingAbility("Heal pokemon",30,"youractive")));
 //				this.getGroupCards().add(new Trainer(j+18, "Deck Ability", "item", new DeckAbility("Deck Ability","opponent", "deck", 0, "opponenthand")));
 //				this.getGroupCards().add(new Trainer(j+18, "Wally", "item", new Search("Deck Ability","choiceyour", "deck", null, "evolvesfrom",1)));
-				this.getGroupCards().add(new Trainer(j+18,"Deenergize" ,"item", new Deenergize("Deenergize", "youractive", "youractive energy")));
+				this.getGroupCards().add(new Trainer(j+18,"Deenergize" ,"item", abilt));
 
 				this.getGroupCards().add(new Energy("Fighting Energy",j+36));
 		}
+		j=55;
 		for(;j<60;j++){
 			ArrayList<ability> newAbility = new ArrayList<ability>();
-			ArrayList<Energy> EnergyInfo = new ArrayList<Energy>();
-			EnergyInfo.add(new Energy("Fighting"));
-			this.getGroupCards().add(new Pokemon(j,"Raichu", new stageOnePokemon("Pikachu"), 30, newAbility));
+			ArrayList<EnergyNode> EnergyInfo = new ArrayList<EnergyNode>();
+			EnergyInfo.add(new EnergyNode(new Energy("Fighting Energy"),1));
+			this.getGroupCards().add(new Pokemon(j,"Raichu", new stageOnePokemon("Pikachu"), 30, newAbility,null));
 		}
 		//this.shufflecards();
 	}

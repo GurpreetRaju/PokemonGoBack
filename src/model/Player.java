@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.GameController;
+
 public class Player {
 	
 	protected String name;
@@ -40,11 +42,13 @@ public class Player {
 	
 	public void addRewardCards(int i){
 		rewardCards.addCards(dealMultipleCards(i));
+		GameController.getInstance().ulabelUpdate();
 	}
 	
 	public cardItem dealCard(){
 		cardItem newcard = getDeckCard();
 		((CardsGroup) inhand).addCard(newcard);
+		GameController.getInstance().ulabelUpdate();
 		return newcard;
 	}
 	
@@ -53,14 +57,18 @@ public class Player {
 		for(int x=0; x<i; x++){
 			((CardsGroup) this.inhand).addCard(dealt[x]);
 		}
+		GameController.getInstance().ulabelUpdate();
 		return dealt;
 	}
 	
 	public cardItem[] getInhandCards(){
+		//GameController.getInstance().ulabelUpdate();
 		return ((CardsGroup) this.inhand).getCard();
+		
 	}
 	
 	public cardItem getInhand(){
+		GameController.getInstance().ulabelUpdate();
 		return this.inhand;
 	}
 	
@@ -87,6 +95,7 @@ public class Player {
 				return card;
 			}
 		}
+		//GameController.getInstance().ulabelUpdate();
 		return null;
 	}
 	
@@ -99,6 +108,7 @@ public class Player {
 		else{
 			this.getBench().addCard(stageOnePokemon);
 		}
+		GameController.getInstance().ulabelUpdate();
 	}
 	
 	public static void main(String arg[]){
@@ -120,5 +130,12 @@ public class Player {
 
 	public String getName() {
 		return this.name;
+	}
+	
+	public ArrayList<Pokemon> getPokemonFromBenchAndActive(){
+		ArrayList<Pokemon> allPokemons = new ArrayList<Pokemon>();
+		allPokemons.addAll(this.bench.getAllPokemonCard());
+		allPokemons.add(this.activePokemon);
+		return allPokemons;
 	}
 }

@@ -1,5 +1,7 @@
 package model;
 
+import controller.GameController;
+
 public class Deenergize extends ability{
 
 	private String amount;
@@ -24,8 +26,10 @@ public class Deenergize extends ability{
 			discardedEnergy = pk.dettachCardType(Energy.class, value);
 		}
 		if(discardedEnergy!=null){
-			target.getTargetObject(abilitytarget).getPlayer().getDiscardPile().addCards(discardedEnergy);;
+			target.getTargetObject(abilitytarget).getPlayer().getDiscardPile().addCards(discardedEnergy);
+			
 		}
+		GameController.getInstance().ulabelUpdate();
 	}
 	
 	public int getAmount(){

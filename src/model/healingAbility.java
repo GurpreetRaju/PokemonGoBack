@@ -1,5 +1,7 @@
 package model;
 
+import controller.GameController;
+
 public class healingAbility extends ability {
 	
 	private int healingValue;
@@ -17,6 +19,8 @@ public class healingAbility extends ability {
 		if(pokemon!=null){
 			pokemon.removeDamage(healingValue);
 		}
+		//GameController.getInstance().ulabelUpdate();
+		
 	}
 
 	@Override

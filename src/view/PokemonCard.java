@@ -8,8 +8,11 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.FlowPane;
+import model.Debug;
+import model.Energy;
 import model.Pokemon;
 import model.ability;
+import model.cardItem;
 
 public class PokemonCard extends FlowPane{
 	private Label cardName;
@@ -41,14 +44,29 @@ public class PokemonCard extends FlowPane{
     		@Override
     		public void handle(MouseEvent event){
     			String text = new String();
+    			String text1 = new String();
+    			String text2 = new String();
+    			String text3 = new String();
+    			text2 = ("Energies attached" + "\n");
     			Tooltip tttext = new Tooltip();
     			//text.setText(IntoString());
     			ability[] abilities = card.getAbilities();
     			for(int i=0; i<abilities.length;i++){
     				text = text + abilities[i].getName() + "\n" ;
     			}
+    			cardItem [] energies =  card.getAttachedCards();
+    			if(energies.length >= 1){
+    				for (int j =0;j<energies.length;j++){
+    					Debug.message(energies[j].getName());
+    					text1 = ( text1 + energies[j].getName() + "\n") ;
+    				}
+    			text3 = text2 + text1;
+    			}
+    			else{
+    				text3 = "";
+    			}
     			//System.out.println("User bench" + userBench.getChildren().size());
-    			tttext.setText(text);
+    			tttext.setText("Abilities"+ "\n" + text + text3 );
     			button.setTooltip(tttext);
     		}
     	

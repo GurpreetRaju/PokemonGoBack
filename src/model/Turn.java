@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
@@ -58,10 +59,32 @@ public class Turn {
 			if(this.getCurrentPlayer().getActivePokemon().isHealed()){
 				this.getCurrentPlayer().getActivePokemon().resetHealStatus();
 			}
-		}
-		if(!this.getCurrentPlayer().getBench().getAllPokemonCard().isEmpty()){
-			for(Pokemon p:this.getCurrentPlayer().getBench().getAllPokemonCard()){
-				p.resetHealStatus();
+			if(!this.getCurrentPlayer().getBench().getAllPokemonCard().isEmpty()){
+				for(Pokemon p:this.getCurrentPlayer().getBench().getAllPokemonCard()){
+					p.resetHealStatus();
+				}
+			}
+			ArrayList<Pokemon> pokemons = this.getCurrentPlayer().getPokemonFromBenchAndActive();
+			if(pokemons!=null && !pokemons.isEmpty()){
+				if(!pokemons.isEmpty()){
+					for(Pokemon p:pokemons){
+						switch(p.getStatus()){
+							case "asleep":
+								Random random = new Random();
+								int number = random.nextInt(2);
+								if(number == 0){
+									p.setState("normal");
+								}
+								break;
+							case "paralyzed": case "stuck":
+								p.setStatus("normal");
+								break;
+							case "poisoned":
+								p.addDamage(10);
+								break;
+						}
+					}
+				}
 			}
 		}
 		
@@ -75,10 +98,12 @@ public class Turn {
 		else{
 			user.setTurn(true);
 			GameController.getInstance().dealCard("user");
+			//GameController.getInstance().ulabelUpdate();
 			ai.setTurn(false);		
 			if(ai.getActivePokemon() !=null && user.getActivePokemon() !=null)
 				Pokemon.getTurnEndAbilities(user);
 		}
+		GameController.getInstance().ulabelUpdate();
 		
 	}
 	
@@ -180,33 +205,7 @@ public class Turn {
                 turn[0] = false;
                 System.out.print(dec);
             }
-
-//            Group root1 = new Group(circle);
-//            //Creating a scene object
-//            Scene scene = new Scene(root1, 400, 350);
-//            //Setting title to the Stage
-//            Stage pm1 = new Stage();
-//            pm1.setScene(scene);
-//            pm1.initStyle(StageStyle.UNDECORATED);
-//            pm1.setResizable(false);
-//            pm1.show();
-//            Timeline timeline = new Timeline();
-//            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(3),new EventHandler<ActionEvent>()
-//            {
-//                        @Override
-//                        public void handle(ActionEvent event)
-//                        {
-//                          pm1.hide();
-//                            ButtonType toss1 = new ButtonType("Let's Play Now", ButtonBar.ButtonData.OK_DONE);
-//                            Alert alert1 = new Alert(Alert.AlertType.INFORMATION,""+dec, toss1);
-//                            alert1.initStyle(StageStyle.UNDECORATED);
-//                            alert1.setHeaderText(null);
-//                            alert1.setX(475);
-//                            alert1.setY(270);
-//                            alert1.show();
-//                        }
-//              }));
-//              timeline.play();              
+            
         }
         else
         {

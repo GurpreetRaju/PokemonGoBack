@@ -25,7 +25,6 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
         primaryStage.show();
-        
         GameController.getInstance().toss();
         GameController.getInstance().init();
     }

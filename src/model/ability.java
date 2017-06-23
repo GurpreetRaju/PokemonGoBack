@@ -7,7 +7,7 @@ public abstract class ability {
 	protected String name;
 	protected String abilitytarget;
 	protected String triggerCondition;
-	protected ArrayList<Energy> energyRequired;
+	protected ArrayList<EnergyNode> energyInfo;
 	
 	public String getName(){
 		return this.name;
@@ -34,8 +34,18 @@ public abstract class ability {
 				return null;
 		}
 	}
-	public ArrayList<Energy> getEnergyInfo(){
-		return this.energyRequired;
+	public ArrayList<EnergyNode> getEnergyInfo(){
+		return this.energyInfo;
+	}
+	
+	public int getEnergyInfoSize(){
+		int total=0;
+		if(this.energyInfo!=null){
+			for(EnergyNode node: this.energyInfo){
+				total+=node.getEnergyCount();
+			}
+		}
+		return total;
 	}
 	
 	public abstract boolean equals(Object o);

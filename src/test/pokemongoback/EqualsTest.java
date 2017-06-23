@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import model.CardsGroup;
+import test.stubs.CardsGroup;
 import model.DeckAbility;
-import model.ability;
+import test.stubs.ability;
 
 public class EqualsTest {
 	
@@ -15,7 +15,7 @@ public class EqualsTest {
 	
 	@Test
 	public void test() {
-		DeckAbility o1=new DeckAbility("Flash", "raichu", "opponentActive", 10, null);
+		DeckAbility o1=new DeckAbility("Flash", "raichu", "opponentActive", 10, null, null);
 		CardsGroup cg=new CardsGroup();
 		expected=false;
 		actual=o1.equals(cg);
@@ -25,7 +25,7 @@ public class EqualsTest {
 	
 	@Test
 	public void test1() {
-		DeckAbility o2=new DeckAbility("Flash", "raichu", "opponentActive", 10, null);
+		DeckAbility o2=new DeckAbility("Flash", "raichu", "opponentActive", 10, null, null);
 		actual=o2.equals(o2);
 		expected=true;
 		assertEquals(expected,actual);

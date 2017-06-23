@@ -54,6 +54,7 @@
                  	 <children>
    	               		<VBox fx:id="aiDisc_deck">
                            <children>
+                              <Button fx:id="aiDscrd" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Vw_Dscrd" textFill="#ff0303" wrapText="true" />
          	               		<Label fx:id="AIDiscardPile" text="DiscardPile" textFill="#ee0303" wrapText="true" />
                      	    	<Label fx:id="AIDeck" contentDisplay="TOP" text="AIDeck" textAlignment="CENTER" textFill="#ee0303">
                                  <VBox.margin>
@@ -66,14 +67,15 @@
                         </VBox>
    	               		<VBox fx:id="btndn_rew">
                            <children>
+                              <Label fx:id="Userhand" text="UHand" textFill="#f80000" />
                          	    <Label fx:id="UserRewardCards" text="Reward Cards" textFill="#f80000" />
-                        		<Button fx:id="UserEndTurnBtn" mnemonicParsing="false" prefHeight="31.0" prefWidth="65.0" text="Done" textFill="#ff0303">
+                        		<Button fx:id="UserEndTurnBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Done" textFill="#ff0303">
                                  <VBox.margin>
                                     <Insets top="10.0" />
                                  </VBox.margin></Button>
                            </children>
                            <VBox.margin>
-                              <Insets left="50.0" top="200.0" />
+                              <Insets bottom="10.0" left="50.0" top="200.0" />
                            </VBox.margin>
                         </VBox>
                  	 </children>
@@ -90,6 +92,7 @@
                               <Insets right="40.0" top="50.0" />
                            </VBox.margin>
                         </VBox>
+                        <Label fx:id="AIhand" contentDisplay="TOP" text="AIHand" textAlignment="CENTER" textFill="#ee0303" />
                         <VBox fx:id="UIDisc_deck">
                            <children>
                 				<Label fx:id="UserDeck" text="Deck" textFill="#f80000" />
@@ -98,9 +101,10 @@
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </Label>
+                              <Button fx:id="UDscrd" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Vw_Dscrd" textFill="#ff0303" wrapText="true" />
                            </children>
                            <VBox.margin>
-                              <Insets right="40.0" top="230.0" />
+                              <Insets bottom="10.0" right="40.0" top="230.0" />
                            </VBox.margin>
                         </VBox>
               	     </children>

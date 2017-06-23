@@ -1,4 +1,4 @@
-package test.pokemongoback;
+package test.IntegrationTest;
 
 import static org.junit.Assert.*;
 

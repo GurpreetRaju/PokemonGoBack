@@ -1,5 +1,7 @@
 package model;
 
+import controller.GameController;
+
 public class Add extends ability{
 
 	//add:target:your:trigger:opponent:turn-end:(heal:target:self:20)
@@ -24,6 +26,7 @@ public class Add extends ability{
 	public void useAbility() {
 		Pokemon pokemon = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
 		pokemon.addActiveAbility(addAbility);
+		//GameController.getInstance().ulabelUpdate();
 	}
 
 	

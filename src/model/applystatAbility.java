@@ -1,5 +1,6 @@
 package model;
 
+
 public class applystatAbility extends ability{
 
 	private String status;
@@ -16,6 +17,7 @@ public class applystatAbility extends ability{
 		
 		Pokemon pktarget = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
 		pktarget.setState(status);
+		//GameController.getInstance().ulabelUpdate();
 		
 		//add functionality for each status
 	}

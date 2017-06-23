@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import model.CardsGroup;
-import model.DeckAbility;
+import test.stubs.CardsGroup;
+import test.stubs.DeckAbility;
 import model.Search;
 
 public class SearchEqualsTest {

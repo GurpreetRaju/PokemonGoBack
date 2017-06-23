@@ -1,11 +1,8 @@
 package test.pokemongoback;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
-import model.CardsGroup;
-import model.Deenergize;
+import test.stubs.CardsGroup;
 import model.healingAbility;
 
 public class HealingAbilityEqualsTest {
@@ -16,7 +13,7 @@ public class HealingAbilityEqualsTest {
 	@Test
 	public void test() {
 		healingAbility h1=new healingAbility("heal", 99, "yourActive");
-		CardsGroup cg=new CardsGroup();
+		CardsGroup cg=new CardsGroup(); //passing wrong object
 		expected=false;
 		actual=h1.equals(cg);
 		assertEquals(expected,actual);

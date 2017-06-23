@@ -1,5 +1,7 @@
 package model;
 
+import controller.GameController;
+
 public class Reenergize extends ability{
 
 	private int amount;
@@ -15,9 +17,9 @@ public class Reenergize extends ability{
 	public void useAbility() {
 		Pokemon pkSource = (Pokemon) target.getTargetObject(this.targetSource).getTarget();
 		Pokemon pkDestination = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
-		
 		cardItem[] energy = pkSource.dettachCardType(Energy.class, amount);
 		pkDestination.attachCard(energy);
+		GameController.getInstance().ulabelUpdate();
 	}
 	
 	public boolean equals(Object o) {

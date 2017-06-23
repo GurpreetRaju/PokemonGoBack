@@ -18,6 +18,7 @@ public class drawAbility extends ability {
 		Player player = (Player) target.getTargetObject(this.abilitytarget).getTarget();
 		Debug.message(player.getName());
 		GameController.getInstance().addCardsToPanel(player.dealMultipleCards(this.drawnumber), GameController.getInstance().getHand(player));
+		GameController.getInstance().ulabelUpdate();
 	}
 	
 	public boolean equals(Object o) {

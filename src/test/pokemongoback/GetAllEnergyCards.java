@@ -36,7 +36,7 @@ public class GetAllEnergyCards {
 		abilities.add(s2);
 		
 		
-		cardItem pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0, abilities);
+		cardItem pokemon1=new Pokemon(80, "Pikachu", new basicPokemon(), 0, abilities, null);
 		cg.addCard(pokemon1);
 		
 		cardItem trainercard=new Trainer(32,"Potion", null,null);

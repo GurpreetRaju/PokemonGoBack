@@ -6,8 +6,11 @@ import java.util.regex.Pattern;
 
 public class AbilityParser {
 
+
 	private String abilityName, target, destination, drawCards, status, amount ;
+
 	private String damage, condition, condAbility, trigger, triggerCond, source, filter, filterCat, count, choice;
+
 
 	ability addAbility = null;
 
@@ -17,7 +20,7 @@ public class AbilityParser {
 	    return matcher.find() ? matcher.end() : -1;
 	}
 
-	public ability parseAbilities(String ablty, ArrayList<Energy> energyInfo){
+	public ability parseAbilities(String ablty, ArrayList<EnergyNode> energyInfo){
 		//parse abilities.txt			
 		abilityName = ablty.substring(0, ablty.indexOf(":"));
 		String abilityElement = ablty.replace(":", " ").substring(ablty.indexOf(":")+1);
@@ -25,7 +28,7 @@ public class AbilityParser {
 	}
 			
 			//}
-		public ability parseAbility(String abilityElement, ArrayList<Energy> energyInfo){
+		public ability parseAbility(String abilityElement, ArrayList<EnergyNode> energyInfo){
 			abilityElement = abilityElement.replace("(", " (");
 			ability ability = null;
 			ArrayList<String> sub = new ArrayList<String>();
@@ -38,7 +41,7 @@ public class AbilityParser {
 				//composite ability do here
 					//Debug.message(a);
 				}
-				ability compositeAbility = new CompositeAbility(abilityName);
+				ability compositeAbility = new CompositeAbility(abilityName, energyInfo);
 				for(int i=0; i<sub.size();i++)
 				{
 					String a = sub.get(i);
@@ -77,7 +80,7 @@ public class AbilityParser {
 		}
 
 	
-	public ability getAbility(String name,String[] a, ArrayList<Energy> energyInfo)
+	public ability getAbility(String name,String[] a, ArrayList<EnergyNode> energyInfo)
 	{
 		String a_join = String.join(" ", a);
 
@@ -87,6 +90,7 @@ public class AbilityParser {
 		{
 			case "dam":
 				damage = a_join.substring(indexOf("\\d", a_join)-1,indexOf("\\d+", a_join));
+				Debug.message(damage);
 				target = a_join.contains("choice") ? "opponentbench" : a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));
 				count = null;
 				if(a_join.contains("count"))
@@ -124,7 +128,9 @@ public class AbilityParser {
 				    condition = condition + " " + temp;
 				   //Debug.message(condition);
 				}
+
 				abilityo = new condAbility(name, condition, abilities[2], abilities[0], abilities[1],energyInfo);
+
 				//abilityo = new Search("Search pokemon", "you", "deck","pokemon","basic",2);
 				break;
 			case "swap":
@@ -148,11 +154,30 @@ public class AbilityParser {
 				//deck:target:your:destination:deck:count(your-hand)
 				//deck:target:them:destination:deck:bottom:choice:target:1
 				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));	
-				destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
-				drawCards = String.valueOf(indexOf("\\d", a_join));
+				
+				//destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
+				
+				Matcher m = Pattern.compile("destination\\s+([^\\s]+)\\s").matcher(a_join);
+				while(m.find()) {
+			       destination = m.group(1);
+			    }
+				int draw = 0;
+				if(abilityName.equals("Act Cute")){
+					drawCards = a_join.substring(indexOf("\\d",a_join)-1);
+					//Debug.message(drawCards);
+					drawCards = String.valueOf(drawCards.charAt(0));
+					draw = Integer.parseInt(drawCards);
+				}
 				// drawCards empty in 1st 2 cases
-				choice = a_join.contains("count") ? a_join.substring(a_join.indexOf("count ("), a_join.indexOf(" ", a_join.indexOf("count ("))).replace(" ", "").replace("-",  "") : "null";
-				abilityo = new DeckAbility(name, target, destination,Integer.valueOf(drawCards), choice, energyInfo);
+				//choice = a_join.contains("count") ? a_join.substring(a_join.indexOf("count ("), a_join.indexOf(" ", a_join.indexOf("count ("))).replace(" ", "").replace("-",  "") : "null";
+				if(a_join.contains("count")){
+					m = Pattern.compile("count\\s+\\(([^)]+)\\)").matcher(a_join);
+					while(m.find()) {
+						choice = m.group(1);
+					}
+				}
+			    			
+				abilityo = new DeckAbility(name, target, destination,draw, choice, energyInfo);
 				break;
 			case "search":
 				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));	
@@ -187,7 +212,11 @@ public class AbilityParser {
 				break;
 			case "redamage":
 				source = "choiceopponent";
-				destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
+				Matcher m1 = Pattern.compile("destination\\s+([^\\s]+)\\s").matcher(a_join);
+				while(m1.find()) {
+			       destination = m1.group(1);
+			    }
+				//destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
 				count = a_join.contains("count") ? "opponentdamage": a_join.substring(indexOf("\\d", a_join)-1);
 				abilityo = new Redamage(name, source, destination, count);
 				break;
@@ -202,6 +231,7 @@ public class AbilityParser {
 				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));
 				count = a_join.contains("count") ? "youractive energy" : a_join.substring(indexOf("\\d", a_join)-1);
 				abilityo = new Deenergize(name, target, count);
+				Debug.message("Scavenge "+name+target+count);
 				break;
 			case "applystat":
 				status = a[2];
@@ -240,7 +270,7 @@ public class AbilityParser {
 		return abilityo;
 	}
 
-	private ability[] conditionAbilityParser(String condAbility, String newCondition, ArrayList<Energy> energyInfo) {
+	private ability[] conditionAbilityParser(String condAbility, String newCondition, ArrayList<EnergyNode> energyInfo) {
 		ability[] abilities = new ability[3];
 		if(newCondition.contains("count")){
 			newCondition = "count";
@@ -249,6 +279,7 @@ public class AbilityParser {
 		switch(newCondition){
 			case "flip": case "choice":
 				condAbility = condAbility.substring(condAbility.indexOf(" ")+1);
+				Debug.message(condAbility);
 				break;
 			case "healed":
 				condAbility = condAbility.substring(nthIndexOf(condAbility, ' ', 3)+1);
@@ -257,8 +288,11 @@ public class AbilityParser {
 				condAbility = condAbility.substring(nthIndexOf(condAbility, ' ', 5)+1);
 				break;	
 			case "ability":
-				abilityCondition = condAbility.substring(0,condAbility.indexOf("(")-1);
+				abilityCondition = condAbility.substring(8,condAbility.indexOf("(")-1);
 				condAbility = condAbility.substring(condAbility.indexOf("("));				
+				Debug.message(abilityCondition);
+				
+				
 				
 				//condAbility = condAbility.substring(condAbility.indexOf("(")+1, condAbility.indexOf(")")-1);
 				break;
@@ -266,7 +300,7 @@ public class AbilityParser {
 		//Debug.message(condAbility);
 		if(condAbility.contains("else")){
 			abilities[1] = this.parseAbility(condAbility.substring(condAbility.indexOf("else")+5),energyInfo);
-			condAbility = condAbility.substring(0,condAbility.indexOf("else")-2);
+			condAbility = condAbility.substring(0,condAbility.indexOf("else")-1);
 		}
 		if(abilityCondition!=null){
 			abilities[2] = this.parseAbility(abilityCondition, energyInfo);

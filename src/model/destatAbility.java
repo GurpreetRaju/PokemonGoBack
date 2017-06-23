@@ -1,5 +1,7 @@
 package model;
 
+import controller.GameController;
+
 public class destatAbility extends ability {
 	
 	public destatAbility(String name, String abilityTarget){
@@ -14,6 +16,7 @@ public class destatAbility extends ability {
 	public void useAbility() {
 		Pokemon pktarget = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
 		pktarget.setState("normal");
+		
 		
 	}
 

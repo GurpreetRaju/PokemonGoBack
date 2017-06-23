@@ -32,7 +32,7 @@ public class isEvolvedTest {
 	public void test1(){
 		ArrayList<ability> abilities = new ArrayList<ability>();
 		
-		Pokemon p1=new Pokemon(0, null, null, 0, abilities);
+		Pokemon p1=new Pokemon(0, null, null, 0, abilities, null);
 		healingAbility h1=new healingAbility("healing", 0, null);
 		swapAbility s1=new swapAbility("swap", "Pikachu", "Raichu");
 		Search s2=new Search("search", null, null, null, null, 0);
@@ -42,7 +42,7 @@ public class isEvolvedTest {
 		abilities.add(s2);
 		
 		stageOnePokemon s=new stageOnePokemon(null);
-		Pokemon pokemon1=new Pokemon(80, "Pikachu", null, 0, abilities);
+		Pokemon pokemon1=new Pokemon(80, "Pikachu", null, 0, abilities, null);
 		s.evolve(pokemon1);
 		expected=true;
 		actual=s.isEvolved();

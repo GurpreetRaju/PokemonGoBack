@@ -1,5 +1,7 @@
 package model;
 
+import controller.GameController;
+
 public class Redamage extends ability{
 
 	private String amount;
@@ -16,10 +18,19 @@ public class Redamage extends ability{
 	
 	public void useAbility() {
 		
+		//Debug.message(this.name +" "+ this.targetSource +" *"+ this.abilitytarget +"* "+ this.amount);
+		
 		Pokemon pSource = (Pokemon) target.getTargetObject(targetSource).getTarget();
-		Pokemon pDestination = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
+		Pokemon pDestination = null;
+		if(this.amount.equals("opponentdamage")){
+			pDestination = pSource;
+		}
+		else{
+			pDestination = (Pokemon) target.getTargetObject(this.abilitytarget).getTarget();
+		}
 		//distribute count to different pokemons
 		pDestination.addDamage(pSource.getDamage()*count);
+		GameController.getInstance().ulabelUpdate();
 		
 	}
 	
