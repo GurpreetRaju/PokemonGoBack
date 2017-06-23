@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controller.GameController;
 
@@ -16,6 +17,7 @@ public class AIplayer extends Player {
 		deck = new Deck(1);
 		((Deck) deck).buildDeck();
 	}
+	
 	
 	public String getName() {
 		return this.name;
