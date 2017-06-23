@@ -100,7 +100,6 @@ public class condAbility extends ability{
 				break;
 			case "ability":
 				if(GameController.getInstance().getAbilityChoice()){
-					Debug.message("Ability condition "+this.conditionAbility.getName());
 					this.conditionAbility.useAbility();
 	            	this.ability1.useAbility();
 	            	//Debug.message(this.ability1.getClass().getName());

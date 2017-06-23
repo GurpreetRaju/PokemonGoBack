@@ -24,7 +24,8 @@ public class CardsGroup implements cardItem
 	}
 	
 	public cardItem getCard(int id){
-		for(cardItem card:groupCards){
+		for(cardItem card : this.groupCards){
+			Debug.message(card.getID());
 			if(card.getID() == id){
 				return card;
 			}
@@ -35,6 +36,14 @@ public class CardsGroup implements cardItem
 	public cardItem removeFirstCard(){
 		GameController.getInstance().ulabelUpdate();
 		return this.getGroupCards().remove(0);
+	}
+	
+	public cardItem getFirstCard(){
+		return this.getGroupCards().get(0);
+	}
+	
+	public cardItem getCardAtIndex(int index){
+		return this.getGroupCards().get(index);
 	}
 	
 	public cardItem[] getCard(){
