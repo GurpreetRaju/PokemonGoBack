@@ -173,20 +173,20 @@ public class UseAbilityTest {
 			
 			String activepk = "Pikachu";
 			String target="Raichu";
-			System.out.println(pk.totalEnergyRequired());
+			System.out.println(pk.checkEnergyNeeds(null));
 			ability ablt = new Deenergize("john", target, "1");
 			pk.addActiveAbility(ablt);
 			pk.useAbility(ablt);
-			System.out.println(pk.totalEnergyRequired());
+			System.out.println(pk.checkEnergyNeeds(ablt));
 			//ability ablt = new Deenergize("john", target, 10);
 			
 			//rh.addDamage(10);
-			assertEquals(0, pk.totalEnergyRequired());
+			assertEquals(0, pk.checkEnergyNeeds(ablt));
 			ability ablty = new Reenergize("john", target, activepk, 1);
 			pk.useAbility(ablty);
-			System.out.println(pk.totalEnergyRequired());
+			System.out.println(pk.checkEnergyNeeds(ablty));
 			
-			assertEquals(1, pk.totalEnergyRequired());
+			assertEquals(1, pk.checkEnergyNeeds(ablty));
 		
 
 

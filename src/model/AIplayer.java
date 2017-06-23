@@ -105,9 +105,10 @@ public class AIplayer extends Player {
 	}
 	
 	public boolean checkAndPlayEnergy(ArrayList<Energy> energyCards){
-		Debug.message(this.activePokemon.getAttachedCards().length);
+		Debug.message("No. of attached cards at active pokemon "+this.activePokemon.getAttachedCards().length);
 		for(ability a : this.activePokemon.getAbilities()){
 			if(!this.activePokemon.checkEnergyNeeds(a)){
+				Debug.message("Checkpoint 1");
 				this.activePokemon.attachCard(energyCards.get(0));
 				((CardsGroup) this.inhand).removeCard(energyCards.get(0));
 				Debug.message("Energy card added to Active pokemon");
@@ -118,6 +119,7 @@ public class AIplayer extends Player {
 			Pokemon pokemon = (Pokemon) card;
 			for(ability a: pokemon.getAbilities()){
 				if(!pokemon.checkEnergyNeeds(a)){
+					Debug.message("Checkpoint 2");
 					pokemon.attachCard(energyCards.get(0));
 					((CardsGroup) this.inhand).removeCard(energyCards.get(0));
 					Debug.message("Energy card added to "+pokemon.getName());
