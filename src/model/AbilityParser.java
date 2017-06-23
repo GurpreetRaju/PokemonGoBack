@@ -153,11 +153,30 @@ public class AbilityParser {
 				//deck:target:your:destination:deck:count(your-hand)
 				//deck:target:them:destination:deck:bottom:choice:target:1
 				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));	
-				destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
-				drawCards = String.valueOf(indexOf("\\d", a_join));
+				
+				//destination = a_join.substring(a_join.indexOf("destination "), a_join.indexOf(" ", a_join.indexOf("destination ")));
+				
+				Matcher m = Pattern.compile("destination\\s+([^\\s]+)\\s").matcher(a_join);
+				while(m.find()) {
+			       destination = m.group(1);
+			    }
+				int draw = 0;
+				if(abilityName.equals("Act Cute")){
+					drawCards = a_join.substring(indexOf("\\d",a_join)-1);
+					//Debug.message(drawCards);
+					drawCards = String.valueOf(drawCards.charAt(0));
+					draw = Integer.parseInt(drawCards);
+				}
 				// drawCards empty in 1st 2 cases
-				choice = a_join.contains("count") ? a_join.substring(a_join.indexOf("count ("), a_join.indexOf(" ", a_join.indexOf("count ("))).replace(" ", "").replace("-",  "") : "null";
-				abilityo = new DeckAbility(name, target, destination,Integer.valueOf(drawCards), choice, energyInfo);
+				//choice = a_join.contains("count") ? a_join.substring(a_join.indexOf("count ("), a_join.indexOf(" ", a_join.indexOf("count ("))).replace(" ", "").replace("-",  "") : "null";
+				if(a_join.contains("count")){
+					m = Pattern.compile("count\\s+\\(([^)]+)\\)").matcher(a_join);
+					while(m.find()) {
+						choice = m.group(1);
+					}
+				}
+			    			
+				abilityo = new DeckAbility(name, target, destination,draw, choice, energyInfo);
 				break;
 			case "search":
 				target = a_join.substring(indexOf("target ", a_join), a_join.indexOf(" ", indexOf("target ", a_join)));	

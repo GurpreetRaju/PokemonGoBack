@@ -388,8 +388,8 @@ public class GameController {
         Optional<ButtonType> result1 = ts.showAndWait();
         if (result1.get().getButtonData() == ButtonBar.ButtonData.YES){
         	((Trainer) newCard.getCard()).getAbility().useAbility();
-        	
         }
+        
 	}
 	
 	private void EnergyOptions(GeneralCard newcard){

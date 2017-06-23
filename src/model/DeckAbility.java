@@ -21,10 +21,29 @@ public class DeckAbility extends ability {
 	
 	public void useAbility() {
 		if(choice!=null){
-				this.amount = ((CardsGroup) target.getTargetObject(this.choice).getTarget()).getGroupCards().size();
+			Debug.message(this.choice);
+			CardsGroup cardsGroup = ((CardsGroup) target.getTargetObject(this.choice).getTarget());
+			if(cardsGroup!=null){	
+				this.amount = cardsGroup.getGroupCards().size();
+			}
 		}
+		//Debug.message(this.abilitytarget+" " + this.targetDestination + " " +amount + " "+ this.choice);
 		for(int i=0;i<amount;i++){
-			cardItem nCard = ((CardsGroup) target.getTargetObject(this.choice).getTarget()).removeFirstCard();
+			cardItem nCard = null;
+			if(this.choice!=null){
+				nCard = ((CardsGroup) target.getTargetObject(this.choice).getTarget()).removeFirstCard();
+			}
+			else{
+				String tempTarget = null;
+				if(this.abilitytarget.equals("opponent")){
+					tempTarget="choiceopponent";
+				}
+				else if(this.abilitytarget.equals("your") || this.abilitytarget.equals("you")){
+					tempTarget = "choiceyour";
+				}
+				
+				nCard = (cardItem) target.getTargetObject(tempTarget).getTarget();
+			}
 			((CardsGroup) this.getTargetLocation(this.targetDestination,this.abilitytarget)).addCard(nCard);
 		}
 		GameController.getInstance().ulabelUpdate();

@@ -59,6 +59,7 @@ public class Search extends ability{
 					StringBuilder sb = new StringBuilder(filterType);//StackOverFlow https://stackoverflow.com/questions/14972032/how-to-convert-lower-case-letters-to-upper-case-letters-and-upper-case-letters
 					char c = sb.charAt(0);
 					sb.setCharAt(0, Character.toUpperCase(c));
+					filterType = sb.toString();
 					Class<?> classType = Class.forName(filterType);
 					ArrayList<cardItem> resultcards = source.getCardsOfType(classType);
 					cards.addAll(resultcards);

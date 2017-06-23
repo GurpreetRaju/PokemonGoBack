@@ -6,8 +6,8 @@ public class UserPlayer extends Player {
 		super(newName);
 		this.name = newName;
 		deck = new Deck(2);
-		((Deck) deck).buildDeck();
-//		((Deck) deck).buildDeckTest();
+//		((Deck) deck).buildDeck();
+		((Deck) deck).buildDeckTest();
 	}
 		
 	public String getName() {

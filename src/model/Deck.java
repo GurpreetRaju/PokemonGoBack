@@ -40,7 +40,7 @@ public class Deck extends CardsGroup{
 						this.getGroupCards().add(cparser.createTrainer(x, card));
 						break;
 					case "energy":
-						this.getGroupCards().add(new Energy(card[0],x));
+						this.getGroupCards().add(new Energy(card[3],x));
 						//this.getGroupCards().
 						break;
 				}
@@ -56,8 +56,8 @@ public class Deck extends CardsGroup{
 		for(;j<18;j++){
 			ArrayList<ability> newAbility = new ArrayList<ability>();
 			ArrayList<EnergyNode> EnergyInfo = new ArrayList<EnergyNode>();
-			EnergyInfo.add(new EnergyNode(new Energy("Fighting Energy"),1));
-			String a = "Scratch:dam:target:opponent-active:20";
+			EnergyInfo.add(new EnergyNode(new Energy("Fighting Energy"),0));
+			String a = "Act Cute:deck:target:opponent:destination:deck:bottom:choice:them:target:1";
 			AbilityParser ap = new AbilityParser();
 			ability abilt = ap.parseAbilities(a, EnergyInfo);
 			newAbility.add(abilt);
