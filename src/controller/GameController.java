@@ -612,8 +612,9 @@ public class GameController {
 			}
 		}
 		}
-		GameController.getInstance().ulabelUpdate();
+		
 	}
+		GameController.getInstance().ulabelUpdate();
 	}
 	
 	
