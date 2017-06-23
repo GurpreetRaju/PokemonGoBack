@@ -63,18 +63,33 @@ public class Search extends ability{
 			}
 			else{
 				if(filterType!=null){
-						try {
-							StringBuilder sb = new StringBuilder(filterType);//StackOverFlow https://stackoverflow.com/questions/14972032/how-to-convert-lower-case-letters-to-upper-case-letters-and-upper-case-letters
-							char c = sb.charAt(0);
-							sb.setCharAt(0, Character.toUpperCase(c));
-							filterType = sb.toString();
-							Class<?> classType = Class.forName(filterType);
-							ArrayList<cardItem> resultcards = source.getCardsOfType(classType);
-							cards.addAll(resultcards);
-						} catch (ClassNotFoundException e) {
-							e.printStackTrace();
-						}
+//					StringBuilder sb = new StringBuilder(filterType);//StackOverFlow https://stackoverflow.com/questions/14972032/how-to-convert-lower-case-letters-to-upper-case-letters-and-upper-case-letters
+//					char c = sb.charAt(0);
+//					sb.setCharAt(0, Character.toUpperCase(c));
+//					filterType = sb.toString();
+					Class<?> classType = null;
+//					switch(filterType){
+//					case "energy":
+//						classType = Energy.class;
+//						break;
+//					case "pokemon":
+//						classType = Pokemon.class;
+//						break;
+//					case "trainer":
+//						classType = Trainer.class;
+//						break;	
+//					}
+					if(filterType.equals("energy")){
+						classType = Energy.class;
+					}else if(filterType.equals("pokemon")){
+						classType = Pokemon.class;
+					}else if(filterType.equals("trainer")){
+						classType = Trainer.class;
 					}
+					Debug.message(source.getCardAtIndex(0).getName());
+					ArrayList<cardItem> resultcards = source.getCardsOfType(classType);
+					cards.addAll(resultcards);
+				}
 				
 			}
 		}

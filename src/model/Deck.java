@@ -68,7 +68,7 @@ public class Deck extends CardsGroup{
 //				this.getGroupCards().add(new Trainer(j+18, "Heal Trainer", "item", new healingAbility("Heal pokemon",30,"youractive")));
 //				this.getGroupCards().add(new Trainer(j+18, "Deck Ability", "item", new DeckAbility("Deck Ability","opponent", "deck", 0, "opponenthand")));
 //				this.getGroupCards().add(new Trainer(j+18, "Wally", "item", new Search("Deck Ability","choiceyour", "deck", null, "evolvesfrom",1)));
-				this.getGroupCards().add(new Trainer(j+18,"Deenergize" ,"item", new Deenergize("Deenergize", "youractive", "youractive energy")));
+				this.getGroupCards().add(new Trainer(j+18,"Deenergize" ,"item", abilt));
 
 				this.getGroupCards().add(new Energy("Fighting Energy",j+36));
 		}

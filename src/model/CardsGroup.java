@@ -155,7 +155,13 @@ public class CardsGroup implements cardItem
 
 	public ArrayList<cardItem> getCardsOfType(Class<?> newClassType) 
 	{
-		return null;
+		ArrayList<cardItem> cards = new ArrayList<cardItem>();
+		for(cardItem c: this.groupCards){
+			if(c.getClass()==newClassType){
+				cards.add(c);
+			}
+		}
+		return cards;
 	}
 
 }
