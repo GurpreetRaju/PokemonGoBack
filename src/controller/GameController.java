@@ -589,14 +589,14 @@ public class GameController {
 			}
 		}
 		}
-		
-	}
-<<<<<<< HEAD
 		GameController.getInstance().ulabelUpdate();
 	}
+
+		
+
+
 	
-=======
->>>>>>> master
+
 	
 	private void winOrLoss(){
 		ButtonType NewGame = new ButtonType("New Game", ButtonBar.ButtonData.YES);

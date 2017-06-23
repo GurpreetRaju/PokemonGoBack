@@ -61,6 +61,7 @@ public class AIplayer extends Player {
 				((CardsGroup) this.inhand).removeCard(trainerCard.get(0));
 				trainerCard.get(0).getAbility().useAbility();
 				Debug.message("Trainer card used "+ trainerCard.get(0).getName());
+				GameController.getInstance().ulabelUpdate();
 				updateGUI();
 			}
 		}
