@@ -33,7 +33,7 @@ public class Search extends ability{
 		
 		ArrayList<cardItem> cards = new ArrayList<cardItem>();
 		
-		if(filterType.equals("top")){
+		if(filterType!=null && filterType.equals("top")){
 			for(int z=0;z<Integer.parseInt(filterCategory);z++){
 				cards.add(source.getCardAtIndex(z));
 			}
@@ -90,7 +90,9 @@ public class Search extends ability{
 					ArrayList<cardItem> resultcards = source.getCardsOfType(classType);
 					cards.addAll(resultcards);
 				}
-				
+				else{
+					cards.addAll(source.getGroupCards());
+				}				
 			}
 		}
 		for(int i=0; i<this.amount; i++){
