@@ -61,7 +61,7 @@ public class GameController {
 	@FXML private HBox userActivePokemon;
 	@FXML private Button UserEndTurnBtn,UDscrd,aiDscrd;
 	@FXML private Label userDamage;
-	@FXML private Label aiDamage,AIDeck,UserDeck,AIDiscardPile,UserDiscardPile,Userhand,AIhand;
+	@FXML private Label aiDamage,AIDeck,UserDeck,AIDiscardPile,UserDiscardPile,Userhand,AIhand,UserRewardCards,AIRewardCards;
 	@FXML private Pane gameStage;
 	@FXML private BorderPane gameBoard;
 	@FXML private VBox btndn_rew,aiDisc_deck,AIReward,UIDisc_deck;
