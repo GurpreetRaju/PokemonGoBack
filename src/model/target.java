@@ -80,7 +80,12 @@ public enum target {
 			return Turn.getInstance().getCurrentPlayer();
 		}
 		public Object getTarget(){
-			return GameController.getInstance().getPanelPokemonDialog(getPlayer(), "bench");
+			if(getPlayer() instanceof UserPlayer){
+				return GameController.getInstance().getPanelPokemonDialog(getPlayer(), "bench");
+			}	
+			else{
+				return (getPlayer().getBench().getGroupCards()!=null && getPlayer().getBench().getGroupCards().isEmpty()) ? null : getPlayer().getBench().getCardAtIndex(0);
+			}
 		}
 	},
 	your{
