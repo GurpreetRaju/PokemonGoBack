@@ -39,7 +39,6 @@ public class damageAbility extends ability {
 		if(pokm!=null){
 			pokm.addDamage(this.damageValue*times);
 		}
-		Turn.getInstance().changeTurn();
 	   // GameController.getInstance().ulabelUpdate();
 	}
 	

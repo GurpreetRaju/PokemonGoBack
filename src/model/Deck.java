@@ -63,7 +63,7 @@ public class Deck extends CardsGroup{
 			newAbility.add(abilt);
 			Retreat retreat = new Retreat("Fighting Energy",1);
 			//Debug.message(abilt.getName());
-				this.getGroupCards().add(new Pokemon(j, "Pikachu", new basicPokemon(), 200, newAbility,retreat));
+				this.getGroupCards().add(new Pokemon(j, "Pikachu", new basicPokemon(), 20, newAbility,retreat));
 
 //				this.getGroupCards().add(new Trainer(j+18, "Heal Trainer", "item", new healingAbility("Heal pokemon",30,"youractive")));
 //				this.getGroupCards().add(new Trainer(j+18, "Deck Ability", "item", new DeckAbility("Deck Ability","opponent", "deck", 0, "opponenthand")));

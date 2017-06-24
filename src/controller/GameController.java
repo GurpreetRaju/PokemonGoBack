@@ -113,6 +113,8 @@ public class GameController {
 					}
 			
 				});
+		user.addRewardCards(6);
+		ai.addRewardCards(6);
     	addCardsToPanel(user.dealMultipleCards(7),userHand);
     	addCardsToPanel(ai.dealMultipleCards(7), AIHand);
 		Turn.getInstance().setPlayer(ai,user);
@@ -345,6 +347,7 @@ public class GameController {
             							aiDamage.setText(Integer.toString(ai.getActivePokemon().getDamage()));
             						}
             						if(Turn.getInstance().getCurrentPlayer()==user){
+            							Debug.message("Turn end called in game controller");
             							Turn.getInstance().changeTurn();
             						}
             					}
@@ -445,7 +448,6 @@ public class GameController {
 			benchpanel = AIBench;
 			activePokemon = aiActivePokemon;
 			if(user.getActivePokemon()!=null){
-				Debug.message("adding damage to label");
 				userDamage.setText(Integer.toString(user.getActivePokemon().getDamage()));
 			}
 			else{
@@ -554,49 +556,60 @@ public class GameController {
 		return null;
 	}
 	
-	public void knockout()
+	public void knockout(Pokemon knockedPokemon)
 	{
 		Player player = Turn.getInstance().getOpponent();
+		Debug.message(player.getClass().getSimpleName());
 		if(player!=null){
-		if(player instanceof UserPlayer){
-			PokemonCard card = (PokemonCard) userActivePokemon.getChildren().remove(0);
-			user.getDiscardPile().addCard(user.getActivePokemon());
+			if(player instanceof UserPlayer){
+				PokemonCard card = (PokemonCard) userActivePokemon.getChildren().remove(0);
+				user.getDiscardPile().addCard(user.getActivePokemon());
 
-			if(user.getBench().getCard().length != 0){
-				ArrayList<String> optionsList = new ArrayList<String>();
-				for(cardItem pCard: user.getBench().getCard()){
-					optionsList.add(Integer.toString(pCard.getID()));
-				}
-				DialogBoxHandler dialog = new DialogBoxHandler();
-				String selected = dialog.getDialog(optionsList);
-			
-				if (selected!=null) {
-					for(Node nodeCard : userBench.getChildren()){
-						if(((PokemonCard) nodeCard).getCard().getID() == Integer.parseInt(selected)){
-							((PokemonCard) nodeCard).setLocation(userActivePokemon);
-							Pokemon pokemon = ((PokemonCard) nodeCard).getCard();
-							user.setActivePokemon(pokemon);
-							user.getBench().removeCard(pokemon);
+				if(user.getBench().getCard().length != 0){
+					ai.dealrewardCards();
+				
+					ArrayList<String> optionsList = new ArrayList<String>();
+					for(cardItem pCard: user.getBench().getCard()){
+						optionsList.add(Integer.toString(pCard.getID()));
+					}
+					DialogBoxHandler dialog = new DialogBoxHandler();
+					String selected = dialog.getDialog(optionsList);
+				
+					if (selected!=null) {
+						for(Node nodeCard : userBench.getChildren()){
+							if(((PokemonCard) nodeCard).getCard().getID() == Integer.parseInt(selected)){
+								((PokemonCard) nodeCard).setLocation(userActivePokemon);
+								Pokemon pokemon = ((PokemonCard) nodeCard).getCard();
+								user.setActivePokemon(pokemon);
+								user.getBench().removeCard(pokemon);
+							}
 						}
 					}
+					refreshCards(user);
 				}
-				refreshCards(user);
+				else{
+					winOrLoss();
+				}
 			}
 			else{
-				winOrLoss();
+				if(ai.getActivePokemon()!=knockedPokemon){
+					ai.getBench().removeCard(knockedPokemon);
+					ai.getDiscardPile().addCard(knockedPokemon);
+					refreshCards(ai);
+				}
+				else{
+					if(ai.getBench().getCard().length != 0){
+						user.dealrewardCards();
+						ai.getDiscardPile().addCard(ai.getActivePokemon());
+						ai.setActivePokemon(null);
+						ai.activePokemonMove();
+						refreshCards(ai);
+					}
+					else{
+						winOrLoss();
+					}
+				}
 			}
-		}
-		else{
-			if(ai.getBench().getCard().length != 0){
-				ai.getDiscardPile().addCard(ai.getActivePokemon());
-				ai.setActivePokemon(null);
-				ai.activePokemonMove();
-				refreshCards(ai);
-			}
-			else{
-				winOrLoss();
-			}
-		}
 		}
 		//GameController.getInstance().ulabelUpdate();
 	}
@@ -749,7 +762,6 @@ public class GameController {
 		AIDiscardPile.setText("DiscardPile " + ai.getDiscardPile().getGroupCards().size());
 		Userhand.setText("Uhand "+ user.getInhandCards().length);
 		AIhand.setText("AIHand "+ai.getInhandCards().length);
-
 		UserRewardCards.setText("Reward Cards " + user.getRewardCards().getGroupCards().size());
 		AIRewardCards.setText("Reward Cards "+ai.getRewardCards().getGroupCards().size());
 		}
@@ -777,25 +789,26 @@ public class GameController {
     {
     	
     	
-    	//String[] allcards = new String[user.getDiscardPile().getGroupCards().size()];
-    	//allcards = user.getDiscardPile().getGroupCards().toArray(allcards);
-    	ArrayList<String> crds = new ArrayList<>();
-    	crds.add("ok");
-    	crds.add("okkk");
-    //	crds = allcards;
-    	//crds = (ArrayList<String>) Arrays.asList(allcards); 
-    	//DialogBoxHandler dialog = new DialogBoxHandler();
-    	ChoiceDialog<String> dialog = new ChoiceDialog<>("b", crds);
+    	
+    	ArrayList<cardItem> crds = new ArrayList<>();
+    	crds = user.getDiscardPile().getGroupCards();
+    	ArrayList<String> crds1 = new ArrayList<>();
+    	for(cardItem c : crds)
+    	{
+    		crds1.add(Integer.toString(c.getID()));
+    	}
+    	ChoiceDialog<String> dialog = new ChoiceDialog<>("Id", crds1);
     	dialog.setTitle("See Details Of Dicsard Card");
-    	//dialog.setHeaderText("Look, a Choice Dialog");
     	dialog.setContentText("Select ID to see more details.");
     	Optional<String> result= dialog.showAndWait();
-    	//result.ifPresent(chosen -> System.out.println(chosen));
+    	
     	if(result.isPresent())
     	{
+    		String id = result.get();
+        	int idd = Integer.parseInt(id);
     		Alert details = new Alert(AlertType.INFORMATION);
     		details.setTitle("Card Deatils.");
-    		details.setContentText("here are the detais of card");
+    		details.setContentText("Card Id-: "+ idd+"\n Name-: "+ user.getDiscardPile().getCard(idd).getName()+"\n Type-: "+ user.getDiscardPile().getCard(idd).getClass().getSimpleName());
     		details.showAndWait();
     	}
         
@@ -803,17 +816,15 @@ public class GameController {
       
     public void aiviewDiscard()
     {
-    	
-    	
-    	//String[] allcards = new String[user.getDiscardPile().getGroupCards().size()];
-    	//allcards = user.getDiscardPile().getGroupCards().toArray(allcards);
-    	ArrayList<String> crds = new ArrayList<>();
-    	crds.add("ok");
-    	crds.add("okkk");
-    //	crds = allcards;
-    	//crds = (ArrayList<String>) Arrays.asList(allcards); 
-    	//DialogBoxHandler dialog = new DialogBoxHandler();
-    	ChoiceDialog<String> dialog = new ChoiceDialog<>("b", crds);
+    	     	
+      	ArrayList<cardItem> crds = new ArrayList<>();
+    	crds = ai.getDiscardPile().getGroupCards();
+    	ArrayList<String> crds1 = new ArrayList<>();
+    	for(cardItem c : crds)
+    	{
+    		crds1.add(Integer.toString(c.getID()));
+    	}
+    	ChoiceDialog<String> dialog = new ChoiceDialog<>("Id", crds1);
     	dialog.setTitle("See Details Of Dicsard Card");
     	//dialog.setHeaderText("Look, a Choice Dialog");
     	dialog.setContentText("Select ID to see more details.");
@@ -821,9 +832,11 @@ public class GameController {
     	//result.ifPresent(chosen -> System.out.println(chosen));
     	if(result.isPresent())
     	{
+    		String id = result.get();
+        	int idd = Integer.parseInt(id);
     		Alert details = new Alert(AlertType.INFORMATION);
     		details.setTitle("Card Deatils.");
-    		details.setContentText("here are the detais of card");
+    		details.setContentText("Card Id-: "+ idd+"\n Name-: "+ ai.getDiscardPile().getCard(idd).getName()+"\n Type-: "+ ai.getDiscardPile().getCard(idd).getClass().getSimpleName());
     		details.showAndWait();
     	}
         
