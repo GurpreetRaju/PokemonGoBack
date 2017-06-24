@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controller.GameController;
 
@@ -154,6 +155,20 @@ public class AIplayer extends Player {
 	
 	public void updateGUI(){
 		GameController.getInstance().refreshCards(this);
+	}
+
+	public Pokemon getActiveBenchChoice() {
+		ArrayList<Pokemon> pokmons = new ArrayList<Pokemon>();
+		if(this.activePokemon!=null){
+			pokmons.add(this.activePokemon);
+		}
+		if(this.getBench().getAllPokemonCard()!=null && !this.getBench().getAllPokemonCard().isEmpty()){
+			pokmons.addAll(this.getBench().getAllPokemonCard());
+		}
+		Random random = new Random();
+		int number = random.nextInt(pokmons.size());
+		
+		return pokmons.get(number);
 	}
 	
 }
