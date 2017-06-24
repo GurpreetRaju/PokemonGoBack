@@ -24,6 +24,10 @@ public class Add extends ability{
 	}
 
 	public void useAbility() {
+		if(this.abilitytarget.equalsIgnoreCase("opponent"))
+		{
+			this.abilitytarget = "choiceyour";
+		}
 		Pokemon pokemon = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
 		pokemon.addActiveAbility(addAbility);
 		//GameController.getInstance().ulabelUpdate();

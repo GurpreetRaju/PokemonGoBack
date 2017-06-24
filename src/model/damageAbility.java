@@ -24,6 +24,11 @@ public class damageAbility extends ability {
 	}
 	
 	public void useAbility(){
+		if(this.abilitytarget.equalsIgnoreCase("opponent"))
+		{
+			this.abilitytarget = "choiceopponent";
+		}
+		Debug.message(this.abilitytarget);
 		Pokemon pokm = (Pokemon) target.getTargetObject(this.abilitytarget).getTarget();
 		int times = 1;
 		if(count!=null){
