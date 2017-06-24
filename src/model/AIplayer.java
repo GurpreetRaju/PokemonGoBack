@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import controller.GameController;
 
@@ -17,7 +16,6 @@ public class AIplayer extends Player {
 		deck = new Deck(1);
 		((Deck) deck).buildDeck();
 	}
-	
 	
 	public String getName() {
 		return this.name;
@@ -64,12 +62,6 @@ public class AIplayer extends Player {
 		if(!trainerCard.isEmpty() && this.activePokemon!=null){
 			if(trainerCard.get(0).getAbility().getClass().getSimpleName()=="healingAbility" && this.activePokemon.getDamage()>20){
 				((CardsGroup) this.inhand).removeCard(trainerCard.get(0));
-
-				trainerCard.get(0).getAbility().useAbility();
-				Debug.message("Trainer card used "+ trainerCard.get(0).getName());
-				GameController.getInstance().ulabelUpdate();
-				updateGUI();
-
 				Trainer tcard = trainerCard.remove(0);
 				tcard.getAbility().useAbility();
 				Debug.message("Trainer card used "+ tcard.getName() + " RunAI");
@@ -81,7 +73,6 @@ public class AIplayer extends Player {
 				(tcard).getAbility().useAbility();
 				Debug.message("Trainer card used "+ tcard.getName() + " RunAI");
 				userDiscardPile.addCard(tcard);
-
 			}
 			updateGUI();
 		}
