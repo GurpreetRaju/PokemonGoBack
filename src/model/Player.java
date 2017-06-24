@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controller.GameController;
 
@@ -26,6 +27,7 @@ public class Player {
 		this.inhand = new CardsGroup();
 		this.rwrd = new CardsGroup();
 		this.bench = new CardsGroup();
+		rewardCards = new CardsGroup();
 		this.userDiscardPile = new CardsGroup();
 	}
 	
@@ -70,11 +72,20 @@ public class Player {
 	public cardItem[] dealMultipleCards1(int i){
 		cardItem[] dealt = getDeckCards(i);
 		Debug.message("Adding card to rewards "+dealt.length);
-		for(int x=0; x<i; x++){
+	/*	for(int x=0; x<i; x++){
 			((CardsGroup) this.rwrd).addCard(dealt[x]);
-		}
+		}*/
 		GameController.getInstance().ulabelUpdate();
 		return dealt;
+	}
+	
+	public void dealrewardCards()
+	{
+		int size = getRewardCards().getGroupCards().size();
+		 Random random = new Random();
+         int number = random.nextInt(size);
+         GameController.getInstance().addCardToPanel(getRewardCards().getGroupCards().get(number),GameController.getInstance().getHand(this));
+         getRewardCards().removeCard(rewardCards.getGroupCards().get(number));
 	}
 	
 	public cardItem[] getInhandCards(){

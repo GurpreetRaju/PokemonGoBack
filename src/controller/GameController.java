@@ -565,6 +565,7 @@ public class GameController {
 			user.getDiscardPile().addCard(user.getActivePokemon());
 
 			if(user.getBench().getCard().length != 0){
+				ai.dealrewardCards();
 			
 				ArrayList<String> optionsList = new ArrayList<String>();
 				for(cardItem pCard: user.getBench().getCard()){
@@ -591,6 +592,7 @@ public class GameController {
 		}
 		else{
 			if(ai.getBench().getCard().length != 0){
+				user.dealrewardCards();
 				ai.getDiscardPile().addCard(ai.getActivePokemon());
 				ai.setActivePokemon(null);
 				ai.activePokemonMove();
