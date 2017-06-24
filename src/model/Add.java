@@ -26,7 +26,7 @@ public class Add extends ability{
 	public void useAbility() {
 		Pokemon pokemon = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
 		pokemon.addActiveAbility(addAbility);
-		//GameController.getInstance().ulabelUpdate();
+		GameController.getInstance().ulabelUpdate();
 	}
 
 	
