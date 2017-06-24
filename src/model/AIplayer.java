@@ -136,6 +136,9 @@ public class AIplayer extends Player {
 		if(this.activePokemon==null){
 			if(!this.bench.getGroupCards().isEmpty()){
 				this.activePokemon = (Pokemon) this.bench.getGroupCards().remove(0);
+				if(Turn.getInstance().getCurrentPlayer()!=this){
+					Debug.message(this.activePokemon.getName()+" "+this.activePokemon.getID()); 
+				}
 			}
 			else{
 				ArrayList<Pokemon> cards = ((CardsGroup) this.inhand).getAllBasicPokemonCard();

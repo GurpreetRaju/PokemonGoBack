@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controller.GameController;
 
@@ -9,7 +10,7 @@ public class Player {
 	protected String name;
 	protected int score;
 	protected cardItem deck;
-	protected cardItem inhand;
+	protected cardItem inhand,rwrd;
 	protected Pokemon activePokemon;
 	protected boolean turn;
 	protected CardsGroup bench;
@@ -24,7 +25,9 @@ public class Player {
 		this.deck = new Deck(1);
 		((Deck) this.deck).buildDeck();
 		this.inhand = new CardsGroup();
+		this.rwrd = new CardsGroup();
 		this.bench = new CardsGroup();
+		rewardCards = new CardsGroup();
 		this.userDiscardPile = new CardsGroup();
 	}
 	
@@ -41,8 +44,13 @@ public class Player {
 	}
 	
 	public void addRewardCards(int i){
-		rewardCards.addCards(dealMultipleCards(i));
+		rewardCards.addCards(dealMultipleCards1(i));
 		GameController.getInstance().ulabelUpdate();
+	}
+	
+	public CardsGroup getRewardCards()
+	{
+		return rewardCards;
 	}
 	
 	public cardItem dealCard(){
@@ -59,6 +67,25 @@ public class Player {
 		}
 		GameController.getInstance().ulabelUpdate();
 		return dealt;
+	}
+	
+	public cardItem[] dealMultipleCards1(int i){
+		cardItem[] dealt = getDeckCards(i);
+		Debug.message("Adding card to rewards "+dealt.length);
+	/*	for(int x=0; x<i; x++){
+			((CardsGroup) this.rwrd).addCard(dealt[x]);
+		}*/
+		GameController.getInstance().ulabelUpdate();
+		return dealt;
+	}
+	
+	public void dealrewardCards()
+	{
+		int size = getRewardCards().getGroupCards().size();
+		 Random random = new Random();
+         int number = random.nextInt(size);
+         GameController.getInstance().addCardToPanel(getRewardCards().getGroupCards().get(number),GameController.getInstance().getHand(this));
+         getRewardCards().removeCard(rewardCards.getGroupCards().get(number));
 	}
 	
 	public cardItem[] getInhandCards(){
@@ -111,15 +138,15 @@ public class Player {
 		GameController.getInstance().ulabelUpdate();
 	}
 	
-	public static void main(String arg[]){
-		Player newPlayer = new Player("Flash");
-		for(Pokemon pCard : newPlayer.getDeck().getAllPokemonCard("basic")){
-			Debug.message("Card name : " + pCard.getName());
-			for(ability a : pCard.getAbilities()){
-				Debug.message("Ability Name:"+a.getName()+" energy required: "+a.getEnergyInfo().size());
-			}
-		}
-	}
+//	public static void main(String arg[]){
+//		Player newPlayer = new Player("Flash");
+//		for(Pokemon pCard : newPlayer.getDeck().getAllPokemonCard("basic")){
+//			Debug.message("Card name : " + pCard.getName());
+//			for(ability a : pCard.getAbilities()){
+//				Debug.message("Ability Name:"+a.getName()+" energy required: "+a.getEnergyInfo().size());
+//			}
+//		}
+//	}
 
 	public CardsGroup getBench(){
 		return this.bench;		
