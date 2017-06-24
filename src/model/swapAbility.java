@@ -3,6 +3,7 @@ package model;
 import controller.GameController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
+import view.PokemonCard;
 
 public class swapAbility extends ability{
 	private String activepokemon, benchpokemon;
@@ -37,10 +38,16 @@ public class swapAbility extends ability{
 		benchcards.addCard(active);
 		benchcards.removeCard(bench);
 		player.setActivePokemon(bench);
-		GameController.getInstance().addCardToPanel(active, GameController.getInstance().getBench(player));
-		GameController.getInstance().removeCard(String.valueOf(bench.getID()), GameController.getInstance().getBench(player));
-		GameController.getInstance().removeCard(String.valueOf(active.getID()), GameController.getInstance().getactivepokemon(player));
-		GameController.getInstance().addCardToPanel(bench,GameController.getInstance().getactivepokemon(player));
+//		GameController.getInstance().addCardToPanel(active, GameController.getInstance().getBench(player));
+//		GameController.getInstance().removeCard(String.valueOf(bench.getID()), GameController.getInstance().getBench(player));
+//		GameController.getInstance().removeCard(String.valueOf(active.getID()), GameController.getInstance().getactivepokemon(player));
+//		GameController.getInstance().addCardToPanel(bench,GameController.getInstance().getactivepokemon(player));
+		PokemonCard activeCard = GameController.getInstance().getCardById(active.getID(), GameController.getInstance().getactivepokemon(player));
+		activeCard.setLocation(GameController.getInstance().getBench(player));
+		
+		PokemonCard benchCard = GameController.getInstance().getCardById(bench.getID(), GameController.getInstance().getBench(player));
+		benchCard.setLocation(GameController.getInstance().getactivepokemon(player));
+		
 		GameController.getInstance().ulabelUpdate();
 	}
 		

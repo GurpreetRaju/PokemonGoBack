@@ -842,4 +842,13 @@ public class GameController {
         
     }
     
+    public PokemonCard getCardById(int id,HBox panel){
+		for(Node n:panel.getChildren()){
+			if(((PokemonCard) n).getCard().getID()==id){
+				return ((PokemonCard) n);
+			}
+		}
+		return null;
+	}
+    
 }

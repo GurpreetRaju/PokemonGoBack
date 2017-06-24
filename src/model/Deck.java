@@ -57,7 +57,7 @@ public class Deck extends CardsGroup{
 			ArrayList<ability> newAbility = new ArrayList<ability>();
 			ArrayList<EnergyNode> EnergyInfo = new ArrayList<EnergyNode>();
 			EnergyInfo.add(new EnergyNode(new Energy("Fighting Energy"),0));
-			String a = "Stretch Kick:dam:target:choice:opponent-bench:30";
+			String a = "Switch:swap:source:your-active:destination:choice:your-bench";
 			AbilityParser ap = new AbilityParser();
 			ability abilt = ap.parseAbilities(a, EnergyInfo);
 			newAbility.add(abilt);
