@@ -26,7 +26,7 @@ public class DettachCardTypeTests {
 		ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage basic=new basicPokemon();
 		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);
-
+		
 		int expected=0;
 		pk.dettachCardType(Energy.class, 1);
 		assertEquals(expected,pk.getAttachedCardsCount());
@@ -41,7 +41,6 @@ public class DettachCardTypeTests {
 		ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage basic=new basicPokemon();
 		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);
-
 		cardItem newCard = new Energy("Lighting", 2);
 		cardItem newCard1 = new Energy("Colorless", 3);
 		cardItem newCard2 = new Energy("Water", 4);
@@ -83,7 +82,6 @@ public class DettachCardTypeTests {
 		int expected3=0;
 		pk.dettachCardType(Energy.class, 5);
 		assertEquals(expected3,pk.getAttachedCardsCount());
-
 	}
 	
 	// test if card have 0 attached trainer card, then detach 1 card
@@ -132,7 +130,6 @@ public class DettachCardTypeTests {
 		pk.attachCard(newCard2);
 		pk.attachCard(newCard3);
 		pk.attachCard(newCard4);
-
 		ability ability = null;
 		cardItem newCard5 = new Trainer(22,"Misty's Determination", null,ability);
 		cardItem newCard6 = new Trainer(23,"Clemont",null ,ability);
@@ -148,7 +145,6 @@ public class DettachCardTypeTests {
 		
 		int expected5=4;
 		pk.dettachCardType(Trainer.class, 1);
-		System.out.println("Trainer ==4"+pk.getAttachedCardsCount());
 		assertEquals(expected5,pk.getAttachedCardsCount());
 	}
 	
@@ -185,7 +181,7 @@ GameController.getInstance().test=true;
 		pk.attachCard(newCard7);
 		pk.attachCard(newCard8);
 		pk.attachCard(newCard9);
-
+	
 		int expected6=0;
 		pk.dettachCardType(Trainer.class, 5);
 		assertEquals(expected6,pk.getAttachedCardsCount());
