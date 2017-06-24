@@ -13,13 +13,10 @@ public class applystatAbility extends ability{
 	}
 	
 	public void useAbility() {
-		//paralyzed, asleep, stuck, poisoned
-		
 		Pokemon pktarget = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
-		pktarget.setState(status);
-		//GameController.getInstance().ulabelUpdate();
-		
-		//add functionality for each status
+		pktarget.setStatus(status);
+		Debug.message(status);
+		Debug.message("*****"+pktarget.getStatus());
 	}
 	
 	public boolean equals(Object o) {

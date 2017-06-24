@@ -307,9 +307,10 @@ public class AbilityParser {
 		}
 		if(condAbility.contains("(")){
 			//condAbility = condAbility.substring(condAbility.indexOf("(")+1,condAbility.indexOf(")")-1);
-			condAbility = condAbility.replace("(", "");
+			condAbility = condAbility.replace("(", "").trim();
 			condAbility = condAbility.replace(")", "");
 		}		
+		Debug.message(condAbility);
 		abilities[0] = this.parseAbility(condAbility, energyInfo);
 		//Debug.message(abilities[0].getName());
 		
