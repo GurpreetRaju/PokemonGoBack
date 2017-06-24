@@ -57,7 +57,7 @@ public class Deck extends CardsGroup{
 			ArrayList<ability> newAbility = new ArrayList<ability>();
 			ArrayList<EnergyNode> EnergyInfo = new ArrayList<EnergyNode>();
 			EnergyInfo.add(new EnergyNode(new Energy("Fighting Energy"),0));
-			String a = "Act Cute:deck:target:opponent:destination:deck:bottom:choice:them:target:1";
+			String a = "Stretch Kick:dam:target:choice:opponent-bench:30";
 			AbilityParser ap = new AbilityParser();
 			ability abilt = ap.parseAbilities(a, EnergyInfo);
 			newAbility.add(abilt);
