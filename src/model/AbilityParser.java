@@ -100,6 +100,7 @@ public class AbilityParser {
 				abilityo = new damageAbility(name, Integer.valueOf(damage), energyInfo, target, count);
 				break;
 			case "cond":
+				Debug.message("***************");
 				condition = a[1];
 				condAbility = a_join.substring(a_join.indexOf(a[1]));
 				//Debug.message(condAbility);
@@ -307,9 +308,10 @@ public class AbilityParser {
 		}
 		if(condAbility.contains("(")){
 			//condAbility = condAbility.substring(condAbility.indexOf("(")+1,condAbility.indexOf(")")-1);
-			condAbility = condAbility.replace("(", "");
+			condAbility = condAbility.replace(" (", "");
 			condAbility = condAbility.replace(")", "");
 		}		
+		Debug.message(condAbility);
 		abilities[0] = this.parseAbility(condAbility, energyInfo);
 		//Debug.message(abilities[0].getName());
 		

@@ -15,6 +15,8 @@ public class applystatAbility extends ability{
 	public void useAbility() {
 		Pokemon pktarget = (Pokemon) target.getTargetObject(abilitytarget).getTarget();
 		pktarget.setStatus(status);
+		Debug.message(status);
+		Debug.message("*****"+pktarget.getStatus());
 	}
 	
 	public boolean equals(Object o) {
