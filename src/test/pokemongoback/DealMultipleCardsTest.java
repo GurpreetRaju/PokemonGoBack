@@ -8,6 +8,7 @@ import model.Debug;
 import model.Player;
 import model.Trainer;
 import model.cardItem;
+import controller.GameController;
 
 public class DealMultipleCardsTest {
 	cardItem expected;
@@ -15,6 +16,7 @@ public class DealMultipleCardsTest {
 
 	@Test
 	public void test() {
+		GameController.getInstance().test=true;
 		Player p1=new Player(null);
 		
 		cardItem pokemon1=new Trainer(69 , "Shauna", "supporter", null);
@@ -27,6 +29,7 @@ public class DealMultipleCardsTest {
 	
 	@Test
 	public void test1() {
+		GameController.getInstance().test=true;
 		cardItem[] actual;
 		cardItem[] expected;
 		Player p1=new Player(null);

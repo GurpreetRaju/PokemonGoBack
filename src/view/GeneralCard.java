@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import model.Debug;
 import model.cardItem;
 
 public class GeneralCard extends FlowPane{
@@ -29,6 +30,7 @@ public class GeneralCard extends FlowPane{
 		init();
 	}
 	private void init(){
+		Debug.message("Card "+ this.card.getName());
 		this.cardID.setText(Integer.toString(this.card.getID())+"\t");
 		this.cardName.setText(this.card.getName());
 	}

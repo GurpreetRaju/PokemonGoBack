@@ -40,8 +40,10 @@ public abstract class ability {
 	
 	public int getEnergyInfoSize(){
 		int total=0;
-		for(EnergyNode node: this.energyInfo){
-			total+=node.getEnergyCount();
+		if(this.energyInfo!=null){
+			for(EnergyNode node: this.energyInfo){
+				total+=node.getEnergyCount();
+			}
 		}
 		return total;
 	}

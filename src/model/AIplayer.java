@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controller.GameController;
 
@@ -16,6 +17,7 @@ public class AIplayer extends Player {
 		deck = new Deck(1);
 		((Deck) deck).buildDeck();
 	}
+	
 	
 	public String getName() {
 		return this.name;
@@ -62,6 +64,12 @@ public class AIplayer extends Player {
 		if(!trainerCard.isEmpty() && this.activePokemon!=null){
 			if(trainerCard.get(0).getAbility().getClass().getSimpleName()=="healingAbility" && this.activePokemon.getDamage()>20){
 				((CardsGroup) this.inhand).removeCard(trainerCard.get(0));
+
+				trainerCard.get(0).getAbility().useAbility();
+				Debug.message("Trainer card used "+ trainerCard.get(0).getName());
+				GameController.getInstance().ulabelUpdate();
+				updateGUI();
+
 				Trainer tcard = trainerCard.remove(0);
 				tcard.getAbility().useAbility();
 				Debug.message("Trainer card used "+ tcard.getName() + " RunAI");
@@ -73,6 +81,7 @@ public class AIplayer extends Player {
 				(tcard).getAbility().useAbility();
 				Debug.message("Trainer card used "+ tcard.getName() + " RunAI");
 				userDiscardPile.addCard(tcard);
+
 			}
 			updateGUI();
 		}
@@ -105,9 +114,10 @@ public class AIplayer extends Player {
 	}
 	
 	public boolean checkAndPlayEnergy(ArrayList<Energy> energyCards){
-		Debug.message(this.activePokemon.getAttachedCards().length);
+		Debug.message("No. of attached cards at active pokemon "+this.activePokemon.getAttachedCards().length);
 		for(ability a : this.activePokemon.getAbilities()){
 			if(!this.activePokemon.checkEnergyNeeds(a)){
+				Debug.message("Checkpoint 1");
 				this.activePokemon.attachCard(energyCards.get(0));
 				((CardsGroup) this.inhand).removeCard(energyCards.get(0));
 				Debug.message("Energy card added to Active pokemon");
@@ -118,6 +128,7 @@ public class AIplayer extends Player {
 			Pokemon pokemon = (Pokemon) card;
 			for(ability a: pokemon.getAbilities()){
 				if(!pokemon.checkEnergyNeeds(a)){
+					Debug.message("Checkpoint 2");
 					pokemon.attachCard(energyCards.get(0));
 					((CardsGroup) this.inhand).removeCard(energyCards.get(0));
 					Debug.message("Energy card added to "+pokemon.getName());
@@ -152,6 +163,20 @@ public class AIplayer extends Player {
 	
 	public void updateGUI(){
 		GameController.getInstance().refreshCards(this);
+	}
+
+	public Pokemon getActiveBenchChoice() {
+		ArrayList<Pokemon> pokmons = new ArrayList<Pokemon>();
+		if(this.activePokemon!=null){
+			pokmons.add(this.activePokemon);
+		}
+		if(this.getBench().getAllPokemonCard()!=null && !this.getBench().getAllPokemonCard().isEmpty()){
+			pokmons.addAll(this.getBench().getAllPokemonCard());
+		}
+		Random random = new Random();
+		int number = random.nextInt(pokmons.size());
+		
+		return pokmons.get(number);
 	}
 	
 }

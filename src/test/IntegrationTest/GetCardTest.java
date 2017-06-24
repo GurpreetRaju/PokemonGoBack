@@ -1,4 +1,4 @@
-package test.pokemongoback;
+package test.IntegrationTest;
 
 import static org.junit.Assert.*;
 
@@ -31,8 +31,6 @@ public class GetCardTest {
 		abilities.add(h1);
 		abilities.add(s1);
 		abilities.add(s2);
-		
-		
 		
 		cardItem pokemon1=new Pokemon(80, "Pikachu", null, 0, abilities, null);
 		cg.addCard(pokemon1);

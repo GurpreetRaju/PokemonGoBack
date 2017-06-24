@@ -50,7 +50,7 @@ public class UseAbilityTest {
 	
 		pokemonStage basic=new basicPokemon();
 		 ArrayList<ability> newAbilities=new ArrayList<ability>();
-		Pokemon rh = new Pokemon(1, "Raichu", basic, 60, newAbilities);
+		Pokemon rh = new Pokemon(1, "Raichu", basic, 60, newAbilities, null);
 		//UserPlayer opposite= new UserPlayer("Sam");
 		player.setActivePokemon(rh);
 		//String activepk = "Pikachu";
@@ -80,7 +80,7 @@ public class UseAbilityTest {
 	    Turn.getInstance().setPlayer(ai, player);
 	    ArrayList<ability> newAbilities=new ArrayList<ability>();
 		pokemonStage basic=new basicPokemon();
-		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);			
+		Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);			
 		player.setActivePokemon(pk);
 		ArrayList<Energy> newEnergyInfo=null;
 		String count=null;
@@ -109,11 +109,11 @@ public class UseAbilityTest {
 		   // Turn.getInstance().setPlayer(new AIplayer("Me"), player);
 		    ArrayList<ability> newAbilities=new ArrayList<ability>();
 			pokemonStage basic=new basicPokemon();
-			Pokemon pk1 = new Pokemon(2, "Pikachu", basic, 80, newAbilities);			
+			Pokemon pk1 = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);			
 			player.setActivePokemon(pk1);
 			//Pokemon pk2 = new Pokemon(3, "Raichu", basic, 60, newAbilities);
 		//	cardItem pk2= new Pokemon(3, "Raichu", basic, 60, newAbilities);
-			player.getBench().addCard(new Pokemon(3, "Raichu", basic, 60, newAbilities));
+			player.getBench().addCard(new Pokemon(3, "Raichu", basic, 60, newAbilities, null));
 			
 			System.out.println("active----"+player.getActivePokemon().getName());
 			for(cardItem card: player.getBench().getCard()){
@@ -143,7 +143,7 @@ public class UseAbilityTest {
 		    Turn.getInstance().setPlayer(new AIplayer("Me"), player);
 		    ArrayList<ability> newAbilities=new ArrayList<ability>();
 			pokemonStage basic=new basicPokemon();
-			Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);			
+			Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);			
 			player.setActivePokemon(pk);
 			
 			pk.addDamage(20);
@@ -165,7 +165,7 @@ public class UseAbilityTest {
 		//  cardItem card= new Pokemon(2, "Pikachu", basic, 80, newAbilities);
 		   ArrayList<ability> newAbilities=new ArrayList<ability>();
 					pokemonStage basic=new basicPokemon();
-		  Pokemon pk=new Pokemon(2, "Pikachu", basic, 80, newAbilities);
+		  Pokemon pk=new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);
 			player.setActivePokemon(pk);
 			
 			
@@ -173,20 +173,20 @@ public class UseAbilityTest {
 			
 			String activepk = "Pikachu";
 			String target="Raichu";
-			System.out.println(pk.totalEnergyRequired());
+			System.out.println(pk.checkEnergyNeeds(null));
 			ability ablt = new Deenergize("john", target, "1");
 			pk.addActiveAbility(ablt);
 			pk.useAbility(ablt);
-			System.out.println(pk.totalEnergyRequired());
+			System.out.println(pk.checkEnergyNeeds(ablt));
 			//ability ablt = new Deenergize("john", target, 10);
 			
 			//rh.addDamage(10);
-			assertEquals(0, pk.totalEnergyRequired());
+			assertEquals(0, pk.checkEnergyNeeds(ablt));
 			ability ablty = new Reenergize("john", target, activepk, 1);
 			pk.useAbility(ablty);
-			System.out.println(pk.totalEnergyRequired());
+			System.out.println(pk.checkEnergyNeeds(ablty));
 			
-			assertEquals(1, pk.totalEnergyRequired());
+			assertEquals(1, pk.checkEnergyNeeds(ablty));
 		
 
 
@@ -196,7 +196,7 @@ public class UseAbilityTest {
 		    Turn.getInstance().setPlayer(new AIplayer("Me"), player);
 		    ArrayList<ability> newAbilities1=new ArrayList<ability>();
 			pokemonStage basic2=new basicPokemon();
-			Pokemon pk2 = new Pokemon(2, "Pikachu", basic2, 80, newAbilities1);			
+			Pokemon pk2 = new Pokemon(2, "Pikachu", basic2, 80, newAbilities1, null);			
 			player.setActivePokemon(pk2);
 			String newEnergy = null;
 			cardItem card= new Energy(newEnergy);
@@ -229,9 +229,9 @@ public class UseAbilityTest {
 		    Turn.getInstance().setPlayer(new AIplayer("Me"), player);
 		    ArrayList<ability> newAbilities=new ArrayList<ability>();
 			pokemonStage basic=new basicPokemon();
-			Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);			
+			Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);			
 			player.setActivePokemon(pk);
-			Pokemon pk1 = new Pokemon(2, "Raichu", basic, 60, newAbilities);
+			Pokemon pk1 = new Pokemon(2, "Raichu", basic, 60, newAbilities, null);
 			((CardsGroup) player.getInhand()).addCard(pk1);
 		
 			System.out.println("inhand cards before draw--"+player.getInhandCards().length);
@@ -252,13 +252,13 @@ public class UseAbilityTest {
 		    //Turn.getInstance().setPlayer(new AIplayer("Me"), player);
 		    ArrayList<ability> newAbilities=new ArrayList<ability>();
 			pokemonStage basic=new basicPokemon();
-			Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);			
+			Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);			
 			//player.setActivePokemon(pk);
-			Pokemon pk1 = new Pokemon(2, "Raichu", basic, 60, newAbilities);
+			Pokemon pk1 = new Pokemon(2, "Raichu", basic, 60, newAbilities, null);
 			((CardsGroup) player.getInhand()).addCard(pk);
 			((CardsGroup) player.getInhand()).addCard(pk1);
 			System.out.println("inhand cards before deck ability--"+player.getInhandCards().length);
-			ability ablt7= new DeckAbility("Deck", "yourhand","deck", 1, "2");
+			ability ablt7= new DeckAbility("Deck", "yourhand","deck", 1, "2", null);
 			ablt7.useAbility();
 			System.out.println("inhand cards after deck ability--"+player.getInhandCards().length);
 	  
@@ -286,7 +286,7 @@ public class UseAbilityTest {
 		  UserPlayer player= new UserPlayer("john");
 		  ArrayList<ability> newAbilities=new ArrayList<ability>();
 		  pokemonStage basic=new basicPokemon();
-		  Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities);			
+		  Pokemon pk = new Pokemon(2, "Pikachu", basic, 80, newAbilities, null);			
 		  player.setActivePokemon(pk);
 		  
 		  System.out.println(player.getActivePokemon().getStatus());
