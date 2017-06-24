@@ -35,9 +35,10 @@ public class Pokemon implements cardItem{
 	
 	public void addDamage(int newDamage){
 		this.damage += newDamage;
-		if(this.damage==this.hitpoints || this.damage>=this.hitpoints){
+		if(this.damage>=this.hitpoints){
+			Debug.message("Damage ability called by "+Turn.getInstance().getCurrentPlayer().getClass().getSimpleName()+" Adding damage  "+this.damage+ " "+this.getName()+" "+this.getID());
 			this.state = "knockedOut";
-			GameController.getInstance().knockout();
+			GameController.getInstance().knockout(this);
 		}
 	}
 	

@@ -138,15 +138,15 @@ public class Player {
 		GameController.getInstance().ulabelUpdate();
 	}
 	
-	public static void main(String arg[]){
-		Player newPlayer = new Player("Flash");
-		for(Pokemon pCard : newPlayer.getDeck().getAllPokemonCard("basic")){
-			Debug.message("Card name : " + pCard.getName());
-			for(ability a : pCard.getAbilities()){
-				Debug.message("Ability Name:"+a.getName()+" energy required: "+a.getEnergyInfo().size());
-			}
-		}
-	}
+//	public static void main(String arg[]){
+//		Player newPlayer = new Player("Flash");
+//		for(Pokemon pCard : newPlayer.getDeck().getAllPokemonCard("basic")){
+//			Debug.message("Card name : " + pCard.getName());
+//			for(ability a : pCard.getAbilities()){
+//				Debug.message("Ability Name:"+a.getName()+" energy required: "+a.getEnergyInfo().size());
+//			}
+//		}
+//	}
 
 	public CardsGroup getBench(){
 		return this.bench;		

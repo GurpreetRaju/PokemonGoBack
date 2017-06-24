@@ -347,6 +347,7 @@ public class GameController {
             							aiDamage.setText(Integer.toString(ai.getActivePokemon().getDamage()));
             						}
             						if(Turn.getInstance().getCurrentPlayer()==user){
+            							Debug.message("Turn end called in game controller");
             							Turn.getInstance().changeTurn();
             						}
             					}
@@ -447,7 +448,6 @@ public class GameController {
 			benchpanel = AIBench;
 			activePokemon = aiActivePokemon;
 			if(user.getActivePokemon()!=null){
-				Debug.message("adding damage to label");
 				userDamage.setText(Integer.toString(user.getActivePokemon().getDamage()));
 			}
 			else{
@@ -556,52 +556,60 @@ public class GameController {
 		return null;
 	}
 	
-	public void knockout()
+	public void knockout(Pokemon knockedPokemon)
 	{
 		Player player = Turn.getInstance().getOpponent();
+		Debug.message(player.getClass().getSimpleName());
 		if(player!=null){
-		if(player instanceof UserPlayer){
-			PokemonCard card = (PokemonCard) userActivePokemon.getChildren().remove(0);
-			user.getDiscardPile().addCard(user.getActivePokemon());
+			if(player instanceof UserPlayer){
+				PokemonCard card = (PokemonCard) userActivePokemon.getChildren().remove(0);
+				user.getDiscardPile().addCard(user.getActivePokemon());
 
-			if(user.getBench().getCard().length != 0){
-				ai.dealrewardCards();
-			
-				ArrayList<String> optionsList = new ArrayList<String>();
-				for(cardItem pCard: user.getBench().getCard()){
-					optionsList.add(Integer.toString(pCard.getID()));
-				}
-				DialogBoxHandler dialog = new DialogBoxHandler();
-				String selected = dialog.getDialog(optionsList);
-			
-				if (selected!=null) {
-					for(Node nodeCard : userBench.getChildren()){
-						if(((PokemonCard) nodeCard).getCard().getID() == Integer.parseInt(selected)){
-							((PokemonCard) nodeCard).setLocation(userActivePokemon);
-							Pokemon pokemon = ((PokemonCard) nodeCard).getCard();
-							user.setActivePokemon(pokemon);
-							user.getBench().removeCard(pokemon);
+				if(user.getBench().getCard().length != 0){
+					ai.dealrewardCards();
+				
+					ArrayList<String> optionsList = new ArrayList<String>();
+					for(cardItem pCard: user.getBench().getCard()){
+						optionsList.add(Integer.toString(pCard.getID()));
+					}
+					DialogBoxHandler dialog = new DialogBoxHandler();
+					String selected = dialog.getDialog(optionsList);
+				
+					if (selected!=null) {
+						for(Node nodeCard : userBench.getChildren()){
+							if(((PokemonCard) nodeCard).getCard().getID() == Integer.parseInt(selected)){
+								((PokemonCard) nodeCard).setLocation(userActivePokemon);
+								Pokemon pokemon = ((PokemonCard) nodeCard).getCard();
+								user.setActivePokemon(pokemon);
+								user.getBench().removeCard(pokemon);
+							}
 						}
 					}
+					refreshCards(user);
 				}
-				refreshCards(user);
+				else{
+					winOrLoss();
+				}
 			}
 			else{
-				winOrLoss();
+				if(ai.getActivePokemon()!=knockedPokemon){
+					ai.getBench().removeCard(knockedPokemon);
+					ai.getDiscardPile().addCard(knockedPokemon);
+					refreshCards(ai);
+				}
+				else{
+					if(ai.getBench().getCard().length != 0){
+						user.dealrewardCards();
+						ai.getDiscardPile().addCard(ai.getActivePokemon());
+						ai.setActivePokemon(null);
+						ai.activePokemonMove();
+						refreshCards(ai);
+					}
+					else{
+						winOrLoss();
+					}
+				}
 			}
-		}
-		else{
-			if(ai.getBench().getCard().length != 0){
-				user.dealrewardCards();
-				ai.getDiscardPile().addCard(ai.getActivePokemon());
-				ai.setActivePokemon(null);
-				ai.activePokemonMove();
-				refreshCards(ai);
-			}
-			else{
-				winOrLoss();
-			}
-		}
 		}
 		//GameController.getInstance().ulabelUpdate();
 	}
