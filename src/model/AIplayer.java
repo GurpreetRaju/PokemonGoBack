@@ -144,11 +144,8 @@ public class AIplayer extends Player {
 		if(this.activePokemon==null){
 			if(!this.bench.getGroupCards().isEmpty()){
 				this.activePokemon = (Pokemon) this.bench.getGroupCards().remove(0);
-				System.out.println("benchhhh ");
 			}
 			else{
-				
-				System.out.println("inhanddddd ");
 				ArrayList<Pokemon> cards = ((CardsGroup) this.inhand).getAllBasicPokemonCard();
 				if(cards.size()!=0){
 				this.activePokemon = cards.remove(0);
@@ -166,6 +163,20 @@ public class AIplayer extends Player {
 	
 	public void updateGUI(){
 		GameController.getInstance().refreshCards(this);
+	}
+
+	public Pokemon getActiveBenchChoice() {
+		ArrayList<Pokemon> pokmons = new ArrayList<Pokemon>();
+		if(this.activePokemon!=null){
+			pokmons.add(this.activePokemon);
+		}
+		if(this.getBench().getAllPokemonCard()!=null && !this.getBench().getAllPokemonCard().isEmpty()){
+			pokmons.addAll(this.getBench().getAllPokemonCard());
+		}
+		Random random = new Random();
+		int number = random.nextInt(pokmons.size());
+		
+		return pokmons.get(number);
 	}
 	
 }
