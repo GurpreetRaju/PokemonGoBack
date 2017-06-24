@@ -57,7 +57,7 @@ public class Deck extends CardsGroup{
 			ArrayList<ability> newAbility = new ArrayList<ability>();
 			ArrayList<EnergyNode> EnergyInfo = new ArrayList<EnergyNode>();
 			EnergyInfo.add(new EnergyNode(new Energy("Fighting Energy"),0));
-			String a = "Ear Influence:redamage:source:choice:opponent:destination:opponent:count(target:last:source:damage)";
+			String a = "Stretch Kick:dam:target:choice:opponent-bench:30";
 			AbilityParser ap = new AbilityParser();
 			ability abilt = ap.parseAbilities(a, EnergyInfo);
 			newAbility.add(abilt);

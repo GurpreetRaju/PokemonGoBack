@@ -47,6 +47,8 @@ public class GameController {
 	private AIplayer ai;
 	private boolean[] turn;
 	boolean energyused =false;
+
+
 	public boolean test = false;
 
 	@FXML private ScrollPane userScrollPane;
@@ -737,8 +739,9 @@ public class GameController {
 
 
 	public void ulabelUpdate() {
+
 		if(!test){
-		// TODO Auto-generated method stub
+		
 		AIDeck.setText("AIDeck "+ ai.getDeck().getGroupCards().size());
 		UserDeck.setText("User Deck "+ user.getDeck().getGroupCards().size());
 		UserDiscardPile.setText("DiscardPile "+ user.getDiscardPile().getGroupCards().size());
@@ -746,7 +749,14 @@ public class GameController {
 		AIDiscardPile.setText("DiscardPile " + ai.getDiscardPile().getGroupCards().size());
 		Userhand.setText("Uhand "+ user.getInhandCards().length);
 		AIhand.setText("AIHand "+ai.getInhandCards().length);
-	}}
+
+		UserRewardCards.setText("Reward Cards " + user.getRewardCards().getGroupCards().size());
+		AIRewardCards.setText("Reward Cards "+ai.getRewardCards().getGroupCards().size());
+		}
+	}
+
+	
+
 
 	public boolean getAbilityChoice(){
 		ButtonType Yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
