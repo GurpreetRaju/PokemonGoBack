@@ -753,7 +753,7 @@ public class GameController {
 
 	public void ulabelUpdate() {
 
-		
+		if(!test){
 
 		AIDeck.setText("AIDeck "+ ai.getDeck().getGroupCards().size());
 		UserDeck.setText("User Deck "+ user.getDeck().getGroupCards().size());
@@ -763,6 +763,7 @@ public class GameController {
 		AIhand.setText("AIHand "+ai.getInhandCards().length);
 		UserRewardCards.setText("Reward Cards " + user.getRewardCards().getGroupCards().size());
 		AIRewardCards.setText("Reward Cards "+ai.getRewardCards().getGroupCards().size());
+		}
 	}
 
 	
