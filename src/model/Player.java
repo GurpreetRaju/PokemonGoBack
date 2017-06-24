@@ -9,7 +9,7 @@ public class Player {
 	protected String name;
 	protected int score;
 	protected cardItem deck;
-	protected cardItem inhand;
+	protected cardItem inhand,rwrd;
 	protected Pokemon activePokemon;
 	protected boolean turn;
 	protected CardsGroup bench;
@@ -24,6 +24,7 @@ public class Player {
 		this.deck = new Deck(1);
 		((Deck) this.deck).buildDeck();
 		this.inhand = new CardsGroup();
+		this.rwrd = new CardsGroup();
 		this.bench = new CardsGroup();
 		this.userDiscardPile = new CardsGroup();
 	}
@@ -41,8 +42,13 @@ public class Player {
 	}
 	
 	public void addRewardCards(int i){
-		rewardCards.addCards(dealMultipleCards(i));
+		rewardCards.addCards(dealMultipleCards1(i));
 		GameController.getInstance().ulabelUpdate();
+	}
+	
+	public CardsGroup getRewardCards()
+	{
+		return rewardCards;
 	}
 	
 	public cardItem dealCard(){
@@ -56,6 +62,16 @@ public class Player {
 		cardItem[] dealt = getDeckCards(i);
 		for(int x=0; x<i; x++){
 			((CardsGroup) this.inhand).addCard(dealt[x]);
+		}
+		GameController.getInstance().ulabelUpdate();
+		return dealt;
+	}
+	
+	public cardItem[] dealMultipleCards1(int i){
+		cardItem[] dealt = getDeckCards(i);
+		Debug.message("Adding card to rewards "+dealt.length);
+		for(int x=0; x<i; x++){
+			((CardsGroup) this.rwrd).addCard(dealt[x]);
 		}
 		GameController.getInstance().ulabelUpdate();
 		return dealt;

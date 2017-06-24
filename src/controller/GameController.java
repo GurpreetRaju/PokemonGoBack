@@ -113,6 +113,8 @@ public class GameController {
 					}
 			
 				});
+		user.addRewardCards(6);
+		ai.addRewardCards(6);
     	addCardsToPanel(user.dealMultipleCards(7),userHand);
     	addCardsToPanel(ai.dealMultipleCards(7), AIHand);
 		Turn.getInstance().setPlayer(ai,user);
@@ -563,6 +565,7 @@ public class GameController {
 			user.getDiscardPile().addCard(user.getActivePokemon());
 
 			if(user.getBench().getCard().length != 0){
+			
 				ArrayList<String> optionsList = new ArrayList<String>();
 				for(cardItem pCard: user.getBench().getCard()){
 					optionsList.add(Integer.toString(pCard.getID()));
@@ -749,7 +752,6 @@ public class GameController {
 		AIDiscardPile.setText("DiscardPile " + ai.getDiscardPile().getGroupCards().size());
 		Userhand.setText("Uhand "+ user.getInhandCards().length);
 		AIhand.setText("AIHand "+ai.getInhandCards().length);
-
 		UserRewardCards.setText("Reward Cards " + user.getRewardCards().getGroupCards().size());
 		AIRewardCards.setText("Reward Cards "+ai.getRewardCards().getGroupCards().size());
 		}
