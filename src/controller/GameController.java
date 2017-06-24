@@ -781,25 +781,26 @@ public class GameController {
     {
     	
     	
-    	//String[] allcards = new String[user.getDiscardPile().getGroupCards().size()];
-    	//allcards = user.getDiscardPile().getGroupCards().toArray(allcards);
-    	ArrayList<String> crds = new ArrayList<>();
-    	crds.add("ok");
-    	crds.add("okkk");
-    //	crds = allcards;
-    	//crds = (ArrayList<String>) Arrays.asList(allcards); 
-    	//DialogBoxHandler dialog = new DialogBoxHandler();
-    	ChoiceDialog<String> dialog = new ChoiceDialog<>("b", crds);
+    	
+    	ArrayList<cardItem> crds = new ArrayList<>();
+    	crds = user.getDiscardPile().getGroupCards();
+    	ArrayList<String> crds1 = new ArrayList<>();
+    	for(cardItem c : crds)
+    	{
+    		crds1.add(Integer.toString(c.getID()));
+    	}
+    	ChoiceDialog<String> dialog = new ChoiceDialog<>("Id", crds1);
     	dialog.setTitle("See Details Of Dicsard Card");
-    	//dialog.setHeaderText("Look, a Choice Dialog");
     	dialog.setContentText("Select ID to see more details.");
     	Optional<String> result= dialog.showAndWait();
-    	//result.ifPresent(chosen -> System.out.println(chosen));
+    	
     	if(result.isPresent())
     	{
+    		String id = result.get();
+        	int idd = Integer.parseInt(id);
     		Alert details = new Alert(AlertType.INFORMATION);
     		details.setTitle("Card Deatils.");
-    		details.setContentText("here are the detais of card");
+    		details.setContentText("Card Id-: "+ idd+"\n Name-: "+ user.getDiscardPile().getCard(idd).getName()+"\n Type-: "+ user.getDiscardPile().getCard(idd).getClass().getSimpleName());
     		details.showAndWait();
     	}
         
@@ -807,17 +808,15 @@ public class GameController {
       
     public void aiviewDiscard()
     {
-    	
-    	
-    	//String[] allcards = new String[user.getDiscardPile().getGroupCards().size()];
-    	//allcards = user.getDiscardPile().getGroupCards().toArray(allcards);
-    	ArrayList<String> crds = new ArrayList<>();
-    	crds.add("ok");
-    	crds.add("okkk");
-    //	crds = allcards;
-    	//crds = (ArrayList<String>) Arrays.asList(allcards); 
-    	//DialogBoxHandler dialog = new DialogBoxHandler();
-    	ChoiceDialog<String> dialog = new ChoiceDialog<>("b", crds);
+    	     	
+      	ArrayList<cardItem> crds = new ArrayList<>();
+    	crds = ai.getDiscardPile().getGroupCards();
+    	ArrayList<String> crds1 = new ArrayList<>();
+    	for(cardItem c : crds)
+    	{
+    		crds1.add(Integer.toString(c.getID()));
+    	}
+    	ChoiceDialog<String> dialog = new ChoiceDialog<>("Id", crds1);
     	dialog.setTitle("See Details Of Dicsard Card");
     	//dialog.setHeaderText("Look, a Choice Dialog");
     	dialog.setContentText("Select ID to see more details.");
@@ -825,9 +824,11 @@ public class GameController {
     	//result.ifPresent(chosen -> System.out.println(chosen));
     	if(result.isPresent())
     	{
+    		String id = result.get();
+        	int idd = Integer.parseInt(id);
     		Alert details = new Alert(AlertType.INFORMATION);
     		details.setTitle("Card Deatils.");
-    		details.setContentText("here are the detais of card");
+    		details.setContentText("Card Id-: "+ idd+"\n Name-: "+ ai.getDiscardPile().getCard(idd).getName()+"\n Type-: "+ ai.getDiscardPile().getCard(idd).getClass().getSimpleName());
     		details.showAndWait();
     	}
         
